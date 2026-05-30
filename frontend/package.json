@@ -1,0 +1,38 @@
+{
+  "name": "portfolio",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "frames": "node scripts/extract-frames.mjs",
+    "frames:home": "node scripts/extract-frames.mjs assets/home.mp4 home",
+    "frames:about": "node scripts/extract-frames.mjs assets/about.mp4 about",
+    "frames:work": "node scripts/extract-frames.mjs assets/work.mp4 work",
+    "frames:case-study": "node scripts/extract-frames.mjs assets/case-study.mp4 case-study"
+  },
+  "dependencies": {
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
+    "gray-matter": "^4.0.3",
+    "lenis": "^1.3.23",
+    "motion": "^12.39.0",
+    "next": "16.2.6",
+    "next-mdx-remote": "^6.0.0",
+    "react": "19.2.4",
+    "react-dom": "19.2.4"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^20",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "eslint": "^9",
+    "eslint-config-next": "16.2.6",
+    "ffmpeg-static": "^5.3.0",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  }
+}

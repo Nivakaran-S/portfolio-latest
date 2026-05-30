@@ -1,0 +1,43 @@
+---
+title: "Why I'm building RAG without an API tax."
+date: "2026-05-18"
+excerpt: "A note on FreeRAG, the case for self-hosted embeddings, and the engineering shape of a privacy-first retrieval stack."
+tags: ["ai", "rag", "engineering"]
+---
+
+Most RAG tutorials still assume a paid LLM and a paid embedding API in the
+loop. That's fine for a demo. It's a poor default for the rest of us —
+hobbyists, students, anyone hosting on their own machine, and any team that
+doesn't want their documents leaving their network.
+
+**FreeRAG** is my attempt at a sensible default: a retrieval-augmented
+generation stack that runs on local Hugging Face embeddings, a swappable
+vector store, and a FastAPI service that owns the grounding loop. No
+per-token cost. No data egress.
+
+## The shape of it
+
+```
+docs → chunker → embeddings (HF, local) → vector store
+                                          ↓
+            user query → retriever → reranker → LLM (local or hosted)
+                                                 ↓
+                                            grounded answer + citations
+```
+
+Every component is a seam — you can swap the embedding model, the vector
+store, the reranker, or the LLM without touching the rest. That's the
+point. Most "RAG frameworks" hide these seams behind a one-line API; I
+wanted them exposed.
+
+## What it taught me
+
+1. **Embedding choice is half the result.** Two HF models on the same
+   corpus produce dramatically different retrieval quality. Test them.
+2. **Reranking is cheap and underrated.** A small cross-encoder pass
+   after the vector retrieval lifts answer relevance more than I expected.
+3. **Citations aren't optional.** If the user can't see *where* the
+   answer came from, you've built a confident liar.
+
+The repo is on [GitHub](https://github.com/Nivakaran-S/FreeRAG). A longer
+case study lives at `/work/freerag`.
