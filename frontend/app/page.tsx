@@ -115,7 +115,7 @@ export default function Home() {
           </StoryItem>
 
           <StoryItem from="up" delay={0.05}>
-            <h1 className="text-shine mt-7 font-display font-semibold leading-[0.95] tracking-[-0.04em] text-[clamp(3rem,11vw,9rem)]">
+            <h1 className="text-shine mt-7 max-w-full font-display font-semibold leading-[0.95] tracking-[-0.04em] text-[clamp(3rem,11vw,9rem)] [text-wrap:balance]">
               {profile.name}
             </h1>
           </StoryItem>

@@ -25,7 +25,7 @@ function Card({ p, index, total }: { p: Project; index: number; total: number })
       </div>
 
       <div className="mt-10">
-        <h3 className="silver font-display text-4xl font-semibold leading-[1.02] tracking-tight lg:text-5xl">
+        <h3 className="silver font-display text-4xl font-semibold leading-[1.02] tracking-tight lg:text-5xl [overflow-wrap:anywhere] [text-wrap:balance]">
           {p.name}
         </h3>
         <p className="mt-3 text-lg text-neon-cyan-core/90">{p.valueProp}</p>

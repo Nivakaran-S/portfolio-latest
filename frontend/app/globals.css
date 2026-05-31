@@ -67,6 +67,14 @@ body {
   overflow-x: hidden;
 }
 
+/* Safety net: any very long headline (long project name, long blog title)
+   should wrap rather than push the page wider on mobile. */
+h1,
+h2,
+h3 {
+  overflow-wrap: break-word;
+}
+
 a,
 button,
 [role="button"],

@@ -115,7 +115,7 @@ const mdxComponents: MDXComponents = {
     <img
       {...props}
       alt={alt ?? ""}
-      className="mt-6 rounded-2xl border border-line"
+      className="mt-6 h-auto max-w-full rounded-2xl border border-line"
     />
   ),
   strong: (props) => (

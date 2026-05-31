@@ -119,7 +119,7 @@ export function AdminKnowledge() {
             e.preventDefault();
             if (token.trim()) refresh(token.trim());
           }}
-          className="mt-6 flex gap-2"
+          className="mt-6 flex flex-col gap-2 sm:flex-row"
         >
           <input
             type="password"

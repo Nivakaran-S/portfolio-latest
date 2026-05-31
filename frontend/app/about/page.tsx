@@ -148,7 +148,7 @@ export default function AboutPage() {
               <p className="label text-fg-muted">02 — What shaped me</p>
             </StoryItem>
             <StoryItem from="zoom-in" delay={0.05}>
-              <p className="silver mx-auto mt-8 max-w-3xl font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.02em]">
+              <p className="silver mx-auto mt-8 max-w-3xl font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.02em] [text-wrap:balance]">
                 {profile.creed}
               </p>
             </StoryItem>

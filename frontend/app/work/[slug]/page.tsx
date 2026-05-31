@@ -116,7 +116,7 @@ export default async function WorkPage({ params }: PageProps) {
               </p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-5 font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.75rem,10vw,7rem)]">
+              <h1 className="silver mt-5 max-w-full font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.25rem,10vw,7rem)] [overflow-wrap:anywhere] [text-wrap:balance]">
                 {project.name}
               </h1>
             </StoryItem>
