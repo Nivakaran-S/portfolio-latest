@@ -12,6 +12,7 @@ import {
   type ExperienceEntry,
 } from "@/lib/data/experience";
 import { achievements } from "@/lib/data/achievements";
+import { profilePageJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
   title: "About",
@@ -23,6 +24,13 @@ export const metadata: Metadata = {
     description:
       "About Nivakaran S. — full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
     url: "/about",
+    type: "profile",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About — Nivakaran S.",
+    description:
+      "About Nivakaran S. — full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
   },
 };
 
@@ -70,8 +78,21 @@ function PathTimeline({
 }
 
 export default function AboutPage() {
+  const profileLd = profilePageJsonLd();
+  const crumbsLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "About", url: "/about" },
+  ]);
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+      />
       <Header />
 
       {/* Coded "origin" backdrop (halo + orbit rings + starfield) sits at

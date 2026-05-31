@@ -5,6 +5,7 @@ import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { Reveal } from "@/app/_components/ui/reveal";
+import { breadcrumbJsonLd } from "@/lib/seo/metadata";
 import { Tilt } from "@/app/_components/ui/tilt";
 import { Parallax } from "@/app/_components/ui/parallax";
 import { StoryItem } from "@/app/_components/story/story-item";
@@ -20,13 +21,27 @@ export const metadata: Metadata = {
       "Notes on AI, engineering, and the craft choices that make a product feel fast.",
     url: "/blog",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog — Nivakaran S.",
+    description:
+      "Notes on AI, engineering, and the craft choices that make a product feel fast.",
+  },
 };
 
 export default function BlogIndexPage() {
   const posts = getAllPosts();
+  const crumbsLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+  ]);
 
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+      />
       <Header />
 
       {/* /blog backdrop: ruled-paper notebook with a soft wash — "the notebook". */}

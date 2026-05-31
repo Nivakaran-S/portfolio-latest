@@ -5,6 +5,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import type { MDXComponents } from "mdx/types";
 import { getAllPosts, getPost, formatPostDate } from "@/lib/data/blog";
 import { profile } from "@/lib/data/profile";
+import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
@@ -127,8 +128,30 @@ export default async function BlogPostPage({ params }: PageProps) {
   const post = getPost(slug);
   if (!post) notFound();
 
+  const postJsonLd = blogPostingJsonLd({
+    slug: post.slug,
+    title: post.title,
+    excerpt: post.excerpt,
+    date: post.date,
+    tags: post.tags,
+  });
+  const crumbsJsonLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Blog", url: "/blog" },
+    { name: post.title, url: `/blog/${post.slug}` },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(postJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsJsonLd) }}
+      />
+
       {/* Post backdrop: ruled-paper notebook with a soft wash — "the notebook". */}
       <StoryBackdrop variant="ink" />
 

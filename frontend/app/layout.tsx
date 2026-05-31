@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import { siteMetadata, personJsonLd } from "@/lib/seo/metadata";
+import { siteMetadata, personJsonLd, websiteJsonLd } from "@/lib/seo/metadata";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { SmoothScrollProvider } from "@/app/_components/providers/smooth-scroll-provider";
@@ -68,6 +68,10 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
         />
         <Analytics />
         <SpeedInsights />

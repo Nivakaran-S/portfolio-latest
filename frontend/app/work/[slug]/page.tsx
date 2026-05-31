@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getMainProjects, getProject } from "@/lib/data/projects";
+import { projectJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
@@ -30,6 +31,12 @@ export async function generateMetadata({
       title: `${project.name} — ${project.valueProp}`,
       description: project.description,
       url: `/work/${project.slug}`,
+      type: "article",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${project.name} — ${project.valueProp}`,
+      description: project.description,
     },
   };
 }
@@ -53,8 +60,32 @@ export default async function WorkPage({ params }: PageProps) {
     { n: "03", label: "What changed", body: project.detail.outcome },
   ];
 
+  const projectLd = projectJsonLd({
+    slug: project.slug,
+    name: project.name,
+    valueProp: project.valueProp,
+    description: project.description,
+    stack: project.stack,
+    repo: project.repo,
+    live: project.live,
+  });
+  const crumbsLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Work", url: "/work" },
+    { name: project.name, url: `/work/${project.slug}` },
+  ]);
+
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+      />
+
       {/* Case-study backdrop: glowing seams in cooling metal — "forged". */}
       <StoryBackdrop variant="forge" />
 

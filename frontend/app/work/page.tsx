@@ -5,6 +5,7 @@ import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { WorkCatalog } from "@/app/_components/work/work-catalog";
+import { breadcrumbJsonLd } from "@/lib/seo/metadata";
 import { StoryItem } from "@/app/_components/story/story-item";
 
 export const metadata: Metadata = {
@@ -18,11 +19,25 @@ export const metadata: Metadata = {
       "Selected and catalog projects across Software Engineering, Data Science, Computer Vision, Data Engineering, and Data Analysis.",
     url: "/work",
   },
+  twitter: {
+    card: "summary_large_image",
+    title: "Work — Nivakaran S.",
+    description:
+      "Selected and catalog projects across Software Engineering, Data Science, Computer Vision, Data Engineering, and Data Analysis.",
+  },
 };
 
 export default function WorkIndexPage() {
+  const crumbsLd = breadcrumbJsonLd([
+    { name: "Home", url: "/" },
+    { name: "Work", url: "/work" },
+  ]);
   return (
     <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+      />
       <Header />
 
       {/* /work backdrop: glowing seams in cooling metal — "forged". */}
