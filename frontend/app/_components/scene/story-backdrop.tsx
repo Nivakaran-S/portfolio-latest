@@ -198,8 +198,11 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
       {/* ───────────── ORIGIN (/about) ───────────── */}
       {variant === "origin" ? (
         <>
-          {/* dawn halo + orbit rings stay locked to the centered portrait */}
-          <div className="absolute inset-0">
+          {/* dawn halo + orbit rings stay locked to the centered portrait.
+              overflow-hidden here too: the 64rem ring is wider than any mobile
+              viewport and mobile browsers don't always honour the outer
+              wrapper's clip alone, causing horizontal scroll on /about. */}
+          <div className="absolute inset-0 overflow-hidden">
             <div
               className="animate-pulse-glow absolute left-1/2 top-1/2 h-[52rem] w-[52rem] max-w-[150vw] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[170px]"
               style={{ background: "rgba(245,158,11,0.16)" }}

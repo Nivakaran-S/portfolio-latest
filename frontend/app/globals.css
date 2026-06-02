@@ -56,6 +56,11 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
+  /* iOS Safari and some Chrome-mobile builds don't fully honour
+     overflow-x: hidden on body alone — applying it here too is the
+     canonical fix for fixed-position children that extend past the
+     viewport (e.g. the /about origin-backdrop rings). */
+  overflow-x: hidden;
 }
 
 body {
