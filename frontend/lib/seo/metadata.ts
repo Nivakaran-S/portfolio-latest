@@ -66,8 +66,16 @@ export const siteMetadata: Metadata = {
 /*  <script type="application/ld+json"> tag.                           */
 /* ------------------------------------------------------------------ */
 
+/** Stable `@id` URIs so Google can graph these entities together. */
+const ID = {
+  person: `${siteUrl}/#person`,
+  website: `${siteUrl}/#website`,
+  homepage: `${siteUrl}/#webpage`,
+} as const;
+
 const personObject = () => ({
   "@type": "Person",
+  "@id": ID.person,
   name: profile.name,
   jobTitle: profile.title,
   description: profile.mission,
@@ -107,11 +115,35 @@ export function websiteJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "WebSite",
+    "@id": ID.website,
     name: profile.name,
+    alternateName: `${profile.shortName}.dev`,
     url: siteUrl,
     description: profile.mission,
     inLanguage: "en",
-    author: { "@type": "Person", name: profile.name, url: siteUrl },
+    publisher: { "@id": ID.person },
+    author: { "@id": ID.person },
+  };
+}
+
+/**
+ * Strong sitelinks signal — names the four primary pages Google should treat
+ * as the site's main navigation. Not a guarantee Google will render sitelinks
+ * (those are entirely algorithmic), but it's the canonical structured-data
+ * hint for what those sitelinks should be when it does.
+ */
+export function siteNavigationJsonLd() {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SiteNavigationElement",
+    name: ["Work", "Blog", "About", "Contact"],
+    url: [
+      `${siteUrl}/work`,
+      `${siteUrl}/blog`,
+      `${siteUrl}/about`,
+      `${siteUrl}/#contact`,
+    ],
+    isPartOf: { "@id": ID.website },
   };
 }
 
