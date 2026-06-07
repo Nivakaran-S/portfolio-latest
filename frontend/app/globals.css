@@ -56,11 +56,11 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  /* iOS Safari and some Chrome-mobile builds don't fully honour
-     overflow-x: hidden on body alone — applying it here too is the
-     canonical fix for fixed-position children that extend past the
-     viewport (e.g. the /about origin-backdrop rings). */
-  overflow-x: hidden;
+  /* NOTE: do NOT set overflow-x: hidden here — it implicitly switches
+     overflow-y to `auto`, making <html> a scrolling container. That
+     breaks `position: sticky` (WorkRail's pinned scroll-jack on /) and
+     motion's useScroll() readings. The /about overflow fix lives at
+     the inner StoryBackdrop ring wrapper instead. */
 }
 
 body {
