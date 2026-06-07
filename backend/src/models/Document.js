@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 /**
  * A knowledge-base chunk the RAG chatbot retrieves from. `embedding` is the
- * vector (384-d, all-MiniLM-L6-v2) computed on create/update and used for
- * cosine-similarity retrieval.
+ * normalized vector (1024-d, jina-embeddings-v3) computed on create/update
+ * and used for cosine-similarity retrieval.
  */
 const DocumentSchema = new mongoose.Schema(
   {

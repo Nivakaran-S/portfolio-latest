@@ -1,0 +1,34 @@
+# Render Blueprint — one-click deploy of the chatbot backend.
+# Render dashboard → New → Blueprint → connect this GitHub repo.
+# https://render.com/docs/blueprint-spec
+services:
+  - type: web
+    name: nivakaran-portfolio-backend
+    runtime: node
+    rootDir: backend
+    plan: free
+    region: oregon
+    healthCheckPath: /api/health
+    autoDeploy: true
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      # Secrets — fill in on the Render dashboard after first deploy.
+      - key: MONGODB_URI
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: JINA_API_KEY
+        sync: false
+      - key: ADMIN_TOKEN
+        generateValue: true
+      - key: CORS_ORIGIN
+        sync: false
+
+      # Defaults — can be edited later if needed.
+      - key: MONGODB_DB
+        value: portfolio
+      - key: GROQ_MODEL
+        value: llama-3.3-70b-versatile
+      - key: JINA_MODEL
+        value: jina-embeddings-v3

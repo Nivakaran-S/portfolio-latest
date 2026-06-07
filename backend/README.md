@@ -6,7 +6,7 @@ for the chatbot's knowledge base.
 ## Stack
 - **Express** — HTTP API
 - **MongoDB Atlas** + Mongoose — stores knowledge chunks + their vectors
-- **Transformers.js** (`all-MiniLM-L6-v2`) — local embeddings, no API key
+- **Jina AI** (`jina-embeddings-v3`, 1024-d) — hosted embeddings, free tier
 - **Groq** (`groq-sdk`) — fast LLM inference for answer generation
 
 ## Setup
@@ -20,7 +20,8 @@ npm run dev               # http://localhost:4000
 
 - **MONGODB_URI** — from MongoDB Atlas (free tier is fine): create a cluster →
   Database → Connect → Drivers → copy the `mongodb+srv://...` string.
-- **GROQ_API_KEY** — free at https://console.groq.com/keys
+- **GROQ_API_KEY** — free at https://console.groq.com/keys (LLM generation).
+- **JINA_API_KEY** — free at https://jina.ai (embeddings, ~1M tokens free).
 - Without `GROQ_API_KEY` the chatbot still answers, but with the top retrieved
   snippet instead of a generated reply.
 
@@ -36,7 +37,7 @@ npm run dev               # http://localhost:4000
 | DELETE | `/api/documents/:id` | delete                           |
 
 ## How the RAG works
-1. Each knowledge chunk is embedded (384-d) and stored in MongoDB.
+1. Each knowledge chunk is embedded (1024-d via Jina) and stored in MongoDB.
 2. A chat query is embedded, scored by cosine similarity against all chunks,
    and the top 4 become the context.
 3. Groq generates a grounded answer from that context only.
@@ -45,13 +46,17 @@ For larger corpora, swap the in-process cosine scan in `services/rag.js` for
 **MongoDB Atlas Vector Search** (`$vectorSearch`) — the chunks already carry an
 `embedding` field.
 
-## Deploy
-Host on Render / Railway / Fly (it's an always-on Node service).
-- Set the env vars there.
-- Run `npm run seed` once after first deploy.
-- Set `CORS_ORIGIN` to your frontend URL (e.g. `https://nivakaran.dev`).
-- Transformers.js needs ~300–400 MB RAM; pick a plan accordingly, or switch to
-  a hosted embedding API in `services/embeddings.js`.
+## Deploy (Render — free tier)
+This repo ships with a [`render.yaml`](./render.yaml) blueprint. From Render →
+**New → Blueprint** → connect the GitHub repo and it picks the backend service
+up automatically. Then in the Render dashboard, fill in the env vars:
+`MONGODB_URI`, `GROQ_API_KEY`, `JINA_API_KEY`, `ADMIN_TOKEN`, `CORS_ORIGIN`
+(the rest are pre-filled). After the first deploy, open the Render Shell and
+run `npm run seed` once to load the knowledge base.
+
+Render free tier: 512 MB RAM (plenty — no local model), spins down after
+15 min of idle (~5–10 s Node cold-start on the first chat after that).
+Upgrade to Starter ($7/mo) for no spin-down.
 
 ## Security
 All `/api/documents` routes (read + write) require an **`x-admin-token`** header
