@@ -2,8 +2,8 @@ import type { ReactNode } from "react";
 import Link from "next/link";
 import { profile } from "@/lib/data/profile";
 import { getMainProjects } from "@/lib/data/projects";
-import { skills, skillCategories } from "@/lib/data/skills";
-import { certifications } from "@/lib/data/certifications";
+import { StackGrid } from "@/app/_components/sections/stack-grid";
+import { featuredCertifications } from "@/lib/data/certifications";
 import { getAllPosts, formatPostDate } from "@/lib/data/blog";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
@@ -42,14 +42,6 @@ const principles: { k: string; title: string; body: string }[] = [
     body: "Disciplined engineering over clever shortcuts. I'd rather ship something that holds than something that only demos.",
   },
 ];
-
-const skillCategoryStyles: Record<string, string> = {
-  "Software Engineering": "border-neon-cyan/30 text-neon-cyan",
-  "Data Science": "border-neon-cyan-core/30 text-neon-cyan-core",
-  "Computer Vision": "border-neon-violet/40 text-neon-violet",
-  "Data Engineering": "border-white/15 text-fg-dim",
-  "Data Analysis": "border-neon-lime/30 text-neon-lime",
-};
 
 /**
  * A full-screen keynote interstitial — one big line, lots of space.
@@ -288,40 +280,7 @@ export default function Home() {
                 A connected stack, not a buzzword list.
               </h2>
             </StoryItem>
-            <div className="mt-8 flex flex-wrap gap-2.5">
-              {skills.map((skill, i) => (
-                <StoryItem
-                  key={skill.name}
-                  from={i % 2 === 0 ? "up" : "down"}
-                  distance={50}
-                  delay={Math.min(0.4, i * 0.015)}
-                >
-                  <span
-                    className={`inline-block rounded-full border px-4 py-2 text-sm ${
-                      skillCategoryStyles[skill.category]
-                    } ${skill.weight === 3 ? "font-semibold" : ""}`}
-                  >
-                    {skill.name}
-                  </span>
-                </StoryItem>
-              ))}
-            </div>
-            <StoryItem from="fade" delay={0.2}>
-              <div className="mt-8 flex flex-wrap gap-5">
-                {skillCategories.map((c) => (
-                  <span
-                    key={c.id}
-                    className="label flex items-center gap-2 text-fg-muted"
-                  >
-                    <span
-                      className="h-2 w-2 rounded-full ring-1 ring-white/10"
-                      style={{ background: c.color }}
-                    />
-                    {c.id}
-                  </span>
-                ))}
-              </div>
-            </StoryItem>
+            <StackGrid />
           </div>
         </section>
 
@@ -383,7 +342,7 @@ export default function Home() {
               </h2>
             </StoryItem>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {certifications.map((cert, i) => (
+              {featuredCertifications.map((cert, i) => (
                 <StoryItem
                   key={cert.label}
                   from={i % 2 === 0 ? "up" : "down"}

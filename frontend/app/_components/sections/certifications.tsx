@@ -1,4 +1,4 @@
-import { certifications } from "@/lib/data/certifications";
+import { featuredCertifications } from "@/lib/data/certifications";
 import { SectionShell } from "@/app/_components/ui/section-shell";
 import { Reveal } from "@/app/_components/ui/reveal";
 import { Parallax } from "@/app/_components/ui/parallax";
@@ -16,7 +16,7 @@ export function Certifications() {
       </p>
 
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {certifications.map((cert, i) => (
+        {featuredCertifications.map((cert, i) => (
           <Parallax
             key={cert.label}
             distance={18 + (i % 4) * 12}

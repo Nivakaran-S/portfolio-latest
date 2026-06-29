@@ -31,18 +31,20 @@ export const achievements: Achievement[] = [
     detail: "Sri Lanka's national IoT innovation challenge.",
   },
   {
-    title: "SLIITXtreme",
-    result: "Top 10",
+    title: "SLIITXtreme 4.0",
+    result: "Finalist · 6th",
     year: "2025",
     org: "IEEE Computer Society, SLIIT",
-    detail: "Competitive programming — a lead-in to IEEEXtreme.",
+    detail:
+      "24-hour hackathon — 6th on the live leaderboard, top five teams tied on score.",
   },
   {
     title: "CodeFest Algothon",
-    result: "Top 10",
+    result: "Finalist · 11th/170",
     year: "2025",
     org: "Faculty of Computing, SLIIT",
-    detail: "National algorithmic-programming contest across two timed rounds.",
+    detail:
+      "National algorithmic contest — 11th of ~170 teams across a quiz and a logistics shortest-path round.",
   },
   {
     title: "CodeSprint 11",

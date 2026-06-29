@@ -12,6 +12,10 @@ import {
   type ExperienceEntry,
 } from "@/lib/data/experience";
 import { achievements } from "@/lib/data/achievements";
+import { events } from "@/lib/data/events";
+import { capabilities } from "@/lib/data/services";
+import { CertificationGallery } from "@/app/_components/about/certification-card";
+import { StackGrid } from "@/app/_components/sections/stack-grid";
 import { profilePageJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
@@ -225,11 +229,156 @@ export default function AboutPage() {
           </div>
         </section>
 
+        {/* ════════════ CERTIFICATIONS ════════════ */}
+        <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
+          <div className="mx-auto w-full max-w-6xl">
+            <StoryItem from="left">
+              <p className="label text-fg-muted">05 — Always sharpening</p>
+            </StoryItem>
+            <StoryItem from="up" delay={0.05}>
+              <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
+                Certified, end to end.
+              </h2>
+            </StoryItem>
+            <StoryItem from="up" delay={0.1}>
+              <p className="mt-5 max-w-xl text-fg-muted">
+                Continuous training across the AI, data, and software stack —
+                hover any card to see the certificate.
+              </p>
+            </StoryItem>
+            <StoryItem from="fade" delay={0.14}>
+              <CertificationGallery />
+            </StoryItem>
+          </div>
+        </section>
+
+        {/* ════════════ EVENTS & COMMUNITY ════════════ */}
+        <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
+          <div className="mx-auto w-full max-w-6xl">
+            <StoryItem from="left">
+              <p className="label text-fg-muted">06 — In the arena</p>
+            </StoryItem>
+            <StoryItem from="up" delay={0.05}>
+              <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
+                Events &amp; community.
+              </h2>
+            </StoryItem>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2">
+              {events.map((ev, i) => (
+                <StoryItem
+                  key={ev.title}
+                  from={i % 2 === 0 ? "up" : "down"}
+                  distance={60}
+                  delay={Math.min(0.3, i * 0.05)}
+                  className="h-full"
+                >
+                  <article className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-raised/70 p-6 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30">
+                    <div className="flex items-center justify-between gap-3">
+                      <span className="label rounded-full border border-neon-cyan/30 px-3 py-1 text-neon-cyan">
+                        {ev.role}
+                      </span>
+                      <span className="label text-fg-muted">{ev.date}</span>
+                    </div>
+                    <div>
+                      <h3 className="font-display text-xl font-semibold text-fg">
+                        {ev.title}
+                      </h3>
+                      <p className="mt-1 text-sm text-neon-cyan/80">
+                        {ev.location}
+                      </p>
+                    </div>
+                    <p className="text-sm leading-relaxed text-fg-muted">
+                      {ev.detail}
+                    </p>
+                    {ev.team ? (
+                      <p className="mt-auto text-xs text-fg-muted">
+                        With {ev.team.join(" · ")}
+                      </p>
+                    ) : null}
+                  </article>
+                </StoryItem>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════ WHAT I CAN DO — CAPABILITIES ════════════ */}
+        <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
+          <div className="mx-auto w-full max-w-6xl">
+            <StoryItem from="left">
+              <p className="label text-fg-muted">07 — What I can do</p>
+            </StoryItem>
+            <StoryItem from="up" delay={0.05}>
+              <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
+                Built around AI, data, and software.
+              </h2>
+            </StoryItem>
+            <StoryItem from="up" delay={0.1}>
+              <p className="mt-5 max-w-xl text-fg-muted">
+                The core is intelligent, data-driven systems. Design and mobile
+                round out delivery when a project needs the whole thing shipped.
+              </p>
+            </StoryItem>
+            <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {capabilities.map((cap, i) => (
+                <StoryItem
+                  key={cap.title}
+                  from={i % 2 === 0 ? "up" : "down"}
+                  distance={60}
+                  delay={Math.min(0.3, i * 0.05)}
+                  className="h-full"
+                >
+                  <div
+                    className={`h-full rounded-2xl border bg-raised/70 p-6 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30 ${
+                      cap.tier === "core"
+                        ? "border-neon-cyan/20"
+                        : "border-line"
+                    }`}
+                  >
+                    {cap.tier === "core" ? (
+                      <span className="label text-neon-cyan/70">Core</span>
+                    ) : (
+                      <span className="label text-fg-muted">Supporting</span>
+                    )}
+                    <h3 className="mt-3 font-display text-lg font-semibold text-fg">
+                      {cap.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-fg-muted">
+                      {cap.detail}
+                    </p>
+                  </div>
+                </StoryItem>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ════════════ THE TOOLKIT — TECH STACK ════════════ */}
+        <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
+          <div className="mx-auto w-full max-w-5xl">
+            <StoryItem from="left">
+              <p className="label text-fg-muted">08 — The toolkit</p>
+            </StoryItem>
+            <StoryItem from="up" delay={0.05}>
+              <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
+                The tools, by discipline.
+              </h2>
+            </StoryItem>
+            <StoryItem from="up" delay={0.1}>
+              <p className="mt-5 max-w-xl text-fg-muted">
+                A connected stack across AI/ML, software, data, and the ops that
+                ship it — hover any logo to bring it to life.
+              </p>
+            </StoryItem>
+            <StackGrid />
+          </div>
+        </section>
+
         {/* ════════════ BY THE NUMBERS — STATS ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">05 — By the numbers</p>
+              <p className="label text-fg-muted">09 — By the numbers</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -260,7 +409,7 @@ export default function AboutPage() {
         {/* ════════════ WHAT'S NEXT — CONTACT ════════════ */}
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
-            <p className="label text-fg-muted">06 — What&apos;s next</p>
+            <p className="label text-fg-muted">10 — What&apos;s next</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
             <h2 className="silver mt-6 font-display font-semibold leading-[1.02] tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
