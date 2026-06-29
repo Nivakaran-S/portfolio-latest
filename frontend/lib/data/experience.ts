@@ -55,6 +55,14 @@ export const experience: ExperienceEntry[] = [
     summary:
       "A science foundation in the Bio stream before the pivot into software and AI.",
   },
+  {
+    org: "IDM Nations Campus",
+    role: "Diploma in Graphic Designing",
+    period: "2015",
+    kind: "education",
+    summary:
+      "Completed with Distinction - a foundation in visual design, typography, and composition.",
+  },
 ];
 
 /** Work history only - rendered as its own timeline. */

@@ -11,8 +11,6 @@ import {
   education,
   type ExperienceEntry,
 } from "@/lib/data/experience";
-import { achievements } from "@/lib/data/achievements";
-import { events } from "@/lib/data/events";
 import { capabilities } from "@/lib/data/services";
 import { CertificationGallery } from "@/app/_components/about/certification-card";
 import { StackGrid } from "@/app/_components/sections/stack-grid";
@@ -184,56 +182,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ════════════ PROVING GROUND - COMPETITIONS ════════════ */}
-        <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
-          <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="left">
-              <p className="label text-fg-muted">04 - Proving ground</p>
-            </StoryItem>
-            <StoryItem from="up" delay={0.05}>
-              <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
-                Tested in competition.
-              </h2>
-            </StoryItem>
-            <div className="mt-12 grid gap-4 sm:grid-cols-2">
-              {achievements.map((a, i) => (
-                <StoryItem
-                  key={a.title}
-                  from={i % 2 === 0 ? "up" : "down"}
-                  distance={60}
-                  delay={Math.min(0.3, i * 0.05)}
-                  className="h-full"
-                >
-                  <article className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-raised/70 p-6 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="label rounded-full border border-neon-cyan/30 px-3 py-1 text-neon-cyan">
-                        {a.result}
-                      </span>
-                      {a.year ? (
-                        <span className="label text-fg-muted">{a.year}</span>
-                      ) : null}
-                    </div>
-                    <div>
-                      <h3 className="font-display text-xl font-semibold text-fg">
-                        {a.title}
-                      </h3>
-                      <p className="mt-1 text-sm text-neon-cyan/80">{a.org}</p>
-                    </div>
-                    <p className="mt-auto text-sm leading-relaxed text-fg-muted">
-                      {a.detail}
-                    </p>
-                  </article>
-                </StoryItem>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ════════════ CERTIFICATIONS ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">05 - Always sharpening</p>
+              <p className="label text-fg-muted">04 - Always sharpening</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -252,61 +205,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ════════════ EVENTS & COMMUNITY ════════════ */}
-        <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
-          <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="left">
-              <p className="label text-fg-muted">06 - In the arena</p>
-            </StoryItem>
-            <StoryItem from="up" delay={0.05}>
-              <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
-                Events &amp; community.
-              </h2>
-            </StoryItem>
-            <div className="mt-12 grid gap-4 sm:grid-cols-2">
-              {events.map((ev, i) => (
-                <StoryItem
-                  key={ev.title}
-                  from={i % 2 === 0 ? "up" : "down"}
-                  distance={60}
-                  delay={Math.min(0.3, i * 0.05)}
-                  className="h-full"
-                >
-                  <article className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-raised/70 p-6 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="label rounded-full border border-neon-cyan/30 px-3 py-1 text-neon-cyan">
-                        {ev.role}
-                      </span>
-                      <span className="label text-fg-muted">{ev.date}</span>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-xl font-semibold text-fg">
-                        {ev.title}
-                      </h3>
-                      <p className="mt-1 text-sm text-neon-cyan/80">
-                        {ev.location}
-                      </p>
-                    </div>
-                    <p className="text-sm leading-relaxed text-fg-muted">
-                      {ev.detail}
-                    </p>
-                    {ev.team ? (
-                      <p className="mt-auto text-xs text-fg-muted">
-                        With {ev.team.join(" · ")}
-                      </p>
-                    ) : null}
-                  </article>
-                </StoryItem>
-              ))}
-            </div>
-          </div>
-        </section>
-
         {/* ════════════ WHAT I CAN DO - CAPABILITIES ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">07 - What I can do</p>
+              <p className="label text-fg-muted">05 - What I can do</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -357,7 +260,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">08 - The toolkit</p>
+              <p className="label text-fg-muted">06 - The toolkit</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -378,7 +281,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">09 - By the numbers</p>
+              <p className="label text-fg-muted">07 - By the numbers</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -409,7 +312,7 @@ export default function AboutPage() {
         {/* ════════════ WHAT'S NEXT - CONTACT ════════════ */}
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
-            <p className="label text-fg-muted">10 - What&apos;s next</p>
+            <p className="label text-fg-muted">08 - What&apos;s next</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
             <h2 className="silver mt-6 font-display font-semibold leading-[1.02] tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">

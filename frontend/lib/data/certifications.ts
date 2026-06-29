@@ -36,6 +36,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Jun 2025",
     image: "/certifications/agentic-ai.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-be4b3936-41fd-41e6-b867-1e358158d79a/",
     category: "AI / ML",
   },
   {
@@ -46,6 +47,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Dec 2024",
     image: "/certifications/generative-ai.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-da378ead-b16d-407d-b199-9f50a88d90e1/",
     category: "AI / ML",
   },
   {
@@ -56,6 +58,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "May 2025",
     image: "/certifications/data-science.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-6c12dce8-1750-4ff2-a4bc-a95f1992f3ea/",
     category: "AI / ML",
   },
   {
@@ -66,6 +69,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Apr 2025",
     image: "/certifications/computer-vision.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-435cb559-6d32-4c0b-82ba-92e1d49a7b51/",
     category: "AI / ML",
   },
   {
@@ -76,6 +80,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Feb 2024",
     image: "/certifications/machine-learning.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-f40d10df-c93e-4d1e-af98-b8802f58431d/",
     category: "AI / ML",
   },
   {
@@ -86,6 +91,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Jul 2024",
     image: "/certifications/tensorflow.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-60242198-5929-47a6-a6c5-718a6e7b121c/",
     category: "AI / ML",
   },
   // ── Data ─────────────────────────────────────────────────────────────
@@ -97,6 +103,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Jul 2025",
     image: "/certifications/big-data-engineering.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-22248617-9b8b-477b-9eed-28815bc63a3e/",
     category: "Data",
   },
   // ── Software ─────────────────────────────────────────────────────────
@@ -108,6 +115,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Jan 2025",
     image: "/certifications/dsa.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-108298ba-2018-4131-b86b-70e6279377e9/",
     category: "Software",
   },
   {
@@ -118,6 +126,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Mar 2025",
     image: "/certifications/nodejs.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-8ba28f0a-d7e2-48dd-882e-87b73fa64021/",
     category: "Software",
   },
   {
@@ -128,6 +137,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Nov 2023",
     image: "/certifications/web-development.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-0aeb6d1d-dc7b-4ba6-aecf-2cc774b2c29c/",
     category: "Software",
   },
   {
@@ -138,6 +148,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Jun 2024",
     image: "/certifications/react-native.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-deb577d6-b72a-4ca6-86fc-b901dd127754/",
     category: "Software",
   },
   {
@@ -148,6 +159,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Apr 2024",
     image: "/certifications/ethical-hacking.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-5b27ff0d-fe45-46a9-942c-485d0a13118b/",
     category: "Software",
   },
   // ── Design ───────────────────────────────────────────────────────────
@@ -159,6 +171,7 @@ export const certifications: Certification[] = [
     issuer: "Udemy",
     date: "Dec 2023",
     image: "/certifications/ui-ux-design.jpg",
+    credentialUrl: "https://www.udemy.com/certificate/UC-5e929664-5636-40c0-bebe-9df2ad3a34af/",
     category: "Design",
   },
 ];
