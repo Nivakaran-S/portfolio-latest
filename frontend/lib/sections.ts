@@ -10,12 +10,10 @@ export interface SectionMeta {
  */
 export const homeSections: SectionMeta[] = [
   { id: "hero", label: "Home", index: "01" },
-  { id: "projects", label: "Work", index: "02" },
-  { id: "about", label: "About", index: "03" },
-  { id: "skills", label: "Skills", index: "04" },
-  { id: "experience", label: "Experience", index: "05" },
-  { id: "certifications", label: "Certs", index: "06" },
-  { id: "contact", label: "Contact", index: "07" },
+  { id: "skills", label: "Stack", index: "02" },
+  { id: "certifications", label: "Certs", index: "03" },
+  { id: "writing", label: "Writing", index: "04" },
+  { id: "contact", label: "Contact", index: "05" },
 ];
 
 /** Back-compat alias - older imports still use `sections`. */

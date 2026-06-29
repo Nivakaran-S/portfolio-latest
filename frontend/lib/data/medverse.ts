@@ -17,7 +17,7 @@ export const medverse = {
     "I work across the whole stack - wearable firmware and signal processing, the machine-learning layer, the backend services, and the web and mobile apps.",
   disclaimer:
     "An engineering and research project. MedVerse is not a regulated medical device; the models are trained on public datasets and are not clinically validated.",
-  logo: "/medverse/logo.png",
+  logo: "/medverse/logo.webp",
 };
 
 /** Public epidemiology context that motivated the project. */

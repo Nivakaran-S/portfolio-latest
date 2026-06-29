@@ -15,6 +15,8 @@ export interface Profile {
   about: string[];
   location: string;
   email: string;
+  /** Path to the downloadable CV/résumé in /public. */
+  resumeUrl: string;
   education: {
     institution: string;
     degree: string;
@@ -40,6 +42,7 @@ export const profile: Profile = {
   ],
   location: "Colombo, Sri Lanka",
   email: "nivakaran@hotmail.com",
+  resumeUrl: "/Nivakaran-S-CV.pdf",
   education: {
     institution: "SLIIT - Sri Lanka Institute of Information Technology",
     degree: "B.Sc (Hons) Information Technology",
@@ -65,7 +68,7 @@ export const profile: Profile = {
   ],
   stats: [
     { value: "72", label: "Repositories" },
-    { value: "5", label: "Competitions" },
+    { value: "6", label: "Competitions" },
     { value: "15+", label: "Tech stacks" },
     { value: "Colombo, LK", label: "Based in" },
   ],

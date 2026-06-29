@@ -19,12 +19,12 @@ import { profilePageJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Nivakaran S. - full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
+    "About Nivakaran S. - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
   alternates: { canonical: "/about" },
   openGraph: {
     title: "About - Nivakaran S.",
     description:
-      "About Nivakaran S. - full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
+      "About Nivakaran S. - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
     url: "/about",
     type: "profile",
   },
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "About - Nivakaran S.",
     description:
-      "About Nivakaran S. - full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
+      "About Nivakaran S. - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
   },
 };
 
@@ -335,6 +335,13 @@ export default function AboutPage() {
                 <span className="transition-transform duration-200 group-hover:translate-x-1">
                   →
                 </span>
+              </a>
+              <a
+                href={profile.resumeUrl}
+                download
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-white/30 hover:text-fg"
+              >
+                Download CV ↓
               </a>
               {profile.socials
                 .filter((s) => s.label !== "Email")

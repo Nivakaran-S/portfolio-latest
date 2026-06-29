@@ -18,11 +18,6 @@ export interface Skill {
   iconColor?: string;
 }
 
-export interface SkillEdge {
-  from: string;
-  to: string;
-}
-
 /** The four pillars, in display order, each with its accent colour. */
 export const skillCategories: { id: SkillCategory; color: string }[] = [
   { id: "AI / ML & LLMs", color: "var(--color-neon-cyan-core)" },
@@ -102,42 +97,4 @@ export const skills: Skill[] = [
   { name: "Kubeflow", category: "DevOps / MLOps & Cloud", weight: 1 },
   { name: "DVC", category: "DevOps / MLOps & Cloud", weight: 1, icon: "dvc", iconColor: "#945DD6" },
   { name: "DagsHub", category: "DevOps / MLOps & Cloud", weight: 1 },
-];
-
-/** Conceptual relationships across the stack - decorative metadata. */
-export const skillEdges: SkillEdge[] = [
-  { from: "Python", to: "PyTorch" },
-  { from: "Python", to: "TensorFlow" },
-  { from: "Python", to: "FastAPI" },
-  { from: "Python", to: "Flask" },
-  { from: "Python", to: "Pandas" },
-  { from: "Python", to: "NumPy" },
-  { from: "PyTorch", to: "Hugging Face" },
-  { from: "PyTorch", to: "CNNs" },
-  { from: "PyTorch", to: "Gradio" },
-  { from: "CNNs", to: "OpenCV" },
-  { from: "TensorFlow", to: "TensorBoard" },
-  { from: "LangChain", to: "LangGraph" },
-  { from: "LangChain", to: "Hugging Face" },
-  { from: "LangChain", to: "Chroma" },
-  { from: "LangGraph", to: "Tavily" },
-  { from: "Claude", to: "LangChain" },
-  { from: "Mistral", to: "Groq" },
-  { from: "TypeScript", to: "Next.js" },
-  { from: "TypeScript", to: "React Native" },
-  { from: "Next.js", to: "Node.js" },
-  { from: "Node.js", to: "MongoDB" },
-  { from: "Next.js", to: "PostgreSQL" },
-  { from: "Pandas", to: "Matplotlib" },
-  { from: "Pandas", to: "Spark" },
-  { from: "Spark", to: "Kafka" },
-  { from: "Spark", to: "Databricks" },
-  { from: "Apache Airflow", to: "MLflow" },
-  { from: "Docker", to: "Kubernetes" },
-  { from: "Kubernetes", to: "Argo CD" },
-  { from: "FastAPI", to: "Docker" },
-  { from: "MLflow", to: "DVC" },
-  { from: "Elasticsearch", to: "Kibana" },
-  { from: "Logstash", to: "Elasticsearch" },
-  { from: "Filebeat", to: "Logstash" },
 ];

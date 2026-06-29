@@ -99,7 +99,7 @@ export default function Home() {
               <RotatingText
                 items={[
                   "AI & Software Engineer",
-                  "Full-stack builder",
+                  "End-to-end builder",
                   "Data-driven systems",
                 ]}
               />

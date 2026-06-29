@@ -59,6 +59,6 @@ export const events: CommunityEvent[] = [
     location: "Colombo, Sri Lanka",
     detail:
       "GDG Sri Lanka's flagship event - sessions on LLMs, multimodal search with Gemini Vision and RAG, responsible AI, and high-performance Flutter web with WASM.",
-    image: "/events/devfest.png",
+    image: "/events/devfest.webp",
   },
 ];

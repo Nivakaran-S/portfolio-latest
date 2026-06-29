@@ -5,7 +5,7 @@ them by these exact names (see `lib/data/medverse.ts` and the page).
 
 | Filename | Used for | Notes |
 |---|---|---|
-| `logo.png` | Hero logo | **Required.** Transparent PNG looks best on the dark theme. The page renders it as a background image, so the hero degrades gracefully (no broken icon) until this file exists. |
+| `logo.webp` | Hero logo | The page renders it as a background image (referenced from `lib/data/medverse.ts`). Currently an optimized WebP (~133KB). Replace it in place to update the logo. |
 
 Optional, if you want a product showcase later: add screenshots/mockups
 (e.g. `dashboard.png`, `vest.png`, `app.png`) and tell me — I'll add a

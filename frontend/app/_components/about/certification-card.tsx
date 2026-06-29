@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "motion/react";
 import {
   certifications,
@@ -82,6 +82,7 @@ function Lightbox({
   onClose: () => void;
 }) {
   const [errored, setErrored] = useState(false);
+  const closeRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -91,9 +92,13 @@ function Lightbox({
     // Lock background scroll while open.
     const prev = document.body.style.overflow;
     document.body.style.overflow = "hidden";
+    // Move focus into the dialog; restore it to the trigger on close.
+    const prevFocus = document.activeElement as HTMLElement | null;
+    closeRef.current?.focus();
     return () => {
       document.removeEventListener("keydown", onKey);
       document.body.style.overflow = prev;
+      prevFocus?.focus?.();
     };
   }, [onClose]);
 
@@ -158,10 +163,11 @@ function Lightbox({
           ) : null}
         </div>
         <button
+          ref={closeRef}
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-void/60 text-fg-dim backdrop-blur-sm transition-colors hover:border-white/30 hover:text-fg"
+          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-void/60 text-fg-dim backdrop-blur-sm transition-colors hover:border-white/30 hover:text-fg focus-visible:border-neon-cyan/60 focus-visible:outline-none"
         >
           ✕
         </button>

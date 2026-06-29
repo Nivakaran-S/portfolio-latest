@@ -207,6 +207,26 @@ function ContactDrawer({
             </div>
           </div>
 
+          {/* résumé / CV */}
+          <a
+            href={profile.resumeUrl}
+            download
+            className="group flex items-center justify-between rounded-2xl border border-line bg-raised/50 px-5 py-4 transition-colors duration-200 hover:border-neon-cyan/30 hover:bg-elevated"
+          >
+            <span className="flex flex-col">
+              <span className="font-display font-medium text-fg">
+                Download CV
+              </span>
+              <span className="label mt-0.5 text-fg-muted">PDF résumé</span>
+            </span>
+            <span
+              aria-hidden="true"
+              className="text-fg-muted transition-all duration-200 group-hover:translate-y-0.5 group-hover:text-neon-cyan"
+            >
+              ↓
+            </span>
+          </a>
+
           {/* socials */}
           <div>
             <p className="label text-fg-muted">Elsewhere</p>

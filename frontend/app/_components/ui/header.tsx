@@ -81,7 +81,7 @@ export function Header() {
                 <Link
                   href={r.href}
                   aria-current={active ? "page" : undefined}
-                  className={`label transition-colors duration-300 ${
+                  className={`label rounded-sm transition-colors duration-300 focus-visible:text-fg focus-visible:underline focus-visible:decoration-neon-cyan focus-visible:underline-offset-4 focus-visible:outline-none ${
                     active ? "text-fg" : "text-fg-muted hover:text-fg"
                   }`}
                 >
@@ -148,7 +148,7 @@ export function Header() {
               key={r.href}
               href={r.href}
               onClick={() => setMenuOpen(false)}
-              className={`font-display text-2xl tracking-tight transition-colors ${
+              className={`font-display text-2xl tracking-tight transition-colors focus-visible:text-fg focus-visible:underline focus-visible:underline-offset-4 focus-visible:outline-none ${
                 active ? "text-fg" : "text-fg-muted"
               }`}
             >
