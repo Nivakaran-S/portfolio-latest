@@ -127,21 +127,23 @@ export function websiteJsonLd() {
 }
 
 /**
- * Strong sitelinks signal - names the four primary pages Google should treat
- * as the site's main navigation. Not a guarantee Google will render sitelinks
- * (those are entirely algorithmic), but it's the canonical structured-data
- * hint for what those sitelinks should be when it does.
+ * Strong sitelinks signal - names the primary pages Google should treat as
+ * the site's main navigation (kept in sync with the header `routeNav`). Not a
+ * guarantee Google will render sitelinks (those are entirely algorithmic), but
+ * it's the canonical structured-data hint for what those sitelinks should be
+ * when it does.
  */
 export function siteNavigationJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "SiteNavigationElement",
-    name: ["Work", "Blog", "About", "Contact"],
+    name: ["Work", "MedVerse", "Blog", "About", "Events"],
     url: [
       `${siteUrl}/work`,
+      `${siteUrl}/medverse`,
       `${siteUrl}/blog`,
       `${siteUrl}/about`,
-      `${siteUrl}/#contact`,
+      `${siteUrl}/events`,
     ],
     isPartOf: { "@id": ID.website },
   };
