@@ -4,7 +4,7 @@ import { useEffect, useState, type ReactNode } from "react";
 import { ReactLenis } from "lenis/react";
 
 /**
- * Global Lenis smooth scroll (root mode — adds no wrapper DOM).
+ * Global Lenis smooth scroll (root mode - adds no wrapper DOM).
  * `anchors: true` lets Lenis own #section navigation smoothly.
  * Disabled entirely for prefers-reduced-motion users (native scroll,
  * which globals.css already sets to `auto`).

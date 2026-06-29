@@ -12,7 +12,7 @@ interface FaceRotationProps {
   ext?: string;
   /** Zero-padding width for the index (default 3 → `001`). */
   pad?: number;
-  /** Native frame side in CSS pixels — caps the rendered size so the
+  /** Native frame side in CSS pixels - caps the rendered size so the
    *  image never upscales beyond the source resolution. */
   nativeSize?: number;
 }
@@ -24,10 +24,10 @@ function frameUrl(i: number, prefix: string, pad: number, ext: string): string {
 }
 
 /**
- * Background portrait — a fixed centered square canvas behind page
+ * Background portrait - a fixed centered square canvas behind page
  * content. Full-page scroll drives the rotation; the canvas is sized to
  * `min(85vw, 85svh, nativeSize)` so on every screen the image renders at
- * native pixel scale or smaller — no upscale blur. A soft dim + vignette
+ * native pixel scale or smaller - no upscale blur. A soft dim + vignette
  * frame the centered subject.
  *
  * Renders as `pointer-events-none fixed inset-0` at z = -5 (between the
@@ -50,14 +50,14 @@ export function FaceRotation({
   const [phase, setPhase] = useState<Phase>("probing");
   const [progress, setProgress] = useState(0);
 
-  // Only honour reduced-motion as the fallback trigger — the canvas is
+  // Only honour reduced-motion as the fallback trigger - the canvas is
   // light enough (DPR-clamped draw of ~27 KB WebPs) to run on mobile.
   const fallback = Boolean(reduced);
 
   // Full-page scroll progress (no target → window scroll).
   const { scrollYProgress } = useScroll();
 
-  // CSS sizing string for the centered subject — capped at the source's
+  // CSS sizing string for the centered subject - capped at the source's
   // native pixel size so the image never upscales beyond 1:1.
   const subjectSize = `min(85vw, 85svh, ${nativeSize}px)`;
 

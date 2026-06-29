@@ -26,7 +26,7 @@ export function Skills() {
     >
       <Parallax distance={26} className="bento tile-sheen p-7 sm:p-9">
         <p className="mb-8 max-w-xl text-fg-dim">
-          Everything I work with relates to everything else — models need
+          Everything I work with relates to everything else - models need
           pipelines, pipelines need products.
         </p>
 

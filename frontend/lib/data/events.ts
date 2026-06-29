@@ -14,7 +14,7 @@ export interface CommunityEvent {
 }
 
 /**
- * Events & community — conferences attended and hackathons/competitions
+ * Events & community - conferences attended and hackathons/competitions
  * participated in. Distinct from `achievements.ts` (which records ranked
  * competition *placements*); this captures presence and participation in
  * the wider tech community. Rendered on /about ("Events & community").
@@ -27,7 +27,7 @@ export const events: CommunityEvent[] = [
     date: "Oct 2025",
     location: "Colombo, Sri Lanka",
     detail:
-      "24-hour hackathon — climbed to 6th on the live leaderboard in a race where the top five teams finished on identical scores.",
+      "24-hour hackathon - climbed to 6th on the live leaderboard in a race where the top five teams finished on identical scores.",
     team: ["Duwaragie Kugaraj", "Zayan Mohamed"],
   },
   {
@@ -53,6 +53,6 @@ export const events: CommunityEvent[] = [
     date: "Dec 2024",
     location: "Colombo, Sri Lanka",
     detail:
-      "GDG Sri Lanka's flagship event — sessions on LLMs, multimodal search with Gemini Vision and RAG, responsible AI, and high-performance Flutter web with WASM.",
+      "GDG Sri Lanka's flagship event - sessions on LLMs, multimodal search with Gemini Vision and RAG, responsible AI, and high-performance Flutter web with WASM.",
   },
 ];

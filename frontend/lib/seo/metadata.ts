@@ -8,11 +8,11 @@ const description = profile.mission;
 export const siteMetadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${profile.name} — ${profile.title}`,
+    default: `${profile.name} - ${profile.title}`,
     template: `%s | ${profile.name}`,
   },
   description,
-  applicationName: `${profile.name} — Portfolio`,
+  applicationName: `${profile.name} - Portfolio`,
   authors: [{ name: profile.name, url: siteUrl }],
   creator: profile.name,
   keywords: [
@@ -36,14 +36,14 @@ export const siteMetadata: Metadata = {
   openGraph: {
     type: "website",
     url: siteUrl,
-    title: `${profile.name} — ${profile.title}`,
+    title: `${profile.name} - ${profile.title}`,
     description,
     siteName: profile.name,
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${profile.name} — ${profile.title}`,
+    title: `${profile.name} - ${profile.title}`,
     description,
   },
   robots: {
@@ -61,7 +61,7 @@ export const siteMetadata: Metadata = {
 };
 
 /* ------------------------------------------------------------------ */
-/*  Structured data — JSON-LD helpers                                  */
+/*  Structured data - JSON-LD helpers                                  */
 /*  Each returns a plain object; pages embed them in a                 */
 /*  <script type="application/ld+json"> tag.                           */
 /* ------------------------------------------------------------------ */
@@ -127,7 +127,7 @@ export function websiteJsonLd() {
 }
 
 /**
- * Strong sitelinks signal — names the four primary pages Google should treat
+ * Strong sitelinks signal - names the four primary pages Google should treat
  * as the site's main navigation. Not a guarantee Google will render sitelinks
  * (those are entirely algorithmic), but it's the canonical structured-data
  * hint for what those sitelinks should be when it does.
@@ -164,7 +164,7 @@ export function profilePageJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "ProfilePage",
-    name: `${profile.name} — About`,
+    name: `${profile.name} - About`,
     url: `${siteUrl}/about`,
     inLanguage: "en",
     mainEntity: personObject(),
@@ -214,7 +214,7 @@ export function projectJsonLd(project: ProjectSeed) {
     "@context": "https://schema.org",
     "@type": "SoftwareSourceCode",
     name: project.name,
-    headline: `${project.name} — ${project.valueProp}`,
+    headline: `${project.name} - ${project.valueProp}`,
     description: project.description,
     url,
     codeRepository: project.repo,

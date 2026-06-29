@@ -24,12 +24,12 @@ const domainBlurbs: Record<string, string> = {
 
 const domainDirs = ["left", "up", "right"] as const;
 
-/** Working principles — the "how", told as three keynote beats. */
+/** Working principles - the "how", told as three keynote beats. */
 const principles: { k: string; title: string; body: string }[] = [
   {
     k: "End to end",
     title: "I own the whole loop.",
-    body: "From the data pipeline to the button people click — no hand-offs, no gaps. One mind across the stack.",
+    body: "From the data pipeline to the button people click - no hand-offs, no gaps. One mind across the stack.",
   },
   {
     k: "Calm under load",
@@ -44,7 +44,7 @@ const principles: { k: string; title: string; body: string }[] = [
 ];
 
 /**
- * A full-screen keynote interstitial — one big line, lots of space.
+ * A full-screen keynote interstitial - one big line, lots of space.
  * These are the connective beats that turn a list of sections into a
  * story: problem → system → shipped.
  */
@@ -85,11 +85,11 @@ export default function Home() {
     <>
       <Header />
 
-      {/* "The forge" — rising sparks + warm glow drift as you scroll. */}
+      {/* "The forge" - rising sparks + warm glow drift as you scroll. */}
       <StoryBackdrop variant="ember" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
-        {/* ════════════════ BEAT 01 — THE SPARK ════════════════ */}
+        {/* ════════════════ BEAT 01 - THE SPARK ════════════════ */}
         <section
           id="hero"
           className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6"
@@ -156,7 +156,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ════════════════ STATEMENT — THE PROBLEM ════════════════ */}
+        {/* ════════════════ STATEMENT - THE PROBLEM ════════════════ */}
         <Statement
           kicker="Every build starts the same way"
           sub="Not with a framework. Not with a buzzword. With a problem that's worth the work."
@@ -164,11 +164,11 @@ export default function Home() {
           It starts with a problem.
         </Statement>
 
-        {/* ════════════════ BEAT 01 — THE SYSTEM ════════════════ */}
+        {/* ════════════════ BEAT 01 - THE SYSTEM ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">01 — Then, a system</p>
+              <p className="label text-fg-muted">01 - Then, a system</p>
             </StoryItem>
             <h2 className="mt-6 font-display font-semibold leading-[1.05] tracking-[-0.03em] text-[clamp(2rem,6.5vw,5rem)]">
               <StoryItem from="left" distance={120}>
@@ -186,11 +186,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ════════════════ BEAT 02 — THE DISCIPLINES ════════════════ */}
+        {/* ════════════════ BEAT 02 - THE DISCIPLINES ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up">
-              <p className="label text-fg-muted">02 — Three disciplines</p>
+              <p className="label text-fg-muted">02 - Three disciplines</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -225,11 +225,11 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ════════════════ BEAT 03 — HOW I WORK ════════════════ */}
+        {/* ════════════════ BEAT 03 - HOW I WORK ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up">
-              <p className="label text-fg-muted">03 — Principles</p>
+              <p className="label text-fg-muted">03 - Principles</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -266,14 +266,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ════════════════ BEAT 04 — THE STACK ════════════════ */}
+        {/* ════════════════ BEAT 04 - THE STACK ════════════════ */}
         <section
           id="skills"
           className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6"
         >
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">04 — The stack</p>
+              <p className="label text-fg-muted">04 - The stack</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -284,7 +284,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ════════════════ STATEMENT — IT SHIPS ════════════════ */}
+        {/* ════════════════ STATEMENT - IT SHIPS ════════════════ */}
         <Statement
           kicker="A system is just a promise"
           sub="Until it's in production, handling real users, on a real Tuesday. So here's what actually shipped."
@@ -292,14 +292,14 @@ export default function Home() {
           Then it ships.
         </Statement>
 
-        {/* ════════════════ BEAT 05 — THE WORK (pinned scroll-jack) ════════════════ */}
+        {/* ════════════════ BEAT 05 - THE WORK (pinned scroll-jack) ════════════════ */}
         <WorkRail projects={mains} />
 
-        {/* ════════════════ BEAT 06 — BY THE NUMBERS ════════════════ */}
+        {/* ════════════════ BEAT 06 - BY THE NUMBERS ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up">
-              <p className="label text-fg-muted">06 — By the numbers</p>
+              <p className="label text-fg-muted">06 - By the numbers</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -327,14 +327,14 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ════════════════ BEAT 07 — ALWAYS TRAINING ════════════════ */}
+        {/* ════════════════ BEAT 07 - ALWAYS TRAINING ════════════════ */}
         <section
           id="certifications"
           className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6"
         >
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">07 — Always sharpening</p>
+              <p className="label text-fg-muted">07 - Always sharpening</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -362,7 +362,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* ════════════════ BEAT 08 — THE WRITING ════════════════ */}
+        {/* ════════════════ BEAT 08 - THE WRITING ════════════════ */}
         {latest ? (
           <section
             id="writing"
@@ -370,7 +370,7 @@ export default function Home() {
           >
             <div className="mx-auto w-full max-w-5xl">
               <StoryItem from="up">
-                <p className="label text-fg-muted">08 — Thinking out loud</p>
+                <p className="label text-fg-muted">08 - Thinking out loud</p>
               </StoryItem>
               <StoryItem from="up" delay={0.06}>
                 <Link
@@ -407,13 +407,13 @@ export default function Home() {
           </section>
         ) : null}
 
-        {/* ════════════════ BEAT 09 — THE INVITATION (contact) ════════════════ */}
+        {/* ════════════════ BEAT 09 - THE INVITATION (contact) ════════════════ */}
         <section
           id="contact"
           className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6"
         >
           <StoryItem from="up">
-            <p className="label text-fg-muted">09 — The invitation</p>
+            <p className="label text-fg-muted">09 - The invitation</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
             <h2 className="silver mt-6 font-display font-semibold leading-[1.02] tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">

@@ -15,7 +15,7 @@ export interface Capability {
 export const capabilities: Capability[] = [
   {
     title: "AI & Machine Learning",
-    detail: "Intelligent systems that learn and adapt — from models to apps.",
+    detail: "Intelligent systems that learn and adapt - from models to apps.",
     tier: "core",
   },
   {

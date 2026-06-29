@@ -36,7 +36,7 @@ export async function sendChat(
 }
 
 /* ------------------------------------------------------------------ */
-/*  Knowledge-base admin (CRUD) — needs the admin token (x-admin-token) */
+/*  Knowledge-base admin (CRUD) - needs the admin token (x-admin-token) */
 /* ------------------------------------------------------------------ */
 
 export interface KbDoc {
@@ -61,7 +61,7 @@ async function adminRequest<T>(
     },
   });
   if (res.status === 401 || res.status === 503) {
-    throw new Error("Unauthorized — check the admin token.");
+    throw new Error("Unauthorized - check the admin token.");
   }
   if (!res.ok) throw new Error(`Request failed (${res.status})`);
   return res.json() as Promise<T>;

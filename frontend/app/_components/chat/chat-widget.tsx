@@ -103,7 +103,7 @@ export function ChatWidget() {
 
   return (
     <>
-      {/* launcher — the name "Max" at the bottom-right */}
+      {/* launcher - the name "Max" at the bottom-right */}
       <button
         type="button"
         onClick={() => setOpen(true)}
@@ -129,7 +129,7 @@ export function ChatWidget() {
         </span>
       </button>
 
-      {/* panel — grows out of the bottom-right corner toward the top-left */}
+      {/* panel - grows out of the bottom-right corner toward the top-left */}
       <div
         role="dialog"
         aria-label="Chat with Max"

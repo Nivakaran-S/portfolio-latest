@@ -61,7 +61,7 @@ export function Parallax({
 
   return (
     <Tag
-      // @ts-expect-error — ref union across motion tag variants
+      // @ts-expect-error - ref union across motion tag variants
       ref={ref}
       style={enabled ? { y } : undefined}
       className={className}

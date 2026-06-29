@@ -16,14 +16,14 @@ export const metadata: Metadata = {
     "Notes on AI, engineering, and the craft choices that make a product feel fast.",
   alternates: { canonical: "/blog" },
   openGraph: {
-    title: "Blog — Nivakaran S.",
+    title: "Blog - Nivakaran S.",
     description:
       "Notes on AI, engineering, and the craft choices that make a product feel fast.",
     url: "/blog",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blog — Nivakaran S.",
+    title: "Blog - Nivakaran S.",
     description:
       "Notes on AI, engineering, and the craft choices that make a product feel fast.",
   },
@@ -44,7 +44,7 @@ export default function BlogIndexPage() {
       />
       <Header />
 
-      {/* /blog backdrop: ruled-paper notebook with a soft wash — "the notebook". */}
+      {/* /blog backdrop: ruled-paper notebook with a soft wash - "the notebook". */}
       <StoryBackdrop variant="ink" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
@@ -61,7 +61,7 @@ export default function BlogIndexPage() {
             </StoryItem>
             <StoryItem from="up" delay={0.12}>
               <p className="mt-6 max-w-2xl text-fg-dim sm:text-lg">
-                The decisions behind the builds — short, opinionated posts on AI,
+                The decisions behind the builds - short, opinionated posts on AI,
                 engineering, and the craft choices most people skip.
               </p>
             </StoryItem>
@@ -72,7 +72,7 @@ export default function BlogIndexPage() {
         <div className="mx-auto w-full max-w-5xl px-5 pb-24 sm:px-6">
         {posts.length === 0 ? (
           <p className="text-fg-muted">
-            No posts yet — drop the first MDX file into{" "}
+            No posts yet - drop the first MDX file into{" "}
             <code className="rounded bg-elevated px-1.5 py-0.5 text-fg-dim">
               content/blog/
             </code>

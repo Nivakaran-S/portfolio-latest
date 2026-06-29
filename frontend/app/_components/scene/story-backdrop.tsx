@@ -47,11 +47,11 @@ interface StoryBackdropProps {
 /**
  * Per-page themed backdrop that matches each page's story. Fixed behind
  * the content (-z-10), pointer-transparent, scroll-reactive (layers drift
- * at different rates), CSS/SVG only — no WebGL, no video frames.
+ * at different rates), CSS/SVG only - no WebGL, no video frames.
  *
- *  - ember : home — a forge of rising sparks + warm glow ("the spark")
- *  - forge : work — glowing seams in cooling metal ("forged")
- *  - ink   : blog — ruled-paper notebook with a soft wash ("the notebook")
+ *  - ember : home - a forge of rising sparks + warm glow ("the spark")
+ *  - forge : work - glowing seams in cooling metal ("forged")
+ *  - ink   : blog - ruled-paper notebook with a soft wash ("the notebook")
  *
  * The face-rotation video stays exclusive to /about.
  * Reduced-motion / mobile drop the scroll parallax (CSS drift is killed

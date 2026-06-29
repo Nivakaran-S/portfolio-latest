@@ -1,7 +1,7 @@
 export type CertCategory = "AI / ML" | "Data" | "Software" | "Design";
 
 export interface Certification {
-  /** Stable id — also the image filename under /public/certifications. */
+  /** Stable id - also the image filename under /public/certifications. */
   slug: string;
   /** Short, on-brand name (used by the homepage cards). */
   label: string;
@@ -133,7 +133,7 @@ export const certifications: Certification[] = [
   {
     slug: "react-native",
     label: "React Native",
-    title: "React Native — The Practical Guide [2024]",
+    title: "React Native - The Practical Guide [2024]",
     detail: "Cross-platform mobile apps",
     issuer: "Udemy",
     date: "Jun 2024",
@@ -172,7 +172,7 @@ export const certCategories: CertCategory[] = [
 ];
 
 /**
- * On-brand subset for the homepage — AI/ML + Data only — so the landing
+ * On-brand subset for the homepage - AI/ML + Data only - so the landing
  * page keeps the sharp "AI & Software Engineer" positioning. The full set
  * (incl. Software & Design) lives on /about.
  */

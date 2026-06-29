@@ -6,7 +6,7 @@ tags: ["ai", "rag", "engineering"]
 ---
 
 Most RAG tutorials still assume a paid LLM and a paid embedding API in the
-loop. That's fine for a demo. It's a poor default for the rest of us —
+loop. That's fine for a demo. It's a poor default for the rest of us -
 hobbyists, students, anyone hosting on their own machine, and any team that
 doesn't want their documents leaving their network.
 
@@ -25,7 +25,7 @@ docs → chunker → embeddings (HF, local) → vector store
                                             grounded answer + citations
 ```
 
-Every component is a seam — you can swap the embedding model, the vector
+Every component is a seam - you can swap the embedding model, the vector
 store, the reranker, or the LLM without touching the rest. That's the
 point. Most "RAG frameworks" hide these seams behind a one-line API; I
 wanted them exposed.

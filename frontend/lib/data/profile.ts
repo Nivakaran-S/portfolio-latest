@@ -30,21 +30,21 @@ export const profile: Profile = {
   shortName: "Nivakaran",
   title: "AI & Software Engineer",
   domains: ["AI / ML", "Software Engineering", "Data Engineering"],
-  tagline: "I build intelligent, data-driven systems — end to end.",
+  tagline: "I build intelligent, data-driven systems - end to end.",
   creed: "Forged under pressure. Engineered with discipline.",
   mission:
-    "Building intelligent, data-driven systems end to end — from data pipelines and ML models to the products people use.",
+    "Building intelligent, data-driven systems end to end - from data pipelines and ML models to the products people use.",
   about: [
-    "I'm Nivakaran — an AI and software engineer who builds data-driven systems end to end, from data pipelines and ML models to the product people actually click. I work across AI/ML, software engineering, and data engineering.",
-    "Along the way I've worked across healthcare — as a medical scribe for US cardiologists, then in revenue-cycle operations, and now building for a healthcare platform. That taught me precision and calm under load, habits I bring to systems that have to work.",
+    "I'm Nivakaran - an AI and software engineer who builds data-driven systems end to end, from data pipelines and ML models to the product people actually click. I work across AI/ML, software engineering, and data engineering.",
+    "Along the way I've worked across healthcare - as a medical scribe for US cardiologists, then in revenue-cycle operations, and now building for a healthcare platform. That taught me precision and calm under load, habits I bring to systems that have to work.",
   ],
   location: "Colombo, Sri Lanka",
   email: "nivakaran@hotmail.com",
   education: {
-    institution: "SLIIT — Sri Lanka Institute of Information Technology",
+    institution: "SLIIT - Sri Lanka Institute of Information Technology",
     degree: "B.Sc (Hons) Information Technology",
     specialization: "Software Engineering",
-    period: "2021 — 2025",
+    period: "2021 - 2025",
   },
   socials: [
     {

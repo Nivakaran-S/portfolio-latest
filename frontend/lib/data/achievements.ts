@@ -36,7 +36,7 @@ export const achievements: Achievement[] = [
     year: "2025",
     org: "IEEE Computer Society, SLIIT",
     detail:
-      "24-hour hackathon — 6th on the live leaderboard, top five teams tied on score.",
+      "24-hour hackathon - 6th on the live leaderboard, top five teams tied on score.",
   },
   {
     title: "CodeFest Algothon",
@@ -44,13 +44,13 @@ export const achievements: Achievement[] = [
     year: "2025",
     org: "Faculty of Computing, SLIIT",
     detail:
-      "National algorithmic contest — 11th of ~170 teams across a quiz and a logistics shortest-path round.",
+      "National algorithmic contest - 11th of ~170 teams across a quiz and a logistics shortest-path round.",
   },
   {
     title: "CodeSprint 11",
     result: "Competing now",
     year: "2026",
     org: "IEEE Student Branch, IIT",
-    detail: "Inter-university startup battle — in progress.",
+    detail: "Inter-university startup battle - in progress.",
   },
 ];

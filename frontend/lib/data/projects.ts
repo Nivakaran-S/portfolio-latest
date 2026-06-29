@@ -47,7 +47,7 @@ export const projects: Project[] = [
     name: "FreeRAG",
     valueProp: "Open RAG, no API tax.",
     description:
-      "A retrieval-augmented generation system built to run without paid inference APIs — local embeddings, vector retrieval, and grounded responses over your own documents.",
+      "A retrieval-augmented generation system built to run without paid inference APIs - local embeddings, vector retrieval, and grounded responses over your own documents.",
     category: "Data Science",
     tier: "main",
     stack: ["Python", "LangChain", "Hugging Face", "FastAPI"],
@@ -66,7 +66,7 @@ export const projects: Project[] = [
     name: "Sparrow",
     valueProp: "Intelligent parcel management with ML pipelines.",
     description:
-      "End-to-end parcel management platform with machine-learning prediction pipelines (Random Forest, XGBoost) for delivery estimation and routing — a full ML lifecycle from data to product.",
+      "End-to-end parcel management platform with machine-learning prediction pipelines (Random Forest, XGBoost) for delivery estimation and routing - a full ML lifecycle from data to product.",
     category: "Data Science",
     tier: "main",
     stack: ["Python", "scikit-learn", "XGBoost", "Next.js"],
@@ -105,7 +105,7 @@ export const projects: Project[] = [
     name: "MedSync",
     valueProp: "Healthcare coordination, synced.",
     description:
-      "A healthcare coordination platform streamlining clinical workflows and patient data — informed by hands-on experience in medical documentation.",
+      "A healthcare coordination platform streamlining clinical workflows and patient data - informed by hands-on experience in medical documentation.",
     category: "Software Engineering",
     tier: "main",
     stack: ["TypeScript", "Next.js", "Node.js"],
@@ -190,7 +190,7 @@ export const projects: Project[] = [
     repo: "https://github.com/Nivakaran-S?tab=repositories",
     detail: {
       problem:
-        "Understanding CNNs end to end means building, training, and serving one — not just calling a pretrained API.",
+        "Understanding CNNs end to end means building, training, and serving one - not just calling a pretrained API.",
       approach:
         "Implemented and trained a custom CNN in PyTorch for cat/dog/person classification, then wrapped it in a Gradio demo.",
       outcome:
@@ -239,7 +239,7 @@ export const projects: Project[] = [
     name: "codebug",
     valueProp: "A debugging sidekick for the editor.",
     description:
-      "A small developer-tool experiment — TypeScript, web-deployed.",
+      "A small developer-tool experiment - TypeScript, web-deployed.",
     category: "Software Engineering",
     tier: "mini",
     stack: ["TypeScript", "Next.js"],
@@ -262,7 +262,7 @@ export const projects: Project[] = [
     name: "POS",
     valueProp: "Point-of-sale coursework system.",
     description:
-      "A point-of-sale system built in C# — desktop UI + persistence.",
+      "A point-of-sale system built in C# - desktop UI + persistence.",
     category: "Software Engineering",
     tier: "mini",
     stack: ["C#", ".NET"],
@@ -284,7 +284,7 @@ export const projects: Project[] = [
     name: "Task-Manager",
     valueProp: "Lightweight task tracker.",
     description:
-      "A small task-manager app — clean UI experiments in SCSS.",
+      "A small task-manager app - clean UI experiments in SCSS.",
     category: "Software Engineering",
     tier: "mini",
     stack: ["SCSS", "JavaScript"],

@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 
 /**
- * A tech-stack logo rendered as a CSS mask over a solid fill — so the same
+ * A tech-stack logo rendered as a CSS mask over a solid fill - so the same
  * SVG is a uniform muted silver by default and tints to its brand colour
  * when the surrounding `.group` pill is hovered/focused. Pure CSS (no JS),
  * so it works inside a server component. The pill must carry the `group`

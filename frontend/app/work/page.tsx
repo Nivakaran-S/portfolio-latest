@@ -14,14 +14,14 @@ export const metadata: Metadata = {
     "Selected and catalog projects across Software Engineering, Data Science, Computer Vision, Data Engineering, and Data Analysis.",
   alternates: { canonical: "/work" },
   openGraph: {
-    title: "Work — Nivakaran S.",
+    title: "Work - Nivakaran S.",
     description:
       "Selected and catalog projects across Software Engineering, Data Science, Computer Vision, Data Engineering, and Data Analysis.",
     url: "/work",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Work — Nivakaran S.",
+    title: "Work - Nivakaran S.",
     description:
       "Selected and catalog projects across Software Engineering, Data Science, Computer Vision, Data Engineering, and Data Analysis.",
   },
@@ -40,7 +40,7 @@ export default function WorkIndexPage() {
       />
       <Header />
 
-      {/* /work backdrop: glowing seams in cooling metal — "forged". */}
+      {/* /work backdrop: glowing seams in cooling metal - "forged". */}
       <StoryBackdrop variant="forge" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">

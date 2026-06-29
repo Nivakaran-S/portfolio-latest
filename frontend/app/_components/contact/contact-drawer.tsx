@@ -12,7 +12,7 @@ import {
 import { profile } from "@/lib/data/profile";
 
 /* ------------------------------------------------------------------ */
-/*  Context — lets any button anywhere open the panel without a route  */
+/*  Context - lets any button anywhere open the panel without a route  */
 /*  change. Mounted once in the layout via <ContactDrawerProvider>.    */
 /* ------------------------------------------------------------------ */
 
@@ -52,7 +52,7 @@ export function ContactDrawerProvider({ children }: { children: ReactNode }) {
 }
 
 /* ------------------------------------------------------------------ */
-/*  The panel itself — slides in from the right, dim backdrop behind.  */
+/*  The panel itself - slides in from the right, dim backdrop behind.  */
 /*  Always in the DOM (translate-x toggles); `inert` keeps it out of   */
 /*  the tab order while closed.                                        */
 /* ------------------------------------------------------------------ */
@@ -94,7 +94,7 @@ function ContactDrawer({
       setCopied(true);
       window.setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Clipboard blocked (insecure context / permissions) — mailto still works.
+      // Clipboard blocked (insecure context / permissions) - mailto still works.
     }
   }, []);
 
@@ -176,12 +176,12 @@ function ContactDrawer({
               Let&apos;s talk.
             </h2>
             <p className="mt-4 text-fg-muted">
-              Got a problem worth solving — a role, a build, or just an idea?
+              Got a problem worth solving - a role, a build, or just an idea?
               Send it over. I read everything and usually reply within a day.
             </p>
           </div>
 
-          {/* email — primary action */}
+          {/* email - primary action */}
           <div className="rounded-2xl border border-line bg-raised/70 p-5">
             <p className="label text-fg-muted">Email</p>
             <p className="mt-2 break-all font-display text-lg font-medium text-fg">

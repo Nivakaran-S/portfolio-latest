@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/*  Nivakaran Portfolio — "BENTO"                                       */
+/*  Nivakaran Portfolio - "BENTO"                                       */
 /*  Style: Bento Box Grid + Dark OLED                                   */
 /*  Palette: zinc dark + warm amber accent (#f59e0b)                    */
 /*  Modular cards, varied spans, rounded-2xl, hover scale 1.02.         */
@@ -9,7 +9,7 @@
 /* ------------------------------------------------------------------ */
 
 @theme {
-  /* Surface depth — zinc, slightly warm */
+  /* Surface depth - zinc, slightly warm */
   --color-void: #0a0a0c; /* page base */
   --color-base: #0e0e11; /* below cards */
   --color-raised: #18181b; /* card bg */
@@ -23,18 +23,18 @@
   --color-neon-magenta: #ef4444; /* rare warm */
   --color-neon-lime: #34d399; /* "available" indicator */
 
-  /* Text tiers — all >= AA on --color-raised (#18181b) */
+  /* Text tiers - all >= AA on --color-raised (#18181b) */
   --color-fg: #fafafa;
   --color-fg-dim: #d4d4d8;
   --color-fg-muted: #a1a1aa;
   --color-fg-disabled: #52525b;
 
-  /* Fonts — Inter precision system + mono for labels */
+  /* Fonts - Inter precision system + mono for labels */
   --font-sans: var(--font-inter);
   --font-display: var(--font-inter);
   --font-mono: var(--font-geist-mono);
 
-  /* Motion language (150–300ms; ease-out enter / ease-in exit) */
+  /* Motion language (150-300ms; ease-out enter / ease-in exit) */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
@@ -56,7 +56,7 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  /* NOTE: do NOT set overflow-x: hidden here — it implicitly switches
+  /* NOTE: do NOT set overflow-x: hidden here - it implicitly switches
      overflow-y to `auto`, making <html> a scrolling container. That
      breaks `position: sticky` (WorkRail's pinned scroll-jack on /) and
      motion's useScroll() readings. The /about overflow fix lives at
@@ -120,7 +120,7 @@ summary {
 /*  Bento utilities                                                    */
 /* ------------------------------------------------------------------ */
 
-/* Card surface — the workhorse of the layout */
+/* Card surface - the workhorse of the layout */
 @utility bento {
   background: var(--color-raised);
   border: 1px solid var(--color-line);
@@ -153,7 +153,7 @@ summary {
   );
 }
 
-/* Heading sheen — soft, monochrome */
+/* Heading sheen - soft, monochrome */
 @utility silver {
   background: linear-gradient(
     180deg,
@@ -170,7 +170,7 @@ summary {
   text-shadow: 0 0 12px color-mix(in srgb, var(--color-neon-cyan) 50%, transparent);
 }
 
-/* Kept names — quiet engraved depth (no neon) */
+/* Kept names - quiet engraved depth (no neon) */
 @utility text-glow {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
 }

@@ -21,20 +21,20 @@ import { profilePageJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Nivakaran S. — full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
+    "About Nivakaran S. - full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
   alternates: { canonical: "/about" },
   openGraph: {
-    title: "About — Nivakaran S.",
+    title: "About - Nivakaran S.",
     description:
-      "About Nivakaran S. — full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
+      "About Nivakaran S. - full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
     url: "/about",
     type: "profile",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About — Nivakaran S.",
+    title: "About - Nivakaran S.",
     description:
-      "About Nivakaran S. — full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
+      "About Nivakaran S. - full-stack engineer working at the intersection of AI/ML, software engineering, and data.",
   },
 };
 
@@ -127,11 +127,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ════════════ WHERE IT STARTED — WHO I AM ════════════ */}
+        {/* ════════════ WHERE IT STARTED - WHO I AM ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">01 — Where it started</p>
+              <p className="label text-fg-muted">01 - Where it started</p>
             </StoryItem>
             <div className="mt-8 space-y-7">
               {profile.about.map((para, i) => (
@@ -149,7 +149,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 text-center sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="fade">
-              <p className="label text-fg-muted">02 — What shaped me</p>
+              <p className="label text-fg-muted">02 - What shaped me</p>
             </StoryItem>
             <StoryItem from="zoom-in" delay={0.05}>
               <p className="silver mx-auto mt-8 max-w-3xl font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.02em] [text-wrap:balance]">
@@ -159,18 +159,18 @@ export default function AboutPage() {
             <StoryItem from="up" delay={0.14}>
               <p className="mx-auto mt-8 max-w-2xl leading-relaxed text-fg-muted sm:text-lg">
                 Real-time clinical documentation for US cardiologists taught me
-                precision and calm under load — habits I bring to systems that
+                precision and calm under load - habits I bring to systems that
                 have to work.
               </p>
             </StoryItem>
           </div>
         </section>
 
-        {/* ════════════ THE PATH — EXPERIENCE + EDUCATION ════════════ */}
+        {/* ════════════ THE PATH - EXPERIENCE + EDUCATION ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">03 — The path</p>
+              <p className="label text-fg-muted">03 - The path</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -184,11 +184,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ════════════ PROVING GROUND — COMPETITIONS ════════════ */}
+        {/* ════════════ PROVING GROUND - COMPETITIONS ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">04 — Proving ground</p>
+              <p className="label text-fg-muted">04 - Proving ground</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -233,7 +233,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">05 — Always sharpening</p>
+              <p className="label text-fg-muted">05 - Always sharpening</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -242,7 +242,7 @@ export default function AboutPage() {
             </StoryItem>
             <StoryItem from="up" delay={0.1}>
               <p className="mt-5 max-w-xl text-fg-muted">
-                Continuous training across the AI, data, and software stack —
+                Continuous training across the AI, data, and software stack -
                 hover any card to see the certificate.
               </p>
             </StoryItem>
@@ -256,7 +256,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">06 — In the arena</p>
+              <p className="label text-fg-muted">06 - In the arena</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -302,11 +302,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ════════════ WHAT I CAN DO — CAPABILITIES ════════════ */}
+        {/* ════════════ WHAT I CAN DO - CAPABILITIES ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">07 — What I can do</p>
+              <p className="label text-fg-muted">07 - What I can do</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -353,11 +353,11 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ════════════ THE TOOLKIT — TECH STACK ════════════ */}
+        {/* ════════════ THE TOOLKIT - TECH STACK ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">08 — The toolkit</p>
+              <p className="label text-fg-muted">08 - The toolkit</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -367,18 +367,18 @@ export default function AboutPage() {
             <StoryItem from="up" delay={0.1}>
               <p className="mt-5 max-w-xl text-fg-muted">
                 A connected stack across AI/ML, software, data, and the ops that
-                ship it — hover any logo to bring it to life.
+                ship it - hover any logo to bring it to life.
               </p>
             </StoryItem>
             <StackGrid />
           </div>
         </section>
 
-        {/* ════════════ BY THE NUMBERS — STATS ════════════ */}
+        {/* ════════════ BY THE NUMBERS - STATS ════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">09 — By the numbers</p>
+              <p className="label text-fg-muted">09 - By the numbers</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -406,10 +406,10 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ════════════ WHAT'S NEXT — CONTACT ════════════ */}
+        {/* ════════════ WHAT'S NEXT - CONTACT ════════════ */}
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
-            <p className="label text-fg-muted">10 — What&apos;s next</p>
+            <p className="label text-fg-muted">10 - What&apos;s next</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
             <h2 className="silver mt-6 font-display font-semibold leading-[1.02] tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">

@@ -4,7 +4,7 @@ import { SectionShell } from "@/app/_components/ui/section-shell";
 import { ProjectGrid } from "@/app/_components/work/project-grid";
 
 /**
- * Home teaser — top 3 main projects + a link to the full /work index.
+ * Home teaser - top 3 main projects + a link to the full /work index.
  * The filterable grid lives on /work; this section is intentionally
  * light to keep the home a visuals-first bento overview.
  */
@@ -18,7 +18,7 @@ export function Projects() {
       title="Things I've shipped."
     >
       <p className="mb-8 max-w-xl text-fg-muted">
-        Three of the catalog — a slice of what I&apos;ve built across AI/ML,
+        Three of the catalog - a slice of what I&apos;ve built across AI/ML,
         full-stack, and data.
       </p>
 

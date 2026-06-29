@@ -43,7 +43,7 @@ function CertCard({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={cert.image}
-          alt={`${cert.title} — ${cert.issuer} certificate`}
+          alt={`${cert.title} - ${cert.issuer} certificate`}
           loading="lazy"
           decoding="async"
           onError={() => setErrored(true)}
@@ -51,7 +51,7 @@ function CertCard({
         />
       )}
 
-      {/* Info bar — slides down out of frame on hover to reveal the cert. */}
+      {/* Info bar - slides down out of frame on hover to reveal the cert. */}
       <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 bg-gradient-to-t from-void via-void/85 to-transparent p-4 pt-10 transition-transform duration-500 ease-out group-hover:translate-y-full group-focus-visible:translate-y-full motion-reduce:transform-none">
         <div className="min-w-0">
           <h3 className="truncate font-display text-sm font-semibold text-fg">
@@ -131,7 +131,7 @@ function Lightbox({
           // eslint-disable-next-line @next/next/no-img-element
           <img
             src={cert.image}
-            alt={`${cert.title} — ${cert.issuer} certificate`}
+            alt={`${cert.title} - ${cert.issuer} certificate`}
             onError={() => setErrored(true)}
             className="block max-h-[80svh] w-full object-contain"
           />
@@ -171,7 +171,7 @@ function Lightbox({
 }
 
 /**
- * Certifications gallery for /about — all credentials grouped by category,
+ * Certifications gallery for /about - all credentials grouped by category,
  * each tile revealing its certificate on hover and zooming in a lightbox on
  * click. Owns the lightbox state so the page can stay a server component.
  */

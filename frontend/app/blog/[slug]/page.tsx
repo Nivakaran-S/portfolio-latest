@@ -41,7 +41,7 @@ export async function generateMetadata({
 }
 
 /**
- * Tailwind-styled MDX element map — no separate prose stylesheet needed.
+ * Tailwind-styled MDX element map - no separate prose stylesheet needed.
  * Inline-code is amber-tinted; fenced code is a zinc card; blockquote
  * gets the accent border.
  */
@@ -152,7 +152,7 @@ export default async function BlogPostPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsJsonLd) }}
       />
 
-      {/* Post backdrop: ruled-paper notebook with a soft wash — "the notebook". */}
+      {/* Post backdrop: ruled-paper notebook with a soft wash - "the notebook". */}
       <StoryBackdrop variant="ink" />
 
       <header className="fixed inset-x-0 top-0 z-50 glass py-4">
@@ -204,7 +204,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           </div>
         </section>
 
-        {/* ════════════ READING BODY (calm — no scroll-jack) ════════════ */}
+        {/* ════════════ READING BODY (calm - no scroll-jack) ════════════ */}
         <div className="mx-auto w-full max-w-3xl px-5 pb-24 sm:px-6">
           <article className="rounded-3xl border border-line bg-raised/70 p-6 backdrop-blur-sm sm:p-10">
             <MDXRemote source={post.content} components={mdxComponents} />

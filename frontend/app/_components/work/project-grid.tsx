@@ -9,7 +9,7 @@ import { Parallax } from "@/app/_components/ui/parallax";
 interface ProjectGridProps {
   /** Already-filtered list. Filtering is owned by the parent. */
   projects: Project[];
-  /** Compact tiles — denser; for the home teaser and the Mini grid. */
+  /** Compact tiles - denser; for the home teaser and the Mini grid. */
   compact?: boolean;
   /** Cap visible items. */
   limit?: number;
@@ -18,7 +18,7 @@ interface ProjectGridProps {
 /**
  * Pure presentation. The parent decides what to render (which tier,
  * which category, how many). Used by the home teaser and the /work
- * catalog (twice — once for Main, once for Mini).
+ * catalog (twice - once for Main, once for Mini).
  */
 export function ProjectGrid({
   projects,
@@ -30,7 +30,7 @@ export function ProjectGrid({
 
   if (shown.length === 0) {
     return (
-      <p className="text-fg-muted">Nothing here yet — coming soon.</p>
+      <p className="text-fg-muted">Nothing here yet - coming soon.</p>
     );
   }
 

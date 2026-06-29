@@ -8,7 +8,7 @@ import { profile } from "@/lib/data/profile";
 import { ContactButton } from "@/app/_components/contact/contact-button";
 
 function isActive(pathname: string, href: string): boolean {
-  // route links like "/work" or "/blog" — match the route prefix.
+  // route links like "/work" or "/blog" - match the route prefix.
   if (href.startsWith("/#")) return false; // anchors don't get active state
   if (href === "/") return pathname === "/";
   return pathname === href || pathname.startsWith(`${href}/`);

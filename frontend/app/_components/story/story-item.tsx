@@ -17,7 +17,7 @@ interface StoryItemProps {
   from?: From;
   /** Travel distance in px (or zoom delta basis). */
   distance?: number;
-  /** Shifts when the entrance starts within the element's scroll pass (0–0.5). */
+  /** Shifts when the entrance starts within the element's scroll pass (0-0.5). */
   delay?: number;
   className?: string;
 }

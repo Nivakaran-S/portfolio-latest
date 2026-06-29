@@ -7,7 +7,7 @@ export type SkillCategory =
 export interface Skill {
   name: string;
   category: SkillCategory;
-  /** Relative emphasis 1–3 — drives slight weight in the chip list. */
+  /** Relative emphasis 1-3 - drives slight weight in the chip list. */
   weight: 1 | 2 | 3;
   /** Logo filename (slug) under /public/logos/<icon>.svg. Omitted for
    *  concepts/tools that have no brand mark (e.g. CNNs, AWS, GitOps). */
@@ -104,7 +104,7 @@ export const skills: Skill[] = [
   { name: "DagsHub", category: "DevOps / MLOps & Cloud", weight: 1 },
 ];
 
-/** Conceptual relationships across the stack — decorative metadata. */
+/** Conceptual relationships across the stack - decorative metadata. */
 export const skillEdges: SkillEdge[] = [
   { from: "Python", to: "PyTorch" },
   { from: "Python", to: "TensorFlow" },

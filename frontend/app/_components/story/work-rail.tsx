@@ -92,7 +92,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
   if (reduced || mobile) {
     return (
       <section id="work" className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-6">
-        <p className="label">05 — The work</p>
+        <p className="label">05 - The work</p>
         <h2 className="silver mt-3 font-display text-[clamp(2rem,6vw,4rem)] font-semibold tracking-tight">
           Eight, end to end.
         </h2>
@@ -122,7 +122,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
     >
       <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
         <div className="mx-auto mb-10 w-full max-w-6xl px-5 sm:px-6">
-          <p className="label">05 — The work</p>
+          <p className="label">05 - The work</p>
           <h2 className="silver mt-3 font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold tracking-tight">
             Eight, end to end.
           </h2>

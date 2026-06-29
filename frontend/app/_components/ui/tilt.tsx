@@ -12,7 +12,7 @@ import { useIsMobile } from "@/lib/hooks/use-is-mobile";
 
 /**
  * Pointer-reactive 3D tilt for cards. The element leans toward the
- * cursor with a damped spring and a faint lift — real CSS perspective,
+ * cursor with a damped spring and a faint lift - real CSS perspective,
  * no library scene. Inert for reduced-motion / touch.
  */
 export function Tilt({

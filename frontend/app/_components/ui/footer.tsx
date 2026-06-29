@@ -9,7 +9,7 @@ export function Footer() {
 
   return (
     <footer className="relative overflow-hidden border-t border-line/60 bg-base/40">
-      {/* giant faded wordmark — the closing flourish, clipped at the edge */}
+      {/* giant faded wordmark - the closing flourish, clipped at the edge */}
       <p
         aria-hidden="true"
         className="silver pointer-events-none absolute -bottom-[0.16em] left-1/2 w-max -translate-x-1/2 select-none whitespace-nowrap font-display text-[clamp(4rem,17vw,14rem)] font-bold leading-none tracking-tighter opacity-[0.05]"
@@ -33,7 +33,7 @@ export function Footer() {
             </p>
             <ContactButton className="group mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm text-fg-dim transition-colors duration-200 hover:border-neon-cyan/40 hover:text-fg">
               <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-neon-lime" />
-              Open to work — let&apos;s talk
+              Open to work - let&apos;s talk
               <span className="transition-transform duration-200 group-hover:translate-x-0.5">
                 →
               </span>

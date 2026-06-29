@@ -11,7 +11,7 @@ interface TypedLineProps {
 }
 
 /**
- * One-shot typewriter — types `text` in once on mount, then the cursor
+ * One-shot typewriter - types `text` in once on mount, then the cursor
  * stops. No looping (a looping eyebrow distracts). The full text is always
  * present for screen readers / no-JS; the animated copy is aria-hidden.
  * Reduced-motion users get the full line immediately.

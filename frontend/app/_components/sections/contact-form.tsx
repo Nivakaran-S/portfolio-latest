@@ -5,7 +5,7 @@ import { profile } from "@/lib/data/profile";
 
 /**
  * v1 contact: a real, accessible form that composes a prefilled mailto
- * on submit — zero backend, zero secrets. A Server Action + Resend
+ * on submit - zero backend, zero secrets. A Server Action + Resend
  * upgrade is documented for later (needs an API key in Vercel env).
  */
 export function ContactForm() {
@@ -16,9 +16,9 @@ export function ContactForm() {
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    const subject = encodeURIComponent(`Portfolio enquiry — ${name || "hello"}`);
+    const subject = encodeURIComponent(`Portfolio enquiry - ${name || "hello"}`);
     const body = encodeURIComponent(
-      `${message}\n\n— ${name}${email ? ` (${email})` : ""}`
+      `${message}\n\n- ${name}${email ? ` (${email})` : ""}`
     );
     window.location.href = `mailto:${profile.email}?subject=${subject}&body=${body}`;
     setSent(true);
@@ -76,7 +76,7 @@ export function ContactForm() {
       </button>
       {sent ? (
         <p role="status" className="label text-neon-lime">
-          Signal sent — finish in your mail app.
+          Signal sent - finish in your mail app.
         </p>
       ) : null}
     </form>

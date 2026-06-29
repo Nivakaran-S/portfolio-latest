@@ -5,7 +5,7 @@ export interface SectionMeta {
 }
 
 /**
- * On-home anchor map — used by anything that scrolls within the home
+ * On-home anchor map - used by anything that scrolls within the home
  * page (Hero CTAs, internal links). Order matches `app/page.tsx`.
  */
 export const homeSections: SectionMeta[] = [
@@ -18,7 +18,7 @@ export const homeSections: SectionMeta[] = [
   { id: "contact", label: "Contact", index: "07" },
 ];
 
-/** Back-compat alias — older imports still use `sections`. */
+/** Back-compat alias - older imports still use `sections`. */
 export const sections = homeSections;
 
 export interface RouteLink {

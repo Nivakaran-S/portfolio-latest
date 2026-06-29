@@ -18,7 +18,7 @@ export function Hero() {
     >
       <div className="grid grid-cols-1 gap-4 md:grid-cols-12 md:gap-5">
         {/* ============================ HERO TILE ============================ */}
-        {/* The anchor — drifts least. Translucent so the backdrop bleeds through. */}
+        {/* The anchor - drifts least. Translucent so the backdrop bleeds through. */}
         <Parallax
           distance={18}
           className="h-full md:col-span-8 md:row-span-2"
@@ -112,7 +112,7 @@ export function Hero() {
                   </p>
                 </div>
                 <p className="text-sm text-fg-dim">
-                  B.Sc (Hons) IT @ SLIIT — final year, Software Engineering.
+                  B.Sc (Hons) IT @ SLIIT - final year, Software Engineering.
                 </p>
               </article>
             </Tilt>
@@ -136,7 +136,7 @@ export function Hero() {
                   ))}
                 </ul>
                 <p className="mt-4 text-sm text-fg-muted">
-                  I build end to end — pipelines, models, and the products
+                  I build end to end - pipelines, models, and the products
                   people actually click.
                 </p>
               </article>

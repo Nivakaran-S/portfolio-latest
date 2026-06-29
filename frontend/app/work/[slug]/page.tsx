@@ -24,18 +24,18 @@ export async function generateMetadata({
   const project = getProject(slug);
   if (!project) return { title: "Work not found" };
   return {
-    title: `${project.name} — ${project.valueProp}`,
+    title: `${project.name} - ${project.valueProp}`,
     description: project.description,
     alternates: { canonical: `/work/${project.slug}` },
     openGraph: {
-      title: `${project.name} — ${project.valueProp}`,
+      title: `${project.name} - ${project.valueProp}`,
       description: project.description,
       url: `/work/${project.slug}`,
       type: "article",
     },
     twitter: {
       card: "summary_large_image",
-      title: `${project.name} — ${project.valueProp}`,
+      title: `${project.name} - ${project.valueProp}`,
       description: project.description,
     },
   };
@@ -86,7 +86,7 @@ export default async function WorkPage({ params }: PageProps) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
       />
 
-      {/* Case-study backdrop: glowing seams in cooling metal — "forged". */}
+      {/* Case-study backdrop: glowing seams in cooling metal - "forged". */}
       <StoryBackdrop variant="forge" />
 
       <header className="fixed inset-x-0 top-0 z-50 glass py-4">
@@ -159,7 +159,7 @@ export default async function WorkPage({ params }: PageProps) {
             <div className="mx-auto w-full max-w-4xl">
               <StoryItem from="left">
                 <p className="label text-fg-muted">
-                  {b.n} — {b.label}
+                  {b.n} - {b.label}
                 </p>
               </StoryItem>
               <StoryItem from="up" delay={0.06} distance={70}>
