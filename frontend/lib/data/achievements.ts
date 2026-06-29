@@ -48,9 +48,16 @@ export const achievements: Achievement[] = [
   },
   {
     title: "CodeSprint 11",
-    result: "Competing now",
+    result: "Semi-finalist",
     year: "2026",
     org: "IEEE Student Branch, IIT",
-    detail: "Inter-university startup battle - in progress.",
+    detail: "Inter-university startup battle - reached the semi-finals.",
+  },
+  {
+    title: "Agentrix 2026",
+    result: "Competing now",
+    year: "2026",
+    org: "University of Ruhuna",
+    detail: "Inter-university competition - currently underway.",
   },
 ];

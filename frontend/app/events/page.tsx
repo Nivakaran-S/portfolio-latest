@@ -131,29 +131,43 @@ export default function EventsPage() {
                   delay={Math.min(0.3, i * 0.05)}
                   className="h-full"
                 >
-                  <article className="flex h-full flex-col gap-4 rounded-2xl border border-line bg-raised/70 p-6 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30">
-                    <div className="flex items-center justify-between gap-3">
-                      <span className="label rounded-full border border-neon-cyan/30 px-3 py-1 text-neon-cyan">
-                        {ev.role}
-                      </span>
-                      <span className="label text-fg-muted">{ev.date}</span>
-                    </div>
-                    <div>
-                      <h3 className="font-display text-xl font-semibold text-fg">
-                        {ev.title}
-                      </h3>
-                      <p className="mt-1 text-sm text-neon-cyan/80">
-                        {ev.location}
-                      </p>
-                    </div>
-                    <p className="text-sm leading-relaxed text-fg-muted">
-                      {ev.detail}
-                    </p>
-                    {ev.team ? (
-                      <p className="mt-auto text-xs text-fg-muted">
-                        With {ev.team.join(" · ")}
-                      </p>
+                  <article className="group/ev flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-raised/70 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30">
+                    {ev.image ? (
+                      <div className="relative aspect-[16/10] w-full overflow-hidden border-b border-line bg-void">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={ev.image}
+                          alt={`${ev.title} - event`}
+                          loading="lazy"
+                          decoding="async"
+                          className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover/ev:scale-105 motion-reduce:transform-none"
+                        />
+                      </div>
                     ) : null}
+                    <div className="flex flex-1 flex-col gap-4 p-6">
+                      <div className="flex items-center justify-between gap-3">
+                        <span className="label rounded-full border border-neon-cyan/30 px-3 py-1 text-neon-cyan">
+                          {ev.role}
+                        </span>
+                        <span className="label text-fg-muted">{ev.date}</span>
+                      </div>
+                      <div>
+                        <h3 className="font-display text-xl font-semibold text-fg">
+                          {ev.title}
+                        </h3>
+                        <p className="mt-1 text-sm text-neon-cyan/80">
+                          {ev.location}
+                        </p>
+                      </div>
+                      <p className="text-sm leading-relaxed text-fg-muted">
+                        {ev.detail}
+                      </p>
+                      {ev.team ? (
+                        <p className="mt-auto text-xs text-fg-muted">
+                          With {ev.team.join(" · ")}
+                        </p>
+                      ) : null}
+                    </div>
                   </article>
                 </StoryItem>
               ))}

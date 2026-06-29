@@ -47,8 +47,8 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-        scrolled || menuOpen ? "glass py-3" : "bg-transparent py-5"
+      className={`glass fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+        scrolled || menuOpen ? "py-3" : "py-4"
       }`}
     >
       <nav
@@ -92,8 +92,8 @@ export function Header() {
           })}
         </ul>
 
-        <ContactButton className="label hidden rounded-full border border-white/15 px-4 py-2 text-fg-dim transition-all duration-300 hover:border-white/35 hover:text-fg md:inline-block">
-          Get in touch
+        <ContactButton className="hidden rounded-full bg-neon-cyan px-5 py-2 text-sm font-medium text-void shadow-[0_0_20px_-6px_var(--color-neon-cyan)] transition-all duration-300 hover:bg-neon-cyan-core hover:shadow-[0_0_24px_-4px_var(--color-neon-cyan)] md:inline-block">
+          Let&apos;s talk
         </ContactButton>
 
         <button
@@ -158,9 +158,9 @@ export function Header() {
         })}
         <ContactButton
           onClick={() => setMenuOpen(false)}
-          className="label mt-4 rounded-full border border-white/15 px-6 py-3 text-fg-dim"
+          className="mt-4 rounded-full bg-neon-cyan px-7 py-3 text-sm font-medium text-void"
         >
-          Get in touch
+          Let&apos;s talk
         </ContactButton>
       </div>
     </header>

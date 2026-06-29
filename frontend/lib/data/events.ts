@@ -11,6 +11,8 @@ export interface CommunityEvent {
   detail: string;
   /** Teammates, where it was a team event. */
   team?: string[];
+  /** Event photo/poster under /public/events. */
+  image?: string;
 }
 
 /**
@@ -29,6 +31,7 @@ export const events: CommunityEvent[] = [
     detail:
       "24-hour hackathon - climbed to 6th on the live leaderboard in a race where the top five teams finished on identical scores.",
     team: ["Duwaragie Kugaraj", "Zayan Mohamed"],
+    image: "/events/sliitxtreme.jpeg",
   },
   {
     title: "iCIIT Conclave",
@@ -37,6 +40,7 @@ export const events: CommunityEvent[] = [
     location: "Colombo, Sri Lanka",
     detail:
       "A day of talks on AI, digital transformation, interpretable AI, and AI in precision medicine across Sri Lanka's tech landscape.",
+    image: "/events/iciit-conclave.jpeg",
   },
   {
     title: "CodeFest Algothon",
@@ -46,6 +50,7 @@ export const events: CommunityEvent[] = [
     detail:
       "Ranked 11th of nearly 170 teams across an algorithm-knowledge quiz and a complex logistics shortest-path challenge.",
     team: ["Hariswara Sidambaram", "Imadh Ifham"],
+    image: "/events/algothon.jpeg",
   },
   {
     title: "Google DevFest 2024",
@@ -54,5 +59,6 @@ export const events: CommunityEvent[] = [
     location: "Colombo, Sri Lanka",
     detail:
       "GDG Sri Lanka's flagship event - sessions on LLMs, multimodal search with Gemini Vision and RAG, responsible AI, and high-performance Flutter web with WASM.",
+    image: "/events/devfest.png",
   },
 ];

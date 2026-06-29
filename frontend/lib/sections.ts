@@ -33,8 +33,8 @@ export interface RouteLink {
  */
 export const routeNav: RouteLink[] = [
   { href: "/work", label: "Work" },
+  { href: "/medverse", label: "MedVerse" },
   { href: "/blog", label: "Blog" },
   { href: "/about", label: "About" },
   { href: "/events", label: "Events" },
-  { href: "/#contact", label: "Contact" },
 ];
