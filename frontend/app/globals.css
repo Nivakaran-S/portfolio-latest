@@ -56,11 +56,12 @@
 html {
   scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
-  /* NOTE: do NOT set overflow-x: hidden here - it implicitly switches
-     overflow-y to `auto`, making <html> a scrolling container. That
-     breaks `position: sticky` (WorkRail's pinned scroll-jack on /) and
-     motion's useScroll() readings. The /about overflow fix lives at
-     the inner StoryBackdrop ring wrapper instead. */
+  /* Prevent app-wide horizontal scroll. Use `clip`, NOT `hidden`:
+     `overflow-x: hidden` would switch overflow-y to `auto`, making <html>
+     a scrolling container and breaking `position: sticky` (WorkRail's
+     pinned scroll-jack) + motion's useScroll(). `clip` clips the x axis
+     without that side effect, so sticky and scroll tracking keep working. */
+  overflow-x: clip;
 }
 
 body {
@@ -69,7 +70,10 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: hidden;
+  /* Belt-and-braces: clip on <body> too, and cap width so nothing can
+     push the layout wider than the viewport on mobile. */
+  overflow-x: clip;
+  max-width: 100vw;
 }
 
 /* Safety net: any very long headline (long project name, long blog title)
