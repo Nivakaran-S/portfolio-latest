@@ -7,7 +7,6 @@ import {
   useSpring,
   useReducedMotion,
 } from "motion/react";
-import { useIsMobile } from "@/lib/hooks/use-is-mobile";
 
 export type BackdropVariant = "ember" | "forge" | "ink" | "origin";
 
@@ -54,13 +53,12 @@ interface StoryBackdropProps {
  *  - ink   : blog - ruled-paper notebook with a soft wash ("the notebook")
  *
  * The face-rotation video stays exclusive to /about.
- * Reduced-motion / mobile drop the scroll parallax (CSS drift is killed
- * globally by the reduced-motion media query).
+ * Runs on mobile too; reduced-motion drops the scroll parallax (CSS drift
+ * is killed globally by the reduced-motion media query).
  */
 export function StoryBackdrop({ variant }: StoryBackdropProps) {
   const reduced = useReducedMotion();
-  const mobile = useIsMobile();
-  const enabled = !reduced && !mobile;
+  const enabled = !reduced;
 
   const { scrollYProgress } = useScroll();
   const yFarRaw = useTransform(scrollYProgress, [0, 1], [0, -70]);

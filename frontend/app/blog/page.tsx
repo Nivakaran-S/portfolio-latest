@@ -79,7 +79,7 @@ export default function BlogIndexPage() {
             .
           </p>
         ) : (
-          <ul className="grid gap-5 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {posts.map((p, i) => (
               <Parallax
                 as="li"

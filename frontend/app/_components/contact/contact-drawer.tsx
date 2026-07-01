@@ -139,7 +139,7 @@ function ContactDrawer({
           }}
         />
 
-        <div className="flex flex-1 flex-col gap-9 px-6 py-7 sm:px-8">
+        <div className="flex flex-1 flex-col gap-9 px-5 py-7 sm:px-8">
           {/* top row */}
           <div className="flex items-center justify-between">
             <p className="label inline-flex items-center gap-2 text-fg-muted">
@@ -187,7 +187,7 @@ function ContactDrawer({
             <p className="mt-2 break-all font-display text-lg font-medium text-fg">
               {profile.email}
             </p>
-            <div className="mt-5 flex flex-wrap gap-3">
+            <div className="mt-5 flex flex-wrap gap-2 sm:gap-3">
               <a
                 href={mailto}
                 className="group inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-full bg-neon-cyan/15 px-5 py-3 text-sm font-medium text-neon-cyan-core ring-1 ring-neon-cyan/40 transition-all duration-200 hover:bg-neon-cyan/25 hover:ring-2 hover:ring-neon-cyan/60"

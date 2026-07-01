@@ -197,7 +197,7 @@ export default function Home() {
                 Built where three fields meet.
               </h2>
             </StoryItem>
-            <div className="mt-10 grid gap-5 md:grid-cols-3">
+            <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
               {profile.domains.map((d, i) => (
                 <StoryItem
                   key={d}
@@ -236,7 +236,7 @@ export default function Home() {
                 Three rules I don&apos;t break.
               </h2>
             </StoryItem>
-            <div className="mt-12 grid gap-px overflow-hidden rounded-3xl border border-line bg-line md:grid-cols-3">
+            <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-line bg-line md:grid-cols-3">
               {principles.map((p, i) => (
                 <StoryItem
                   key={p.k}

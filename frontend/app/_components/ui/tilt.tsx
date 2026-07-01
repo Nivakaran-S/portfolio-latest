@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   motion,
   useMotionValue,
@@ -8,12 +8,12 @@ import {
   useTransform,
   useReducedMotion,
 } from "motion/react";
-import { useIsMobile } from "@/lib/hooks/use-is-mobile";
 
 /**
  * Pointer-reactive 3D tilt for cards. The element leans toward the
  * cursor with a damped spring and a faint lift - real CSS perspective,
- * no library scene. Inert for reduced-motion / touch.
+ * no library scene. A hover effect by nature, so it runs only for fine
+ * (mouse) pointers; touch devices and reduced-motion get a plain div.
  */
 export function Tilt({
   children,
@@ -25,8 +25,18 @@ export function Tilt({
   max?: number;
 }) {
   const reduced = useReducedMotion();
-  const mobile = useIsMobile();
   const ref = useRef<HTMLDivElement>(null);
+
+  // Tilt is a hover effect — only enable it for fine (mouse) pointers, so
+  // touch drags over a card never trigger a stray tilt.
+  const [coarse, setCoarse] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    const update = () => setCoarse(mq.matches);
+    update();
+    mq.addEventListener("change", update);
+    return () => mq.removeEventListener("change", update);
+  }, []);
 
   const mx = useMotionValue(0);
   const my = useMotionValue(0);
@@ -39,7 +49,7 @@ export function Tilt({
     damping: 15,
   });
 
-  if (reduced || mobile) {
+  if (reduced || coarse) {
     return <div className={className}>{children}</div>;
   }
 

@@ -8,7 +8,6 @@ import {
   useSpring,
   useReducedMotion,
 } from "motion/react";
-import { useIsMobile } from "@/lib/hooks/use-is-mobile";
 
 interface ParallaxProps {
   children: ReactNode;
@@ -31,8 +30,8 @@ const tags = {
  * reads as depth, not a 1:1 scrub. Apply with different `distance` values
  * to neighbouring blocks so they move independently → a 3D parallax field.
  *
- * Transform-only (GPU composited) so it never triggers layout. Disabled
- * for reduced-motion and on mobile (touch parallax stutters and tires).
+ * Transform-only (GPU composited) so it never triggers layout. Runs on
+ * mobile too; only disabled for reduced-motion.
  */
 export function Parallax({
   children,
@@ -42,8 +41,7 @@ export function Parallax({
 }: ParallaxProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
-  const mobile = useIsMobile();
-  const enabled = !reduced && !mobile;
+  const enabled = !reduced;
 
   const { scrollYProgress } = useScroll({
     target: ref,

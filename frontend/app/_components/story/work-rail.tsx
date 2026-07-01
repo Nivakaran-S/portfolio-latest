@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import {
   motion,
@@ -9,7 +9,6 @@ import {
   useSpring,
   useReducedMotion,
 } from "motion/react";
-import { useIsMobile } from "@/lib/hooks/use-is-mobile";
 import type { Project } from "@/lib/data/projects";
 
 function Card({ p, index, total }: { p: Project; index: number; total: number }) {
@@ -69,27 +68,56 @@ function Card({ p, index, total }: { p: Project; index: number; total: number })
 /**
  * The signature scroll-jack: a section taller than the viewport whose
  * inner stage is pinned (sticky) while the project rail scrubs sideways
- * with vertical scroll. Reduced-motion / mobile get a normal vertical
- * stack instead (no pinning, no horizontal hijack).
+ * with vertical scroll. Runs on mobile too; reduced-motion gets a normal
+ * vertical stack instead (no pinning, no horizontal hijack).
+ *
+ * The horizontal travel is *measured* (rail width minus viewport) rather
+ * than guessed in vw, so it aligns at every card-width breakpoint
+ * (`80vw` on phones, `52vw` on tablets, `34vw` on desktop). The section
+ * height scales to that travel so the swipe pace stays consistent.
  */
 export function WorkRail({ projects }: { projects: Project[] }) {
   const reduced = useReducedMotion();
-  const mobile = useIsMobile();
-  const ref = useRef<HTMLDivElement>(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
+  const railRef = useRef<HTMLDivElement>(null);
+  const [travel, setTravel] = useState(0);
+  const [heightSvh, setHeightSvh] = useState(200);
+
+  // Measure how far the rail must slide so its end reaches the viewport edge,
+  // and size the scroll length to match. Re-measures on resize / breakpoint change.
+  useEffect(() => {
+    if (reduced) return;
+    const measure = () => {
+      const rail = railRef.current;
+      if (!rail) return;
+      const t = Math.max(0, rail.scrollWidth - window.innerWidth);
+      setTravel(t);
+      // ~1 screen-height of vertical scroll per screen-width of horizontal travel.
+      setHeightSvh(100 + (t / window.innerHeight) * 100);
+    };
+    measure();
+    const ro = new ResizeObserver(measure);
+    if (railRef.current) ro.observe(railRef.current);
+    window.addEventListener("resize", measure, { passive: true });
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, [reduced, projects.length]);
 
   const { scrollYProgress } = useScroll({
-    target: ref,
+    target: sectionRef,
     offset: ["start start", "end end"],
   });
-  // travel from a small inset to fully revealing the last card
-  const xRaw = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["4vw", `-${(projects.length - 1) * 38 + 6}vw`]
-  );
-  const x = useSpring(xRaw, { stiffness: 70, damping: 30, mass: 0.6, restDelta: 0.5 });
+  const xRaw = useTransform(scrollYProgress, [0, 1], [0, -travel]);
+  const x = useSpring(xRaw, {
+    stiffness: 70,
+    damping: 30,
+    mass: 0.6,
+    restDelta: 0.5,
+  });
 
-  if (reduced || mobile) {
+  if (reduced) {
     return (
       <section id="work" className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-6">
         <p className="label">05 - The work</p>
@@ -116,8 +144,8 @@ export function WorkRail({ projects }: { projects: Project[] }) {
   return (
     <section
       id="work"
-      ref={ref}
-      style={{ height: `${projects.length * 55 + 90}svh` }}
+      ref={sectionRef}
+      style={{ height: `${heightSvh}svh` }}
       className="relative"
     >
       <div className="sticky top-0 flex h-[100svh] flex-col justify-center overflow-hidden">
@@ -127,7 +155,11 @@ export function WorkRail({ projects }: { projects: Project[] }) {
             Eight, end to end.
           </h2>
         </div>
-        <motion.div style={{ x }} className="flex gap-6 pl-[4vw] pr-[40vw]">
+        <motion.div
+          ref={railRef}
+          style={{ x }}
+          className="flex gap-6 pl-[4vw] pr-[8vw]"
+        >
           {projects.map((p, i) => (
             <Card key={p.slug} p={p} index={i} total={projects.length} />
           ))}

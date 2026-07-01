@@ -53,7 +53,7 @@ export function Header() {
     >
       <nav
         aria-label="Primary"
-        className="mx-auto flex w-full max-w-6xl items-center justify-between px-6 sm:px-8"
+        className="mx-auto flex w-full max-w-6xl items-center justify-between pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:px-8"
       >
         <Link
           href="/"
@@ -102,7 +102,7 @@ export function Header() {
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((v) => !v)}
-          className="relative z-50 -mr-2 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
+          className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
         >
           <span
             className={`h-px w-6 bg-fg transition-all duration-300 ${
