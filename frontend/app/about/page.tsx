@@ -171,7 +171,7 @@ export default function AboutPage() {
               <p className="label text-fg-muted">03 - The path</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h2 className="silver mt-3 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
+              <h2 className="silver mt-3 font-display font-semibold leading-tight tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
                 Where the rigor came from.
               </h2>
             </StoryItem>
@@ -315,7 +315,7 @@ export default function AboutPage() {
             <p className="label text-fg-muted">08 - What&apos;s next</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
-            <h2 className="silver mt-6 font-display font-semibold leading-[1.02] tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
+            <h2 className="silver mt-6 font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
               Let&apos;s build something.
             </h2>
           </StoryItem>

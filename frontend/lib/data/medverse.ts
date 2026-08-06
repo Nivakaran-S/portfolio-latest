@@ -11,13 +11,14 @@ export const medverse = {
   team: "Team ADAGARD",
   motto: "Because every second counts.",
   selection: "Selected · NIBM Neo Ventures",
+  tested: "Tested · CodeSprintx 11 & SLIoT",
   oneLiner:
     "A full-stack clinical telemetry platform I build with Team ADAGARD - wearable hardware, on-device signal processing, a trained-model layer, a backend, and clinician-facing apps, engineered end to end.",
   contribution:
     "I work across the whole stack - wearable firmware and signal processing, the machine-learning layer, the backend services, and the web and mobile apps.",
   disclaimer:
     "An engineering and research project. MedVerse is not a regulated medical device; the models are trained on public datasets and are not clinically validated.",
-  logo: "/medverse/logo.webp",
+  logo: "/medverse/new-latest-final-main.svg",
 };
 
 /** Public epidemiology context that motivated the project. */

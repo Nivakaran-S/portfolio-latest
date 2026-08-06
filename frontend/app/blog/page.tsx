@@ -55,7 +55,7 @@ export default function BlogIndexPage() {
               <p className="label">Blog · thinking out loud</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-4 font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
+              <h1 className="silver mt-4 font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
                 Thinking out loud.
               </h1>
             </StoryItem>

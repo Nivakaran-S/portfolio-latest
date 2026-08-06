@@ -77,14 +77,14 @@ export default function MedVersePage() {
                 ★ {medverse.selection}
               </p>
             </StoryItem>
+            <StoryItem from="up" delay={0.16}>
+              <p className="label mt-2 inline-flex items-center gap-2 rounded-full border border-neon-cyan/40 bg-neon-cyan/10 px-4 py-2 text-neon-cyan-core">
+                ★ {medverse.tested}
+              </p>
+            </StoryItem>
             <StoryItem from="up" delay={0.22}>
               <p className="mx-auto mt-8 max-w-2xl leading-relaxed text-fg-dim sm:text-lg">
                 {medverse.oneLiner}
-              </p>
-            </StoryItem>
-            <StoryItem from="fade" delay={0.3}>
-              <p className="mx-auto mt-8 max-w-xl text-xs leading-relaxed text-fg-muted">
-                {medverse.disclaimer}
               </p>
             </StoryItem>
           </div>
@@ -293,7 +293,7 @@ export default function MedVersePage() {
             <p className="label text-neon-cyan/80">{medverse.selection}</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
-            <h2 className="silver mt-6 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,6vw,4rem)]">
+            <h2 className="silver mt-6 font-display font-semibold leading-[1.15] tracking-[-0.02em] text-[clamp(1.85rem,6vw,4rem)]">
               Built end to end. Still building.
             </h2>
           </StoryItem>

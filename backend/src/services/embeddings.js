@@ -1,54 +1,85 @@
+import { Embeddings } from "@langchain/core/embeddings";
+
 /**
- * Sentence embeddings via Jina AI's hosted API (`jina-embeddings-v3`, 1024-d
- * by default, normalized). Free tier covers easily a million tokens on
- * sign-up — get a key at https://jina.ai → API.
+ * Sentence embeddings via Jina AI (`jina-embeddings-v3`, 1024-d, normalized).
+ * Free tier: ~1–10M tokens on sign-up at https://jina.ai.
  *
- * Why hosted: keeps the backend memory footprint tiny (~50 MB total) so it
- * runs comfortably on Render's free tier (512 MB) without OOM risk. Previously
- * we used `@xenova/transformers` locally which needed ~300–400 MB just for the
- * model.
+ * Implemented as a thin LangChain `Embeddings` subclass so the retriever and
+ * any future LCEL chain can plug it in via the standard interface — and so
+ * the bundle stays small (we avoid pulling in `@langchain/community`).
  *
- * If you ever want to swap embedding providers, only `embed()` and the vector
- * dimension change — the rest of the RAG pipeline doesn't care.
+ * Why hosted: keeps the backend memory footprint tiny (~50 MB) so it runs
+ * comfortably on Render's free tier (512 MB) without OOM risk.
  */
 const JINA_URL = "https://api.jina.ai/v1/embeddings";
-const JINA_MODEL = process.env.JINA_MODEL || "jina-embeddings-v3";
 
-/** Embed a string → normalized vector (plain array). */
-export async function embed(text) {
-  const key = process.env.JINA_API_KEY;
-  if (!key) {
-    throw new Error("JINA_API_KEY is not set — copy .env.example to .env");
+export class JinaEmbeddings extends Embeddings {
+  constructor(fields = {}) {
+    super(fields);
+    this.apiKey = fields.apiKey ?? process.env.JINA_API_KEY;
+    this.model = fields.model ?? process.env.JINA_MODEL ?? "jina-embeddings-v3";
+    // `text-matching` is symmetric — same task for KB docs and chat queries.
+    this.task = fields.task ?? "text-matching";
   }
 
-  const res = await fetch(JINA_URL, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: `Bearer ${key}`,
-    },
-    body: JSON.stringify({
-      model: JINA_MODEL,
-      // `text-matching` is symmetric — fine for both KB docs and chat queries.
-      task: "text-matching",
-      input: [text],
-    }),
-  });
-
-  if (!res.ok) {
-    const body = await res.text().catch(() => "");
-    throw new Error(`Jina embeddings failed (${res.status}): ${body.slice(0, 200)}`);
+  /** Internal: batch embed an array of strings → number[][] */
+  async _embed(inputs) {
+    if (!this.apiKey) {
+      throw new Error("JINA_API_KEY is not set — copy .env.example to .env");
+    }
+    const res = await fetch(JINA_URL, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${this.apiKey}`,
+      },
+      body: JSON.stringify({
+        model: this.model,
+        task: this.task,
+        input: inputs,
+      }),
+    });
+    if (!res.ok) {
+      const body = await res.text().catch(() => "");
+      throw new Error(
+        `Jina embeddings failed (${res.status}): ${body.slice(0, 200)}`
+      );
+    }
+    const json = await res.json();
+    if (!Array.isArray(json?.data)) {
+      throw new Error("Jina embeddings: unexpected response shape");
+    }
+    return json.data.map((d) => d.embedding);
   }
 
-  const json = await res.json();
-  const vector = json?.data?.[0]?.embedding;
-  if (!Array.isArray(vector)) {
-    throw new Error("Jina embeddings: unexpected response shape");
+  /** LangChain Embeddings interface: single string → number[] */
+  async embedQuery(text) {
+    const [vec] = await this._embed([text]);
+    return vec;
   }
-  return vector;
+
+  /** LangChain Embeddings interface: array of strings → number[][] */
+  async embedDocuments(texts) {
+    return this._embed(texts);
+  }
 }
 
-/** Cosine similarity. Jina v3 normalizes by default, so this is a dot product. */
+/** Lazy singleton — instantiate the embedder once per process. */
+let _embeddings = null;
+export function getEmbeddings() {
+  if (!_embeddings) _embeddings = new JinaEmbeddings();
+  return _embeddings;
+}
+
+/**
+ * Back-compat helper for callers that just want one vector (seed.js,
+ * routes/documents.js). Equivalent to `getEmbeddings().embedQuery(text)`.
+ */
+export async function embed(text) {
+  return getEmbeddings().embedQuery(text);
+}
+
+/** Cosine similarity. Jina v3 returns L2-normalized vectors, so this is a dot product. */
 export function cosineSim(a, b) {
   let dot = 0;
   const n = Math.min(a.length, b.length);

@@ -1,72 +1,122 @@
+import { ChatGroq } from "@langchain/groq";
+import { Document } from "@langchain/core/documents";
+import { BaseRetriever } from "@langchain/core/retrievers";
+import {
+  ChatPromptTemplate,
+  MessagesPlaceholder,
+} from "@langchain/core/prompts";
+import { StringOutputParser } from "@langchain/core/output_parsers";
+import { HumanMessage, AIMessage } from "@langchain/core/messages";
 import { KbDocument } from "../models/Document.js";
-import { embed, cosineSim } from "./embeddings.js";
-import { getGroq, GROQ_MODEL } from "./groq.js";
+import { getEmbeddings, cosineSim } from "./embeddings.js";
 
-/** Retrieve the top-k knowledge chunks most similar to the query. */
-export async function retrieve(query, k = 4) {
-  const qVec = await embed(query);
-  // embedding is select:false on the model — pull it explicitly for scoring.
-  const docs = await KbDocument.find({}).select("+embedding").lean();
-  return docs
-    .filter((d) => Array.isArray(d.embedding) && d.embedding.length)
-    .map((d) => ({ doc: d, score: cosineSim(qVec, d.embedding) }))
-    .sort((a, b) => b.score - a.score)
-    .slice(0, k);
+const MODEL = process.env.GROQ_MODEL || "llama-3.3-70b-versatile";
+
+/** LangChain ChatGroq instance (null when no API key — graceful fallback). */
+const llm = process.env.GROQ_API_KEY
+  ? new ChatGroq({
+      apiKey: process.env.GROQ_API_KEY,
+      model: MODEL,
+      temperature: 0.3,
+      maxTokens: 400,
+    })
+  : null;
+
+/**
+ * Custom LangChain retriever: embeds the query, scores cosine similarity
+ * against every chunk in MongoDB, returns the top-k as LangChain Documents.
+ *
+ * In-process scoring is fine at this scale (<100 chunks). For larger corpora,
+ * swap to `MongoDBAtlasVectorSearch` from `@langchain/mongodb` — the schema
+ * already has the `embedding` field ready for a $vectorSearch index.
+ */
+class MongoCosineRetriever extends BaseRetriever {
+  lc_namespace = ["nivakaran", "retrievers", "mongo_cosine"];
+
+  constructor(fields = {}) {
+    super(fields);
+    this.embeddings = fields.embeddings ?? getEmbeddings();
+    this.topK = fields.topK ?? 4;
+  }
+
+  async _getRelevantDocuments(query) {
+    const qVec = await this.embeddings.embedQuery(query);
+    const docs = await KbDocument.find({}).select("+embedding").lean();
+    return docs
+      .filter((d) => Array.isArray(d.embedding) && d.embedding.length)
+      .map((d) => ({ doc: d, score: cosineSim(qVec, d.embedding) }))
+      .sort((a, b) => b.score - a.score)
+      .slice(0, this.topK)
+      .map(
+        ({ doc }) =>
+          new Document({
+            pageContent: `${doc.title}: ${doc.text}`,
+            metadata: { title: doc.title, category: doc.category },
+          })
+      );
+  }
 }
 
-const SYSTEM_PROMPT = `You are Max, the friendly AI concierge on Nivakaran S.'s portfolio site (nivakaran.dev). You answer visitors' questions about Nivakaran — his experience, skills, projects, healthcare background, education, and competitions. If asked who you are, you're Max, his AI assistant.
+const retriever = new MongoCosineRetriever();
+
+const SYSTEM = `You are Max, the friendly AI concierge on Nivakaran S.'s portfolio site (nivakaran.dev). You answer visitors' questions about Nivakaran — his experience, skills, projects, healthcare background, education, and competitions. If asked who you are, you're Max, his AI assistant.
 
 Rules:
 - Use ONLY the context provided. If the answer isn't in it, say you don't have that detail and suggest they reach out via the contact options.
 - Speak about Nivakaran in the third person.
 - Be concise, friendly, and professional — a few sentences, no fluff.
-- Never invent facts, numbers, employers, or dates.`;
+- Never invent facts, numbers, employers, or dates.
+
+Context:
+{context}`;
+
+const prompt = ChatPromptTemplate.fromMessages([
+  ["system", SYSTEM],
+  new MessagesPlaceholder("history"),
+  ["human", "{question}"],
+]);
+
+/** Format retrieved Documents into a numbered context block. */
+function formatDocs(docs) {
+  return docs.map((d, i) => `[${i + 1}] ${d.pageContent}`).join("\n\n");
+}
 
 /**
- * Answer a question with RAG: retrieve context, then generate with Groq.
- * Falls back to returning the top retrieved snippet when no GROQ_API_KEY is set,
- * so the chatbot still works (just non-conversational).
+ * Answer a question with RAG via LCEL:
+ *   retriever → prompt (with history) → ChatGroq → StringOutputParser
+ *
+ * Returns `sources` so the frontend can show which KB chunks were retrieved.
+ * Falls back to the top retrieved snippet when no GROQ_API_KEY is set.
  */
 export async function answer(message, history = []) {
-  const hits = await retrieve(message, 4);
-  const sources = hits.map((h) => h.doc.title);
-  const context = hits
-    .map((h, i) => `[${i + 1}] ${h.doc.title}: ${h.doc.text}`)
-    .join("\n\n");
+  const docs = await retriever.invoke(message);
+  const sources = docs.map((d) => d.metadata.title).filter(Boolean);
 
-  const groq = getGroq();
-  if (!groq) {
-    const top = hits[0]?.doc;
+  if (!llm) {
+    const top = docs[0];
     return {
       answer: top
-        ? `${top.text}\n\n(Conversational AI is off — set GROQ_API_KEY on the backend to enable it.)`
+        ? `${top.pageContent}\n\n(Conversational AI is off — set GROQ_API_KEY on the backend to enable it.)`
         : "I don't have an answer for that yet. You can reach Nivakaran directly via the contact options.",
       sources,
     };
   }
 
-  const messages = [
-    { role: "system", content: `${SYSTEM_PROMPT}\n\nContext:\n${context}` },
-    ...history
-      .slice(-6)
-      .map((m) => ({
-        role: m.role === "user" ? "user" : "assistant",
-        content: String(m.content || ""),
-      })),
-    { role: "user", content: message },
-  ];
+  const lcHistory = history.slice(-6).map((m) =>
+    m.role === "user"
+      ? new HumanMessage(String(m.content ?? ""))
+      : new AIMessage(String(m.content ?? ""))
+  );
 
-  const completion = await groq.chat.completions.create({
-    model: GROQ_MODEL,
-    messages,
-    temperature: 0.3,
-    max_tokens: 400,
+  const chain = prompt.pipe(llm).pipe(new StringOutputParser());
+  const out = await chain.invoke({
+    context: formatDocs(docs),
+    question: message,
+    history: lcHistory,
   });
 
   return {
-    answer:
-      completion.choices?.[0]?.message?.content?.trim() ||
-      "Sorry, I couldn't generate a reply just now.",
+    answer: out.trim() || "Sorry, I couldn't generate a reply just now.",
     sources,
   };
 }

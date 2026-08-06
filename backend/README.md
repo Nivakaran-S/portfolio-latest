@@ -7,7 +7,11 @@ for the chatbot's knowledge base.
 - **Express** — HTTP API
 - **MongoDB Atlas** + Mongoose — stores knowledge chunks + their vectors
 - **Jina AI** (`jina-embeddings-v3`, 1024-d) — hosted embeddings, free tier
-- **Groq** (`groq-sdk`) — fast LLM inference for answer generation
+- **LangChain.js** (`@langchain/core` + `@langchain/groq`) — LCEL chain
+  composition; the embeddings, retriever, and chat model are all standard
+  LangChain interfaces (custom `Embeddings` and `BaseRetriever` subclasses)
+  so any of them can be swapped without touching the chain.
+- **Groq** (`ChatGroq`) — fast LLM inference for answer generation
 
 ## Setup
 ```bash
@@ -37,14 +41,26 @@ npm run dev               # http://localhost:4000
 | DELETE | `/api/documents/:id` | delete                           |
 
 ## How the RAG works
-1. Each knowledge chunk is embedded (1024-d via Jina) and stored in MongoDB.
-2. A chat query is embedded, scored by cosine similarity against all chunks,
-   and the top 4 become the context.
-3. Groq generates a grounded answer from that context only.
+LCEL chain in [services/rag.js](src/services/rag.js):
 
-For larger corpora, swap the in-process cosine scan in `services/rag.js` for
-**MongoDB Atlas Vector Search** (`$vectorSearch`) — the chunks already carry an
-`embedding` field.
+```
+MongoCosineRetriever  →  ChatPromptTemplate (system + history + question)
+                      →  ChatGroq
+                      →  StringOutputParser
+```
+
+1. Each knowledge chunk is embedded (1024-d via Jina) and stored in MongoDB.
+2. A chat query hits `MongoCosineRetriever` (a custom `BaseRetriever`) which
+   embeds the query, scores cosine similarity against every chunk, and returns
+   the top 4 as LangChain `Document`s.
+3. The prompt template (`ChatPromptTemplate.fromMessages`) splices in those
+   docs, the last 6 turns of conversation history, and the new question.
+4. `ChatGroq` generates a grounded answer; `StringOutputParser` extracts the
+   string. The route returns `{ answer, sources }`.
+
+For larger corpora, swap `MongoCosineRetriever` for `MongoDBAtlasVectorSearch`
+from `@langchain/mongodb` — the schema already has the `embedding` field ready
+for a `$vectorSearch` index.
 
 ## Deploy (Render — free tier)
 This repo ships with a [`render.yaml`](./render.yaml) blueprint. From Render →

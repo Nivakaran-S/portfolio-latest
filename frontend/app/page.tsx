@@ -175,7 +175,7 @@ export default function Home() {
                 <span className="block text-fg">I build</span>
               </StoryItem>
               <StoryItem from="right" distance={120} delay={0.05}>
-                <span className="silver block">intelligent systems</span>
+                <span className="silver block leading-tight ">intelligent systems</span>
               </StoryItem>
               <StoryItem from="up" distance={90} delay={0.1}>
                 <span className="block text-fg-dim">
@@ -416,7 +416,7 @@ export default function Home() {
             <p className="label text-fg-muted">09 - The invitation</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
-            <h2 className="silver mt-6 font-display font-semibold leading-[1.02] tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
+            <h2 className="silver mt-6 font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
               Now, let&apos;s build yours.
             </h2>
           </StoryItem>

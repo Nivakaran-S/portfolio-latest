@@ -28,7 +28,7 @@ export interface Profile {
 }
 
 export const profile: Profile = {
-  name: "Nivakaran S.",
+  name: "Nivakaran",
   shortName: "Nivakaran",
   title: "AI & Software Engineer",
   domains: ["AI / ML", "Software Engineering", "Data Engineering"],

@@ -9,7 +9,7 @@ export interface ExperienceEntry {
 export const experience: ExperienceEntry[] = [
   {
     org: "Healplace",
-    role: "Junior Developer",
+    role: "Full Stack Junior Developer",
     period: "Mar 2026 - Present",
     kind: "work",
     summary:
@@ -18,14 +18,14 @@ export const experience: ExperienceEntry[] = [
   {
     org: "HealthRecon Connect LLC",
     role: "Operations Analyst - Associate, Collections",
-    period: "Jan 2026 - Present",
+    period: "Jan 2026 - July 2026",
     kind: "work",
     summary:
       "Turning collections and operations data into decisions for a US healthcare revenue-cycle provider.",
   },
   {
     org: "Medsource Healthcare LLC",
-    role: "Remote Medical Scribe",
+    role: "Medical Scribe",
     period: "Jul 2022 - Dec 2024",
     kind: "work",
     summary:
