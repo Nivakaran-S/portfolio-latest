@@ -197,6 +197,25 @@ export const projects: Project[] = [
         "A from-scratch vision model with an interactive interface anyone can try.",
     },
   },
+  {
+    slug: "gun-detection",
+    name: "CCTV Gun Detection",
+    valueProp: "Seconds of warning, not hours of footage.",
+    description:
+      "A Faster R-CNN firearm detector for surveillance feeds - transfer-learned on an annotated gun dataset, reproduced end to end as a DVC pipeline, and served as a FastAPI endpoint that returns frames with detections boxed.",
+    category: "Computer Vision",
+    tier: "main",
+    stack: ["PyTorch", "Faster R-CNN", "FastAPI", "DVC"],
+    repo: "https://github.com/Nivakaran-S/Gun-Detection",
+    detail: {
+      problem:
+        "A handful of operators watch hundreds of CCTV feeds, and control-room vigilance drops off within the first half hour - so footage ends up used forensically, to reconstruct an incident, instead of preventively to interrupt one.",
+      approach:
+        "Fine-tuned a COCO-pretrained Faster R-CNN ResNet50-FPN by swapping its predictor head for two classes, kept the backbone so 333 images wouldn't overfit, and wired ingestion through training into a cache-aware DVC DAG behind a FastAPI service.",
+      outcome:
+        "A reproducible dataset-to-checkpoint pipeline plus an endpoint that returns annotated frames above a 0.7 confidence threshold - decision support that points a human operator at the right monitor, never an autonomous trigger.",
+    },
+  },
 
   // ─────────────────────────── MINI ───────────────────────────
   // Smaller experiments / coursework / hardware repos from the 72-repo catalog.

@@ -61,6 +61,11 @@ const KNOWLEDGE = [
     text: "EcoHarvest is a full-stack surplus-food e-commerce platform with AI-driven recommendations that connects vendors and buyers to reduce food waste. Stack: Next.js, Node.js, MongoDB.",
   },
   {
+    title: "CCTV Gun Detection project",
+    category: "projects",
+    text: "CCTV Gun Detection is a computer-vision system that flags firearms in surveillance frames. Nivakaran fine-tuned a COCO-pretrained Faster R-CNN ResNet50-FPN (swapping the predictor head for two classes) on an annotated gun dataset, expressed the whole dataset-to-checkpoint path as a reproducible DVC pipeline, and served it behind a FastAPI endpoint that returns frames with detections boxed above a 0.7 confidence threshold. It is a defensive decision-support tool for authorised surveillance — it directs a human operator's attention, it does not act on its own. Stack: PyTorch, torchvision, Faster R-CNN, FastAPI, DVC, TensorBoard.",
+  },
+  {
     title: "Other projects",
     category: "projects",
     text: "Other projects include LaborGuard (workforce safety and compliance monitoring), lens (an interactive data-visualization UI), an NLP semantic book recommender using Hugging Face embeddings, and a from-scratch CNN image classifier in PyTorch with a Gradio interface. Nivakaran has 72+ public repositories on GitHub.",

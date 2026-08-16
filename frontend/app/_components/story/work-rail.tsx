@@ -122,7 +122,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
       <section id="work" className="mx-auto w-full max-w-6xl px-5 py-20 sm:px-6">
         <p className="label">05 - The work</p>
         <h2 className="silver mt-3 font-display text-[clamp(2rem,6vw,4rem)] font-semibold tracking-tight">
-          Eight, end to end.
+          Nine, end to end.
         </h2>
         <div className="mt-10 grid gap-5 sm:grid-cols-2">
           {projects.map((p, i) => (
@@ -152,7 +152,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
         <div className="mx-auto mb-10 w-full max-w-6xl px-5 sm:px-6">
           <p className="label">05 - The work</p>
           <h2 className="silver mt-3 font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold tracking-tight">
-            Eight, end to end.
+            Nine, end to end.
           </h2>
         </div>
         <motion.div
