@@ -1,0 +1,149 @@
+---
+title: "The dual-write problem, and the outbox that fixes it."
+date: "2026-07-13"
+excerpt: "Give every microservice its own database and you inherit a failure nobody warns you about. Notes from building a hospital system that can't lose an appointment."
+tags: ["architecture", "microservices", "distributed-systems"]
+---
+
+Database-per-service is the standard advice, and it's good advice. Services
+stop reaching into each other's tables, schemas evolve independently, and one
+team's migration stops being everyone's outage.
+
+Then you write your first handler and quietly introduce a bug you won't
+notice for months.
+
+## The bug
+
+Here's booking an appointment in a hospital system. Save it, then tell the
+billing service.
+
+```python
+appointment = Appointment(patient_id, doctor_id, slot)
+db.save(appointment)                      # committed to Postgres
+kafka.publish("appointment-created", ...)  # sent to billing
+```
+
+Two writes, two systems, no transaction spanning them. Now ask what happens
+if the process dies between line 2 and line 3 - a deploy, an OOM kill, a
+network partition, the pod being rescheduled.
+
+The appointment exists. The event never happened. Billing has no idea. The
+patient shows up to a booking that, as far as half the system is concerned,
+was never made. Nothing errored. Nothing retried. There is no log line saying
+anything went wrong, because from the appointment service's perspective
+nothing did.
+
+Swap the order and you get the mirror-image bug: billing is told about an
+appointment that was never persisted.
+
+You cannot fix this by being careful. There is no ordering of two independent
+writes that is safe against a crash in the middle.
+
+## Why the obvious fixes don't work
+
+**"Use a distributed transaction."** Two-phase commit across Postgres and
+Kafka technically exists and is a bad trade - it couples availability of the
+two systems together, so either one going down blocks writes to both. You
+adopted microservices to decouple; 2PC re-couples them at the worst layer.
+
+**"Retry the publish."** Retrying helps with transient broker failures. It
+does nothing when the process itself dies, because the retry loop dies with
+it. The intent to publish only exists in memory.
+
+**"Have billing poll the appointments table."** Now billing reads another
+service's database, which is the thing database-per-service exists to
+prevent.
+
+## The outbox
+
+The insight is small: **the intent to publish is itself data, so store it in
+the database you're already writing to.**
+
+Instead of two writes to two systems, do one write to one system:
+
+```python
+def create_appointment(...):
+    appointment = Appointment(patient_id, doctor_id, slot)
+    db.add(appointment)
+
+    db.add(OutboxMessage(
+        topic="appointment-created",
+        payload=json.dumps(event),
+    ))
+
+    db.commit()   # both rows, one transaction, atomic
+```
+
+The appointment row and the outbox row commit together or not at all. That's
+a single-database transaction - the thing databases have been good at for
+fifty years.
+
+A separate background worker then drains the table:
+
+```python
+pending = db.query(OutboxMessage).filter(sent_at == None) \
+            .order_by(created_at).limit(50)
+
+for message in pending:
+    try:
+        with retry(attempts=3, backoff=exponential):
+            kafka.publish(message.topic, message.payload)
+        message.sent_at = now()
+    except Exception as e:
+        message.retry_count += 1
+        message.last_error = str(e)
+
+db.commit()
+```
+
+Crash anywhere in that loop and the unsent rows are still sitting in the
+table. The worker restarts and picks up where it left off. The event cannot
+be lost, because losing it would require losing the appointment too - and
+those are now the same write.
+
+## What this actually buys you
+
+The guarantee changes from "usually delivered" to **at-least-once delivery**,
+which is a real, nameable property you can design against.
+
+It also gives you things you didn't have before:
+
+- **A queryable backlog.** `SELECT count(*) FROM outbox WHERE sent_at IS NULL`
+  is now a health metric. A growing number means the broker or the worker is
+  in trouble, and you know before your users do.
+- **Per-message forensics.** Storing `retry_count` and `last_error` on the row
+  means a poisoned message tells you what happened instead of vanishing into
+  a log.
+- **Replay.** The events are durable rows. You can re-publish a window of
+  them after a downstream bug.
+
+## The part you have to handle
+
+At-least-once means exactly what it says: a crash after publishing but before
+marking `sent_at` will publish that message twice on restart.
+
+So consumers must be **idempotent** - processing the same event twice must
+have the same effect as processing it once. In practice that means every
+event carries a stable id, and consumers either check whether they've seen it
+or write in a way that's naturally repeatable, like an upsert keyed on that
+id rather than a blind insert.
+
+This is the same discipline scheduled pipelines need, incidentally. An Airflow
+DAG that does a bare `INSERT` on a daily schedule duplicates a row every time
+a task retries. `ON CONFLICT (date) DO UPDATE` and the problem disappears.
+Same idea, different layer.
+
+## Where it's worth it
+
+Not everywhere. If losing an event means someone doesn't get a marketing
+email, you have better things to build. The overhead is a table, a background
+worker, and idempotent consumers.
+
+But the moment an event carries money, a clinical booking, or an audit
+obligation - the moment "this thing definitely happened but nothing
+downstream knows" is a sentence you can't accept - the outbox is the smallest
+correct answer I know of.
+
+It's implemented end to end in the appointment service of
+[HMS](https://github.com/Nivakaran-S/HMS), if you'd rather read code than
+prose.

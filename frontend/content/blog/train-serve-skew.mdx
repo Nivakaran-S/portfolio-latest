@@ -1,0 +1,128 @@
+---
+title: "The gap between training and serving is where models die."
+date: "2026-06-15"
+excerpt: "Your model scored 93% in the notebook and behaves like a coin flip in production. Usually nothing is wrong with the model."
+tags: ["ml", "engineering", "deployment"]
+---
+
+A model that scores well in a notebook and badly in production is one of the
+most common failures in applied machine learning, and one of the most
+misdiagnosed. The instinct is to blame the model - overfitting, distribution
+shift, not enough data.
+
+Usually the model is fine. What changed is what you fed it.
+
+Training and serving are two separate code paths that must transform input
+**identically**. Nothing enforces that. It's a contract held together by the
+programmer remembering, and programmers don't.
+
+## Four ways the paths drift apart
+
+### 1. The fitted transformer isn't shipped
+
+A `StandardScaler` isn't configuration - it's *learned parameters*. It stores
+the mean and standard deviation of the training data. If you refit a scaler
+at serving time on whatever data happens to be in front of it, every feature
+is now standardised against the wrong distribution and the model receives
+numbers that mean something different from what it was trained on.
+
+The rule: **anything that calls `.fit()` is part of the model.** Serialise it
+alongside the weights and load both together.
+
+The one project of mine that gets this cleanest is a churn predictor, which
+commits `model.h5`, `scaler.pkl`, `onehot_encoder_geo.pkl` and
+`label_encoder_gender.pkl` together. The app loads all four. It's not
+sophisticated - it's just refusing to let the encoders be an afterthought.
+
+### 2. Column order changes silently
+
+Most models take an array, not a dictionary. Column *names* vanish before the
+model sees anything; only position survives.
+
+Build your inference frame in a different order than training, and the model
+reads credit score as age and tenure as balance. No exception, no warning -
+just quietly wrong predictions forever.
+
+Assert the order explicitly, or persist the training column list and reindex
+against it before every prediction.
+
+### 3. Preprocessing constants get edited on one side
+
+I built a real-time sign-language interpreter. The data-collection script
+letterboxes each detected hand onto a square canvas so the gesture keeps its
+proportions:
+
+```python
+# dataCollection.py
+imgSize = 300
+```
+
+And the inference app does the same thing:
+
+```python
+# app.py
+imgSize = 224
+```
+
+Those numbers were the same once. One got changed. The model now sees hands
+padded to different proportions than it trained on, and the accuracy loss
+looks exactly like a model that didn't learn very well.
+
+Constants shared between training and serving belong in one module that both
+import. If the same number is typed in two files, it will eventually be two
+different numbers.
+
+### 4. Tokenisation differs
+
+In a sentiment classifier I trained on IMDB, inference tokenises with
+`text.lower().split()`. That means `"great."` - with a full stop attached -
+never matches the vocabulary and becomes the unknown token. So does
+`"movie!"`. So does anything followed by punctuation.
+
+Training data had been tokenised properly. Real user input is full of
+punctuation. The result is a model seeing far more unknown tokens at serving
+time than it ever saw in training, and quietly performing well below its
+benchmark - while the benchmark number stays reassuringly high, because the
+benchmark uses the training-time tokeniser.
+
+## The pattern behind all four
+
+Every one of these is the same mistake wearing different clothes:
+**preprocessing logic exists twice.**
+
+The fix is structural, not vigilance. Write the transformation once, in one
+place, and have both paths call it:
+
+```python
+# preprocessing.py - the only place these decisions live
+IMG_SIZE = 300
+
+def prepare(raw):
+    ...
+
+# training.py
+from preprocessing import prepare, IMG_SIZE
+
+# serve.py
+from preprocessing import prepare, IMG_SIZE
+```
+
+Scikit-learn's `Pipeline` does this for tabular data - it bundles the
+transformers and the estimator into one object you fit once and pickle once,
+which makes it structurally impossible to ship one without the other. Use it
+even when it feels like overkill.
+
+## How to catch it
+
+One test is worth more than a lot of care:
+
+> Take a single training example. Push it through the *serving* path. Assert
+> the model's output matches what it produced during evaluation.
+
+If those numbers diverge, you have skew, and you have it before your users
+do. It's a handful of lines, it runs in a second, and it catches the entire
+class of bug described above.
+
+A model is not a `.h5` file. It's the weights **plus** every transformation
+that produced the numbers those weights expect. Ship anything less and you're
+shipping a model that has never seen the data it's about to be asked about.

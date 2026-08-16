@@ -1,0 +1,139 @@
+---
+title: "What I found auditing 26 of my own repositories."
+date: "2026-08-17"
+excerpt: "I went back through every project on this site and read the code instead of the README. Some of it didn't say what I thought it said."
+tags: ["meta", "engineering", "lessons"]
+---
+
+This site lists a lot of projects. Recently I went back through them
+properly - opened each repository, read the actual code, and compared it
+against what my own portfolio claimed. Twenty-six repos.
+
+It was uncomfortable and it was the most useful week of maintenance I've
+done. Here's what kept recurring.
+
+## 1. The README drifts from the code, always in the flattering direction
+
+The worst case was a project I'd described as a surplus-food marketplace with
+AI-driven recommendations. Reading the repo: there is no AI in it. The
+"You Might Like" component is a hardcoded grid of placeholder products -
+Organic Apples, Bananas, Carrots, at fixed prices. The product model has a
+`discount` field and nothing resembling expiry or surplus.
+
+None of that was a lie I told on purpose. It was a description written from
+intent early on, never revisited as the code went somewhere else.
+
+What made it dangerous is that the project has a *live link*. Anyone
+interested enough to click through and then open the repo finds neither
+feature. A plainer description would have cost me nothing; the inflated one
+cost credibility with exactly the people who look closest.
+
+The real system turned out to be more impressive than the claim anyway -
+eleven services behind a gateway that verifies JWTs once at the edge, with a
+shared internal package so cross-cutting concerns don't drift across
+services. That's a better story than "AI recommendations." I just hadn't
+looked recently enough to tell it.
+
+## 2. Half my projects can't be run by anyone else
+
+A repeated pattern: the trained model lives on Google Drive, or is in
+`.gitignore`, and the README says "download it and put it here."
+
+One computer-vision repo commits **154MB of training images** and gitignores
+the 2MB model file the app actually loads. That's exactly backwards. The
+bulk nobody needs is in; the one artifact required to run it is out.
+
+Two of them simply don't start:
+
+- A Flask app loading `pickle.load(open('modles/scaler.pkl'))`. Note the
+  spelling. `FileNotFoundError` before the server binds.
+- A project whose `requirements.txt` lists `Fastapi` while the app imports
+  `flask` - and Flask isn't in the file at all. Follow the README exactly and
+  you get `ModuleNotFoundError` on the first command.
+
+Both are one-line fixes that had been sitting there for months, because I
+never cloned my own repo into a clean environment and followed my own
+instructions. That is now the last step before I call anything finished.
+
+## 3. Nobody measures anything
+
+Of roughly a dozen ML projects, **three** had metrics recorded anywhere.
+
+The rest said things like "high accuracy" and "production-ready" in the
+README, with no number, no test set size, and no baseline. In one, the README
+showed an example API response with 97.85 percent confidence - which readers
+will absolutely mistake for a reported accuracy.
+
+Where numbers did exist they needed context I hadn't given:
+
+- A churn model at ~85 percent, against a majority-class baseline of
+  **79.6 percent**. The real claim is five points, not eighty-five.
+- A malaria classifier at ~93 percent - on **134 validation images**, which
+  is roughly plus or minus four points of uncertainty.
+- A sentiment model at ~79 percent with a deliberately tiny 1,000-word
+  vocabulary, which is a coherent story only if you mention the vocabulary.
+
+An unqualified accuracy figure invites the question you can't answer. A
+qualified one answers it in advance.
+
+## 4. Copy-paste carries bugs between projects
+
+Because I reuse my own scaffolding, mistakes propagate.
+
+A shared `evaluate_models` utility ranks candidate models by `r2_score` - a
+*regression* metric. It's correct in the regression project it was written
+for. It then got copied into a phishing classifier and a fraud classifier,
+where it now selects classification models by a metric that doesn't apply.
+On the fraud dataset, which is 0.17 percent positive, that actively rewards
+the model that predicts "not fraud" every time.
+
+A different one: an image classifier's default class map is
+`0: Cat, 1: Dog, 2: person`, sitting inside a project that classifies **101
+food categories**. Harmless only because the caller always passes the real
+labels - a landmine with the pin still in.
+
+And a training augmentation set to `horizontal_flip=True` on **sign-language
+data**. Sensible default for generic images; wrong for signs, which are
+handed. I was teaching the model that a gesture and its mirror are the same
+class.
+
+None of these throw errors. They just make things quietly worse.
+
+## 5. Leftovers announce where the code came from
+
+Dead branches for languages that aren't in the graph. Placeholder READMEs
+crediting "Your Name" with a link to `github.com/yourgithub`. A sample
+database still containing the tutorial author's rows. A function called
+`generate_mock_forecast` under a docstring promising Prophet time-series
+forecasting, in a service whose README advertises AI-powered forecasting.
+
+Everybody learns from tutorials and that's fine. But leaving the seams in
+tells a reader you didn't go back over your own work - which is a worse
+signal than the tutorial itself.
+
+## What I changed
+
+Concretely, and in this order:
+
+1. **Rewrote every description from the code**, not from memory or intent.
+2. **Attributed what isn't mine.** One project uses a third-party WideResNet
+   architecture and pretrained weights; the entry now says so. Another is a
+   four-person team project, and now names my part of it.
+3. **Quoted numbers only where measured**, always with the test-set size and
+   the baseline.
+4. **Stated the gaps out loud** - thin test coverage, a mocked AI tier, a
+   payment gateway that's stubbed. Saying it first is strictly better than
+   being found out.
+
+## The part that surprised me
+
+I expected honesty to cost me. It didn't.
+
+Every entry got *more* specific, and specificity reads as competence in a way
+adjectives never do. "Eleven services behind one gateway with JWT verified at
+the edge" beats "enterprise-grade platform." "Five points above a 79.6
+percent baseline" beats "high accuracy." "The event and the state commit in
+one transaction" beats "robust architecture."
+
+The projects were better than my descriptions of them. I just had to go and
+read them to find out.

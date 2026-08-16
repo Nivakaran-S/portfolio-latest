@@ -1,0 +1,124 @@
+---
+title: "Rules the model cannot overrule."
+date: "2026-06-29"
+excerpt: "An LLM doing clinical triage is sampling from a distribution. For a suspected heart attack, that's not good enough on its own - so I put deterministic rules above it."
+tags: ["ai", "llm", "safety", "healthcare"]
+---
+
+I built a symptom triage service that routes patients to the right specialist
+and flags emergencies. Google's Gemini does the reasoning. It's good at it -
+better than the keyword-matching approach I started with, and far better at
+handling the way people actually describe symptoms.
+
+It's also, mechanically, a system that samples from a probability
+distribution. Most of the time it produces the right answer. Occasionally it
+won't.
+
+For "which dermatologist should I see about this rash," occasionally is fine.
+For "crushing chest pain radiating to my left arm," occasionally is a person
+who dies at home because an app told them to book an appointment next
+Tuesday.
+
+## The asymmetry nobody designs for
+
+LLM safety discussion is dominated by the model saying something offensive or
+being tricked into producing something harmful. In an applied system, the
+failure that matters is usually duller and much worse: **the model is
+confidently, quietly wrong on the one input where being wrong is
+catastrophic.**
+
+Those inputs are rare by definition. That's exactly why they don't show up in
+your testing, and why "it worked well in my evals" tells you nothing about
+them. You cannot test your way to confidence about a case that appears once
+in ten thousand queries.
+
+So don't try. Take that case away from the model.
+
+## Deterministic rules on top
+
+Alongside the LLM, the triage service runs a set of hard-coded red-flag
+clusters. Each one matches a combination of symptoms that must escalate to
+emergency regardless of what the model concluded.
+
+```python
+CLUSTERS = [
+    {
+        "code": "ACS",
+        "label": "Possible acute coronary syndrome",
+        "require_any": [
+            [r"chest pain|chest pressure|chest tightness",
+             r"sweat|nausea|shortness of breath|jaw|left arm|radiating"],
+            [r"crushing", r"chest"],
+        ],
+        "advice": "Possible heart attack. Sit down, chew aspirin if not "
+                  "allergic, call emergency services.",
+    },
+    # STROKE, ANAPHYLAXIS, SEPSIS ...
+]
+```
+
+Four clusters, curated from published emergency-department red-flag lists:
+stroke, acute coronary syndrome, anaphylaxis, sepsis. If one matches, the
+result is emergency. The model's opinion is not consulted, because the model's
+opinion cannot make this safer - it can only make it worse.
+
+The comment I left above that file is the whole design rationale:
+
+> This is a defence against false-negative LLM responses on the most
+> dangerous presentations. Intentionally conservative - a false alarm beats a
+> missed call.
+
+## Why this shape, and not the alternatives
+
+**Why not just prompt harder?** "Always escalate chest pain with radiation" in
+the system prompt raises the probability of escalation. It does not guarantee
+it. A prompt is an input to a sampler; a rule is a branch. When the cost of
+one specific miss is unbounded, you want the branch.
+
+**Why not fine-tune?** Same objection, plus you'd need training examples of
+the rare cases, which is the data you don't have.
+
+**Why not have the model call a tool?** Because then the model decides whether
+to call it. The escalation has to be outside the model's control entirely -
+evaluated on the raw input, before and independent of the reasoning step.
+
+**Why so few rules?** Because every rule is a false-positive generator, and
+false positives have a real cost: they train users to ignore the system.
+Four clusters covering the presentations where minutes decide outcomes is a
+deliberate ceiling, not an unfinished list.
+
+## The rest of the scaffolding
+
+The same principle - keep the model useful, but never load-bearing alone -
+shows up in a few other places in that service:
+
+- **Graceful degradation.** If the Gemini API is unavailable or rate-limited,
+  triage falls back to a local specialty map. Degraded advice beats a spinner
+  when someone is describing symptoms.
+- **Evidence provenance.** Patient records are tagged by source, and the
+  prompt tells the model which facts are doctor-confirmed and which are
+  self-reported. A model reasoning over patient-entered data should weight it
+  differently, and it can only do that if you tell it.
+- **Versioned prompts.** The prompt template lives in the database with a
+  version, not in a string literal. When behaviour changes you can tell
+  whether it was the prompt, the model, or the data.
+- **A confidence-based escalation chain.** Cheap model first; escalate to the
+  larger one when confidence falls below threshold.
+
+## The general rule
+
+I'd state it like this, and it isn't specific to healthcare:
+
+> Identify the inputs where a wrong answer is unrecoverable. Handle those
+> deterministically, outside the model. Let the model handle everything else.
+
+The output of that triage service is preliminary guidance that routes a
+person to the right clinician. It is not a diagnosis, it never acts on its
+own, and a human is always the one who decides. Those aren't disclaimers
+bolted on at the end - they're the constraints the architecture was built to
+satisfy.
+
+An LLM is the best natural-language reasoning tool most of us have ever had
+access to. It is also a stochastic process. Both things are true at once, and
+systems that take the first seriously while ignoring the second are the ones
+that will eventually make the news.

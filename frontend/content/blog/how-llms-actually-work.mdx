@@ -1,0 +1,112 @@
+---
+title: "How LLMs actually work."
+date: "2026-08-09"
+excerpt: "Tokens, embeddings, attention, and sampling - the four ideas that explain almost every strange thing a language model does."
+tags: ["ai", "llm", "fundamentals"]
+---
+
+Every explanation of large language models starts with "it predicts the next
+word." That's true, and it's useless. It doesn't tell you why the model
+invents a citation, why the same prompt gives a different answer twice, or
+why stuffing more documents into the context sometimes makes answers worse.
+
+Four ideas explain nearly all of it.
+
+## 1. It doesn't see words
+
+Text is first cut into **tokens** - fragments that are usually part of a word.
+"Engineering" might be one token; an unusual surname might be four. The model
+never sees letters, and it never sees words as units.
+
+This is why models are bad at counting letters in a word, why they mangle
+rare names, and why non-English text costs more per sentence - languages
+underrepresented in the tokeniser get chopped into more pieces. When Tamil or
+Sinhala text costs three times the tokens of the equivalent English, that's
+not a pricing decision. It's the tokeniser.
+
+## 2. Meaning is a direction
+
+Each token becomes a vector - a long list of numbers. The useful property is
+that vectors for related things point in similar directions. "Cardiologist"
+sits near "clinician" and far from "carburettor," not because anyone said so,
+but because they appear in similar contexts across the training data.
+
+This is the entire basis of semantic search. When I built a book recommender
+that matches on *meaning* rather than keywords, all it does is embed your
+description, embed every book blurb, and find the nearest vectors. There's no
+understanding involved - just geometry over a space where proximity happens
+to track meaning.
+
+## 3. Attention decides what matters
+
+A sentence isn't a bag of tokens; order and reference matter. **Attention** is
+the mechanism that lets each token look at every other token and weight how
+much each one matters to it.
+
+In "the doctor told the patient she was fine," attention is what associates
+"she" with one of the two nouns. The model computes, for every token, a
+weighted blend of every other token's representation. Stack that operation
+dozens of times, each layer refining the last, and you get something that
+tracks syntax, reference, tone, and a surprising amount of world knowledge.
+
+Two practical consequences fall out of this:
+
+- **Cost grows faster than input.** Every token attends to every other token,
+  so doubling the prompt roughly quadruples the attention work. Long contexts
+  aren't just slower - they're disproportionately slower.
+- **The middle gets ignored.** Models attend most reliably to the beginning
+  and end of a long context. Bury the critical instruction in the middle of
+  20,000 tokens and it may as well not be there.
+
+## 4. The output is sampled, not chosen
+
+After all that computation, the model produces a probability distribution over
+its entire vocabulary for the next token. Perhaps "the" at 12 percent,
+"a" at 9 percent, and a long tail of thousands of others.
+
+Then it **samples** from that distribution. It does not pick the winner.
+
+That single fact explains most of what people find mysterious:
+
+- **The same prompt gives different answers** because you're drawing from a
+  distribution. Temperature controls how flat that distribution is - low
+  temperature concentrates probability on the top candidates, high temperature
+  spreads it out.
+- **Hallucination isn't a malfunction.** The model produces the token
+  sequence that is *statistically plausible* given the context. A fabricated
+  citation is plausible-looking text, which is exactly what the mechanism
+  optimises for. There is no separate step where it checks whether the thing
+  is true, because there is nothing in the architecture that represents
+  truth.
+- **Structured output works** by clamping the distribution. When you force a
+  model to emit JSON matching a schema, the decoder masks out every token
+  that would break the grammar. The model isn't being asked to behave - it's
+  being made physically unable to produce invalid output.
+
+## What follows from this
+
+Once the mechanism is clear, most engineering decisions stop being guesswork.
+
+**Retrieval beats fine-tuning for facts.** If the model has no representation
+of truth, the fix isn't to train harder - it's to put the correct information
+into the context so the plausible continuation is also the correct one.
+That's the whole idea behind RAG, and it's why citations matter: they let a
+human verify the grounding the model can't verify itself.
+
+**Prompt position is a real variable.** Put instructions and critical facts at
+the edges of the context, not buried in the middle.
+
+**Never let the model be the only safeguard.** If a wrong answer has real
+consequences, put a deterministic check outside the model. In a clinical
+triage system I built, an LLM does the reasoning - but hard-coded rules for
+stroke, cardiac, and sepsis presentations override it entirely. The model is
+sampling from a distribution. For a suspected heart attack, that is not an
+acceptable thing to be doing on its own.
+
+**Cheap wins are usually structural.** Shorter context, tighter schemas, and
+smaller models with better retrieval will beat a bigger model on a vague
+prompt more often than people expect.
+
+None of this requires understanding the maths of a transformer block. It
+requires remembering that the thing on the other end is computing a
+probability distribution over fragments of text - and then rolling dice.

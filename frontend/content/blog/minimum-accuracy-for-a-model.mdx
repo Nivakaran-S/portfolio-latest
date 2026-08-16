@@ -1,0 +1,146 @@
+---
+title: "How to decide the minimum accuracy your model needs."
+date: "2026-07-27"
+excerpt: "\"Is 85% good?\" has no answer. Here's the question that does - baseline, cost of being wrong, and how much you can trust the number at all."
+tags: ["ml", "metrics", "evaluation"]
+---
+
+Somebody trains a classifier, reports 85 percent accuracy, and asks whether
+that's good. The honest answer is that the question is unanswerable as asked.
+Accuracy is a number without units. On one problem 85 percent is excellent;
+on another it's worse than doing nothing at all.
+
+Here's the order I work through instead.
+
+## Step 1: Find the number you have to beat
+
+Before any model exists, there is already a baseline: predict the most common
+answer, every time. That costs nothing and it is your floor.
+
+I trained an ANN to predict bank-customer churn and got about 85 percent
+validation accuracy. Sounds respectable. Then I counted the labels: 2,037 of
+10,000 customers had churned. So a model consisting of the single word "no"
+scores **79.6 percent**.
+
+The model was worth 5.4 points over a constant. That's the real number, and
+it's the one to quote - not because it's flattering, but because anyone
+competent will compute it themselves in about ten seconds.
+
+Baselines to check before believing any accuracy figure:
+
+- **Majority class.** Always predict the most frequent label.
+- **Random at the observed rate.** Sometimes weaker than majority, sometimes
+  the more honest comparison.
+- **The dumb heuristic.** One rule a domain expert would write on a napkin.
+  For delivery-time prediction, "distance divided by average speed" is a
+  brutally effective baseline.
+- **Persistence, for anything time-series.** Tomorrow equals today. Most
+  next-day price predictors quietly learn exactly this, then present it as a
+  beautiful chart of predicted-versus-actual where the two lines hug.
+
+If your model doesn't beat these, you don't have a model. You have a costly
+way of computing a constant.
+
+## Step 2: Check whether accuracy is even the right metric
+
+The more skewed your classes, the more accuracy lies.
+
+The standard credit-card fraud dataset is about **0.17 percent** fraudulent.
+A model that answers "not fraud" to everything scores **99.83 percent
+accuracy** and catches zero fraud. You could put that number on a slide and
+nobody in the room would flinch.
+
+This trap has teeth beyond reporting. In one of my own pipelines the *model
+selection* step ranked candidates by a score that rewarded exactly this
+behaviour - so the pipeline was choosing the most useless model available and
+logging a great-looking number next to it. The metric you optimise is the
+metric you get.
+
+For imbalanced problems, look at:
+
+- **Precision** - of the cases I flagged, how many were real? This is what
+  determines whether people keep trusting the alerts.
+- **Recall** - of the real cases, how many did I catch? This is what
+  determines what you miss.
+- **F1** when you need one number, **PR-AUC** when you need one curve.
+
+Accuracy is fine when classes are roughly balanced and errors cost about the
+same in both directions. That describes fewer problems than people assume.
+
+## Step 3: Price the two kinds of error
+
+This is the step that actually answers "how good is good enough," and it has
+nothing to do with statistics. It's a question about consequences.
+
+Your model can be wrong in two directions, and they almost never cost the
+same:
+
+**Malaria screening from blood smears.** A false negative sends an infected
+patient home untreated. A false positive costs one microscopist a few minutes
+of confirmation. Those are not comparable. You should be willing to accept a
+lot of false positives to move recall up, and the system should be described
+as a triage aid that prioritises slides - never as a diagnosis.
+
+**Firearm detection on CCTV.** A missed weapon is catastrophic. But a system
+that cries wolf gets muted by the operator in week two, and a muted system has
+recall of zero in practice. Here the false-positive cost is *also* severe,
+just delayed. That's why I set a deliberately high confidence threshold on
+that project - alert fatigue destroys the deployment faster than a missed
+low-confidence frame.
+
+**Churn prediction.** A false positive means a retention discount sent to
+someone who was staying anyway - a small, known cost. A false negative means a
+customer walks. If a discount costs 20 dollars and a lost customer costs 400,
+you should be flagging aggressively, and your threshold should be nowhere near
+0.5.
+
+Which leads to the step most people skip entirely.
+
+## Step 4: Stop using 0.5
+
+The 0.5 threshold is a default, not a decision. Your model outputs a
+probability; *you* choose where to cut it. Once you've priced the two errors,
+the threshold follows from the ratio.
+
+If a miss costs twenty times what a false alarm costs, you should be acting on
+predictions well below 0.5. Sweep the threshold, plot precision and recall
+against it, and pick the point that minimises expected cost. This is usually
+worth more than another week of model tuning, and it takes an afternoon.
+
+## Step 5: Ask how much you can trust the number
+
+A metric computed on a small test set is itself uncertain.
+
+I have a malaria classifier that hit about 93 percent validation accuracy -
+on **134 validation images**. At that size the 95 percent confidence interval
+is roughly plus or minus 4 points. So "93 percent" honestly means "somewhere
+between 89 and 97," and the difference between that model and one scoring 90
+percent is not measurable with the data I had.
+
+Three habits that keep this honest:
+
+1. **Report the test set size** alongside the metric. Always.
+2. **Stratify your splits** so the class balance is the same in train and
+   test, and **set a random seed** so the number is reproducible. An
+   unstratified split on a 20/80 problem moves your score around by luck
+   alone.
+3. **Never touch the test set twice.** If you tuned against it, it's a
+   validation set now, and your reported figure is optimistic.
+
+## So what's the minimum?
+
+There isn't a universal one. But there is a defensible sentence, and it looks
+like this:
+
+> This model needs to exceed 79.6 percent - the majority-class baseline - by
+> enough to cover its operating cost, at a threshold tuned so recall stays
+> above 80 percent, because a missed churner costs twenty times a wasted
+> discount. On a test set of 2,000 it currently reaches that with a margin of
+> about 5 points.
+
+That sentence contains a baseline, a metric appropriate to the imbalance, a
+cost argument, a threshold justification, and a sample size. Nobody can
+meaningfully challenge it without engaging with the actual problem.
+
+"85 percent" contains none of those things - which is why the first question
+anyone asks about it is the one you should have answered first.
