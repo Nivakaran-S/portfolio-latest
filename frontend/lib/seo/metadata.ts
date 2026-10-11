@@ -228,3 +228,8 @@ export function projectJsonLd(project: ProjectSeed) {
     ...(project.live ? { sameAs: project.live } : {}),
   };
 }
+
+/** JSON-LD payload safe to inline in a <script>: escapes `<` so `</script>` can't break out. */
+export function jsonLdHtml(data: unknown): string {
+  return JSON.stringify(data).replace(/</g, "\u003c");
+}
