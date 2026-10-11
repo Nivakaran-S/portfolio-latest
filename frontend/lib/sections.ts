@@ -33,6 +33,7 @@ export const routeNav: RouteLink[] = [
   { href: "/work", label: "Work" },
   { href: "/medverse", label: "MedVerse" },
   { href: "/blog", label: "Blog" },
+  { href: "/research", label: "Research" },
   { href: "/about", label: "About" },
   { href: "/events", label: "Events" },
 ];
