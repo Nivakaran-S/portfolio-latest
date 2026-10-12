@@ -68,22 +68,22 @@ export function WorkCatalog({ all }: WorkCatalogProps) {
       </div>
 
       <section aria-labelledby="main-heading">
-        <h3
+        <h2
           id="main-heading"
           className="label mb-5 text-fg-dim"
         >
           Main projects · {mains.length}
-        </h3>
+        </h2>
         <ProjectGrid projects={mains} />
       </section>
 
       <section aria-labelledby="mini-heading">
-        <h3
+        <h2
           id="mini-heading"
           className="label mb-5 text-fg-dim"
         >
           Mini projects · {minis.length}
-        </h3>
+        </h2>
         <ProjectGrid projects={minis} compact />
       </section>
     </div>

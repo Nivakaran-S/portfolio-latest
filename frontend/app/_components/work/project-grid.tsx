@@ -4,7 +4,6 @@ import Link from "next/link";
 import type { Project } from "@/lib/data/projects";
 import { Reveal } from "@/app/_components/ui/reveal";
 import { Tilt } from "@/app/_components/ui/tilt";
-import { Parallax } from "@/app/_components/ui/parallax";
 
 interface ProjectGridProps {
   /** Already-filtered list. Filtering is owned by the parent. */
@@ -43,19 +42,16 @@ export function ProjectGrid({
       }`}
     >
       {shown.map((p, i) => {
-        const cols = compact ? 4 : 3;
-        const depth = 20 + (i % cols) * 14;
         return (
-        <Parallax key={p.slug} distance={depth} className="h-full">
-        <Reveal delay={(i % 3) * 70} className="h-full">
-          <Tilt className="h-full" max={compact ? 5 : 9}>
+        <Reveal key={p.slug} delay={(i % 3) * 70} className="h-full">
+          <Tilt className="h-full">
             <article
               className={`bento tile-sheen group relative flex h-full flex-col hover:-translate-y-0.5 hover:border-neon-cyan/30 hover:bg-elevated ${
                 compact ? "p-5" : "p-6"
               }`}
             >
               <div className="mb-3 flex items-center justify-between gap-2">
-                <span className="label rounded-full border border-neon-cyan/30 px-2.5 py-1 text-neon-cyan">
+                <span className="label rounded-full border border-line px-2.5 py-1 text-fg-muted">
                   {p.category}
                 </span>
                 {p.tier === "mini" ? (
@@ -71,7 +67,7 @@ export function ProjectGrid({
                 {p.tier === "main" ? (
                   <Link
                     href={`/work/${p.slug}`}
-                    className="transition-colors duration-200 hover:text-neon-cyan"
+                    className="transition-colors duration-200 after:absolute after:inset-0 after:content-[''] hover:text-neon-cyan"
                   >
                     {p.name}
                   </Link>
@@ -79,7 +75,7 @@ export function ProjectGrid({
                   <span>{p.name}</span>
                 )}
               </h3>
-              <p className="mt-1 text-sm font-medium text-neon-cyan-core/90">
+              <p className="mt-1 text-sm font-medium text-fg-dim">
                 {p.valueProp}
               </p>
               {!compact ? (
@@ -103,7 +99,7 @@ export function ProjectGrid({
                 {p.tier === "main" ? (
                   <Link
                     href={`/work/${p.slug}`}
-                    className="label text-neon-cyan transition-colors duration-200 hover:text-neon-cyan-core"
+                    className="label relative z-10 inline-flex min-h-[44px] items-center text-neon-cyan transition-colors duration-200 hover:text-neon-cyan-core"
                   >
                     Case study →
                   </Link>
@@ -112,7 +108,7 @@ export function ProjectGrid({
                   href={p.repo}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="label text-fg-dim transition-colors duration-200 hover:text-neon-cyan"
+                  className="label relative z-10 inline-flex min-h-[44px] items-center text-fg-dim transition-colors duration-200 hover:text-neon-cyan"
                 >
                   GitHub ↗
                 </a>
@@ -121,7 +117,7 @@ export function ProjectGrid({
                     href={p.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="label text-fg-dim transition-colors duration-200 hover:text-neon-cyan"
+                    className="label relative z-10 inline-flex min-h-[44px] items-center text-fg-dim transition-colors duration-200 hover:text-neon-cyan"
                   >
                     Live ↗
                   </a>
@@ -130,7 +126,6 @@ export function ProjectGrid({
             </article>
           </Tilt>
         </Reveal>
-        </Parallax>
         );
       })}
     </div>

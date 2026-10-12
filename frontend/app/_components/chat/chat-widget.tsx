@@ -48,6 +48,7 @@ export function ChatWidget() {
   const [loading, setLoading] = useState(false);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     scrollRef.current?.scrollTo({
@@ -58,14 +59,32 @@ export function ChatWidget() {
 
   useEffect(() => {
     if (!open) return;
+    const opener = document.activeElement as HTMLElement | null;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === "Escape") setOpen(false);
+      if (e.key !== "Tab" || !dialogRef.current) return;
+      // keep Tab inside the modal dialog
+      const f = dialogRef.current.querySelectorAll<HTMLElement>(
+        "button:not([disabled]),input:not([disabled]),a[href],textarea:not([disabled])"
+      );
+      if (!f.length) return;
+      const first = f[0];
+      const last = f[f.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     };
     window.addEventListener("keydown", onKey);
     const id = requestAnimationFrame(() => inputRef.current?.focus());
     return () => {
       window.removeEventListener("keydown", onKey);
       cancelAnimationFrame(id);
+      // return focus to the launcher once it is interactive again
+      requestAnimationFrame(() => opener?.focus?.());
     };
   }, [open]);
 
@@ -108,8 +127,8 @@ export function ChatWidget() {
         type="button"
         onClick={() => setOpen(true)}
         aria-label="Chat with Max"
-        aria-hidden={open}
-        className={`group fixed bottom-5 right-5 z-[70] flex items-center gap-2.5 rounded-full border border-line bg-raised/80 py-2 pl-2 pr-5 shadow-[0_12px_36px_-10px_rgba(245,158,11,0.45)] backdrop-blur-md transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-neon-cyan/40 hover:bg-elevated ${
+        inert={open ? true : undefined}
+        className={`group fixed bottom-5 right-5 z-[70] flex items-center gap-2.5 rounded-full border border-line bg-raised/80 p-1 sm:py-2 sm:pl-2 sm:pr-5 shadow-[0_12px_36px_-10px_rgba(245,158,11,0.45)] backdrop-blur-md transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-neon-cyan/40 hover:bg-elevated ${
           open
             ? "pointer-events-none translate-y-2 scale-90 opacity-0"
             : "translate-y-0 scale-100 opacity-100"
@@ -119,7 +138,8 @@ export function ChatWidget() {
           <MaxAvatar size="md" />
           <span className="absolute -bottom-0.5 -right-0.5 h-3 w-3 rounded-full border-2 border-raised bg-neon-lime" />
         </span>
-        <span className="flex flex-col items-start leading-tight">
+        {/* Phones get the avatar alone, so the launcher never covers reading content. */}
+        <span className="hidden flex-col items-start leading-tight sm:flex">
           <span className="font-display text-sm font-semibold tracking-tight text-fg">
             Max
           </span>
@@ -131,7 +151,9 @@ export function ChatWidget() {
 
       {/* panel - grows out of the bottom-right corner toward the top-left */}
       <div
+        ref={dialogRef}
         role="dialog"
+        aria-modal="true"
         aria-label="Chat with Max"
         aria-hidden={!open}
         inert={!open ? true : undefined}
@@ -179,7 +201,7 @@ export function ChatWidget() {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close"
-            className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-fg-muted transition-colors hover:border-white/30 hover:text-fg"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-fg-muted transition-colors hover:border-white/30 hover:text-fg"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

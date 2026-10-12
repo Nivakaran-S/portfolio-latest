@@ -12,7 +12,7 @@ import {
   models,
   engineeringStats,
 } from "@/lib/data/medverse";
-import { breadcrumbJsonLd } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
   title: "MedVerse",
@@ -43,7 +43,7 @@ export default function MedVersePage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(crumbsLd) }}
       />
       <Header />
 
@@ -51,10 +51,10 @@ export default function MedVersePage() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ HERO ════════════ */}
-        <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 py-28 text-center sm:px-6">
+        <section className="relative flex flex-col items-center px-5 pb-12 pt-32 text-center sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="fade">
-              <p className="label text-neon-cyan/80">
+              <p className="label">
                 {medverse.name} · {medverse.team}
               </p>
             </StoryItem>
@@ -94,7 +94,7 @@ export default function MedVersePage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">01 - The motivation</p>
+              <p className="label text-fg-muted">The motivation</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -136,7 +136,7 @@ export default function MedVersePage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">02 - What I built</p>
+              <p className="label text-fg-muted">What I built</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -158,7 +158,7 @@ export default function MedVersePage() {
                   className="h-full"
                 >
                   <div className="h-full rounded-2xl border border-line bg-raised/70 p-6 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30">
-                    <p className="label text-neon-cyan/80">{b.area}</p>
+                    <p className="label">{b.area}</p>
                     <p className="mt-3 text-sm leading-relaxed text-fg-muted">
                       {b.detail}
                     </p>
@@ -173,7 +173,7 @@ export default function MedVersePage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">03 - The model layer</p>
+              <p className="label text-fg-muted">The model layer</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -217,7 +217,7 @@ export default function MedVersePage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">04 - How it&apos;s built</p>
+              <p className="label text-fg-muted">How it&apos;s built</p>
             </StoryItem>
             <StoryItem from="zoom-in" delay={0.05}>
               <p className="silver mt-6 font-display text-[clamp(1.6rem,4.5vw,3rem)] font-semibold leading-[1.15] tracking-[-0.02em] [text-wrap:balance]">
@@ -257,7 +257,7 @@ export default function MedVersePage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">05 - In numbers</p>
+              <p className="label text-fg-muted">In numbers</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -290,7 +290,7 @@ export default function MedVersePage() {
         {/* ════════════ CTA ════════════ */}
         <section className="relative flex min-h-[70svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
-            <p className="label text-neon-cyan/80">{medverse.selection}</p>
+            <p className="label">{medverse.selection}</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
             <h2 className="silver mt-6 font-display font-semibold leading-[1.15] tracking-[-0.02em] text-[clamp(1.85rem,6vw,4rem)]">
@@ -307,9 +307,9 @@ export default function MedVersePage() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
                 href={`mailto:${profile.email}`}
-                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-neon-cyan/15 px-7 py-3 text-sm font-medium text-neon-cyan-core ring-1 ring-neon-cyan/40 transition-all duration-200 hover:bg-neon-cyan/25 hover:ring-2 hover:ring-neon-cyan/60"
+                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-fg px-7 py-3 text-sm font-medium text-void transition-transform duration-200 hover:scale-[1.03]"
               >
-                Talk about MedVerse
+                Get in touch
                 <span className="transition-transform duration-200 group-hover:translate-x-1">
                   →
                 </span>

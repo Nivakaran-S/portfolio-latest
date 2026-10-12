@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useReducedMotion } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/hooks/use-prefers-reduced-motion";
 
 interface RotatingTextProps {
   items: string[];
@@ -23,7 +23,7 @@ export function RotatingText({
   pause = 1700,
   className = "",
 }: RotatingTextProps) {
-  const reduced = useReducedMotion();
+  const reduced = usePrefersReducedMotion();
   const [display, setDisplay] = useState("");
   const [index, setIndex] = useState(0);
   const [phase, setPhase] = useState<"typing" | "pausing" | "erasing">("typing");

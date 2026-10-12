@@ -1,85 +1,68 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
-import {
-  motion,
-  useScroll,
-  useTransform,
-  useSpring,
-  useReducedMotion,
-} from "motion/react";
+import { useEffect, useRef, type ReactNode } from "react";
+import { animate, useReducedMotion } from "motion/react";
 
 type From = "up" | "down" | "left" | "right" | "zoom-in" | "zoom-out" | "fade";
 
 interface StoryItemProps {
   children: ReactNode;
-  /** Direction the element travels in from as the beat is reached. */
+  /** Kept for call-site compatibility; entrances no longer travel sideways or zoom. */
   from?: From;
-  /** Travel distance in px (or zoom delta basis). */
+  /** Kept for call-site compatibility; rise distance is fixed. */
   distance?: number;
-  /** Shifts when the entrance starts within the element's scroll pass (0-0.5). */
+  /** Stagger in seconds (capped at 0.3). */
   delay?: number;
   className?: string;
 }
 
-const OFFSET: Record<From, { x?: number; y?: number; z?: number }> = {
-  up: { y: 1 },
-  down: { y: -1 },
-  left: { x: 1 },
-  right: { x: -1 },
-  "zoom-in": { z: -1 },
-  "zoom-out": { z: 1 },
-  fade: {},
-};
-
-const SPRING = { stiffness: 80, damping: 26, mass: 0.45, restDelta: 0.5 };
+/** Headings rise this far; everything else only fades. */
+const RISE_PX = 16;
 
 /**
- * One independently-travelling story element. As the element crosses into
- * the viewport its scroll progress (bottom→centre) drives a directional
- * fly-in that settles by the time it reaches centre screen. Give siblings
- * different `from` / `distance` / `delay` so they travel independently and
- * the beat composes itself as you scroll.
- *
- * Transform + opacity only (GPU). Reduced-motion → rendered static.
+ * A story element that is always rendered visible, so content never depends
+ * on JavaScript or on scroll position to appear. Elements already on screen
+ * at load stay still; elements below the fold get one brief entrance the
+ * first time they come into view - a short rise for headings, a fade for
+ * everything else. No scroll-scrubbing, no sideways travel, no zoom.
+ * Reduced motion: no entrance at all.
  */
-export function StoryItem({
-  children,
-  from = "up",
-  distance = 80,
-  delay = 0,
-  className = "",
-}: StoryItemProps) {
+export function StoryItem({ children, from = "up", delay = 0, className = "" }: StoryItemProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
 
-  const { scrollYProgress } = useScroll({
-    target: ref,
-    offset: ["start end", "center center"],
-  });
+  useEffect(() => {
+    const el = ref.current;
+    if (!el || reduced) return;
+    if (el.getBoundingClientRect().top < window.innerHeight) return;
 
-  const o = OFFSET[from];
-  const start = Math.min(0.5, Math.max(0, delay));
-  const end = 0.92;
+    const rise = from !== "fade" && el.querySelector("h1, h2, h3") ? RISE_PX : 0;
+    el.style.opacity = "0";
+    if (rise) el.style.transform = `translateY(${rise}px)`;
 
-  const opacity = useTransform(scrollYProgress, [start, start + 0.45], [0, 1]);
-  const xRaw = useTransform(scrollYProgress, [start, end], [(o.x ?? 0) * distance, 0]);
-  const yRaw = useTransform(scrollYProgress, [start, end], [(o.y ?? 0) * distance, 0]);
-  const sRaw = useTransform(
-    scrollYProgress,
-    [start, end],
-    [1 + (o.z ?? 0) * 0.16, 1]
-  );
-
-  const x = useSpring(xRaw, SPRING);
-  const y = useSpring(yRaw, SPRING);
-  const scale = useSpring(sRaw, SPRING);
-
-  if (reduced) return <div className={className}>{children}</div>;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        io.disconnect();
+        animate(
+          el,
+          { opacity: 1, transform: "translateY(0px)" },
+          { duration: 0.5, delay: Math.min(0.3, delay), ease: [0.22, 1, 0.36, 1] },
+        );
+      },
+      { rootMargin: "0px 0px -8% 0px" },
+    );
+    io.observe(el);
+    return () => {
+      io.disconnect();
+      el.style.opacity = "";
+      el.style.transform = "";
+    };
+  }, [reduced, from, delay]);
 
   return (
-    <motion.div ref={ref} className={className} style={{ opacity, x, y, scale }}>
+    <div ref={ref} className={className}>
       {children}
-    </motion.div>
+    </div>
   );
 }

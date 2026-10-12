@@ -7,7 +7,7 @@ import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 import { achievements } from "@/lib/data/achievements";
 import { events } from "@/lib/data/events";
-import { breadcrumbJsonLd } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -38,7 +38,7 @@ export default function EventsPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(crumbsLd) }}
       />
       <Header />
 
@@ -46,13 +46,10 @@ export default function EventsPage() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ THE ARENA ════════════ */}
-        <section className="relative flex min-h-[100svh] flex-col justify-end px-5 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
+        <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="fade">
-              <p className="label">Events · in the arena</p>
-            </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-4 max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
+              <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Where I show up.
               </h1>
             </StoryItem>
@@ -70,7 +67,7 @@ export default function EventsPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">01 - Proving ground</p>
+              <p className="label text-fg-muted">Proving ground</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -115,7 +112,7 @@ export default function EventsPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">02 - In the community</p>
+              <p className="label text-fg-muted">In the community</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -191,7 +188,7 @@ export default function EventsPage() {
             <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
               <a
                 href={`mailto:${profile.email}`}
-                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-neon-cyan/15 px-7 py-3 text-sm font-medium text-neon-cyan-core ring-1 ring-neon-cyan/40 transition-all duration-200 hover:bg-neon-cyan/25 hover:ring-2 hover:ring-neon-cyan/60"
+                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-fg px-7 py-3 text-sm font-medium text-void transition-transform duration-200 hover:scale-[1.03]"
               >
                 {profile.email}
                 <span className="transition-transform duration-200 group-hover:translate-x-1">

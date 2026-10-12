@@ -39,13 +39,10 @@ export default function ResearchPage() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ INTRO ════════════ */}
-        <section className="relative flex min-h-[70svh] flex-col justify-end px-5 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
+        <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="fade">
-              <p className="label">Research · the lab notebook</p>
-            </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-4 max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
+              <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Questions I chased to the end.
               </h1>
             </StoryItem>

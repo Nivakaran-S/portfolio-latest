@@ -5,9 +5,8 @@ import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { Reveal } from "@/app/_components/ui/reveal";
-import { breadcrumbJsonLd } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 import { Tilt } from "@/app/_components/ui/tilt";
-import { Parallax } from "@/app/_components/ui/parallax";
 import { StoryItem } from "@/app/_components/story/story-item";
 
 export const metadata: Metadata = {
@@ -40,7 +39,7 @@ export default function BlogIndexPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(crumbsLd) }}
       />
       <Header />
 
@@ -49,13 +48,10 @@ export default function BlogIndexPage() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ THE NOTEBOOK ════════════ */}
-        <section className="relative flex min-h-[80svh] flex-col justify-end px-5 pb-14 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
+        <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-5xl">
-            <StoryItem from="fade">
-              <p className="label">Blog · thinking out loud</p>
-            </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-4 font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
+              <h1 className="silver font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
                 Thinking out loud.
               </h1>
             </StoryItem>
@@ -81,14 +77,9 @@ export default function BlogIndexPage() {
         ) : (
           <ul className="grid grid-cols-1 gap-5 sm:grid-cols-2">
             {posts.map((p, i) => (
-              <Parallax
-                as="li"
-                key={p.slug}
-                distance={22 + (i % 2) * 20}
-                className="h-full"
-              >
+              <li key={p.slug} className="h-full">
                 <Reveal delay={(i % 2) * 80} className="h-full">
-                  <Tilt className="h-full" max={5}>
+                  <Tilt className="h-full">
                   <Link
                     href={`/blog/${p.slug}`}
                     className="bento tile-sheen group flex h-full flex-col p-6 hover:-translate-y-0.5 hover:border-neon-cyan/30 hover:bg-elevated"
@@ -122,7 +113,7 @@ export default function BlogIndexPage() {
                   </Link>
                   </Tilt>
                 </Reveal>
-              </Parallax>
+              </li>
             ))}
           </ul>
         )}

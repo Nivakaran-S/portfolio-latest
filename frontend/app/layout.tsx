@@ -5,11 +5,9 @@ import {
   siteMetadata,
   personJsonLd,
   websiteJsonLd,
-  siteNavigationJsonLd,
-} from "@/lib/seo/metadata";
+  siteNavigationJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
-import { SmoothScrollProvider } from "@/app/_components/providers/smooth-scroll-provider";
 import { MotionProvider } from "@/app/_components/providers/motion-config";
 import { ContactDrawerProvider } from "@/app/_components/contact/contact-drawer";
 import { ChatWidget } from "@/app/_components/chat/chat-widget";
@@ -19,7 +17,7 @@ import { EasterEggs } from "@/app/_components/ui/easter-eggs";
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["400", "500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -62,26 +60,24 @@ export default function RootLayout({
             StoryBackdrop (ember/forge/ink); /about owns FaceRotation. */}
         <EasterEggs />
 
-        <SmoothScrollProvider>
-          <MotionProvider>
-            <ContactDrawerProvider>
-              {children}
-              <ChatWidget />
-            </ContactDrawerProvider>
-          </MotionProvider>
-        </SmoothScrollProvider>
+        <MotionProvider>
+          <ContactDrawerProvider>
+            {children}
+            <ChatWidget />
+          </ContactDrawerProvider>
+        </MotionProvider>
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd()) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdHtml(personJsonLd()) }}
         />
         <script
           type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd()) }}
+          dangerouslySetInnerHTML={{ __html: jsonLdHtml(websiteJsonLd()) }}
         />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify(siteNavigationJsonLd()),
+            __html: jsonLdHtml(siteNavigationJsonLd()),
           }}
         />
         <Analytics />

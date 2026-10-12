@@ -34,7 +34,7 @@ function CertCard({
       {errored ? (
         // Graceful placeholder until the real image is dropped in.
         <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 bg-gradient-to-br from-elevated to-raised p-4 text-center">
-          <span className="label text-neon-cyan/70">{cert.issuer}</span>
+          <span className="label">{cert.issuer}</span>
           <span className="font-display text-sm font-semibold text-fg-dim">
             {cert.label}
           </span>
@@ -124,7 +124,7 @@ function Lightbox({
       >
         {errored ? (
           <div className="flex aspect-[4/3] flex-col items-center justify-center gap-3 bg-gradient-to-br from-elevated to-raised p-8 text-center">
-            <span className="label text-neon-cyan/70">{cert.issuer}</span>
+            <span className="label">{cert.issuer}</span>
             <span className="font-display text-lg font-semibold text-fg">
               {cert.title}
             </span>

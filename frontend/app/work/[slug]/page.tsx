@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { getMainProjects, getProject } from "@/lib/data/projects";
-import { projectJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
+import { projectJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
+import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
@@ -79,39 +80,32 @@ export default async function WorkPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(projectLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(projectLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(crumbsLd) }}
       />
 
       {/* Case-study backdrop: glowing seams in cooling metal - "forged". */}
       <StoryBackdrop variant="forge" />
 
-      <header className="fixed inset-x-0 top-0 z-50 glass py-4">
-        <nav className="mx-auto flex w-full max-w-5xl items-center justify-between px-6">
-          <Link
-            href="/work"
-            className="label text-fg-muted transition-colors hover:text-neon-cyan"
-          >
-            ← Back to work
-          </Link>
-          <Link
-            href="/"
-            className="font-display text-base font-bold tracking-tight text-fg"
-          >
-            nivakaran<span className="text-neon-cyan">.dev</span>
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ TITLE ════════════ */}
-        <section className="relative flex min-h-[100svh] flex-col justify-end px-5 pb-16 pt-28 sm:px-6">
+        <section className="relative flex flex-col px-5 pb-16 pt-28 sm:px-6 sm:pt-32">
           <div className="mx-auto w-full max-w-5xl">
+            <p className="mb-6">
+              <Link
+                href="/work"
+                className="label -ml-1 inline-flex min-h-[44px] items-center px-1 text-fg-muted transition-colors hover:text-fg"
+              >
+                ← All work
+              </Link>
+            </p>
             <StoryItem from="fade">
-              <p className="label text-neon-cyan/80">
+              <p className="label">
                 {project.category} · One build, frame by frame
               </p>
             </StoryItem>
@@ -192,7 +186,7 @@ export default async function WorkPage({ params }: PageProps) {
             <p className="label mt-12">
               <Link
                 href="/work"
-                className="text-fg-muted transition-colors duration-200 hover:text-fg"
+                className="inline-flex min-h-[44px] items-center text-fg-muted transition-colors duration-200 hover:text-fg"
               >
                 ← All work
               </Link>

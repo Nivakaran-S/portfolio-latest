@@ -167,10 +167,10 @@ export default function MaxPage() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ HERO ════════════ */}
-        <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 py-28 text-center sm:px-6">
+        <section className="relative flex flex-col items-center px-5 pb-12 pt-32 text-center sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="fade">
-              <p className="label text-neon-cyan/80">
+              <p className="label">
                 Personal operations agent · Claude Code + MCP
               </p>
             </StoryItem>
@@ -200,7 +200,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>01 - Why build it</p>
+              <p className={sectionLabel}>Why build it</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className={h2}>Most assistants wait to be asked.</h2>
@@ -231,7 +231,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>02 - Architecture</p>
+              <p className={sectionLabel}>Architecture</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className={h2}>One loop, many hands, one rulebook.</h2>
@@ -252,7 +252,7 @@ export default function MaxPage() {
                   className="h-full"
                 >
                   <div className={card}>
-                    <p className="label text-neon-cyan/80">{l.area}</p>
+                    <p className="label">{l.area}</p>
                     <p className="mt-3 text-sm leading-relaxed text-fg-muted">
                       {l.detail}
                     </p>
@@ -267,7 +267,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>03 - Voice and personality</p>
+              <p className={sectionLabel}>Voice and personality</p>
             </StoryItem>
             <StoryItem from="zoom-in" delay={0.05}>
               <p className="silver mt-6 font-display text-[clamp(1.6rem,4.5vw,3rem)] font-semibold leading-[1.15] tracking-[-0.02em] [text-wrap:balance]">
@@ -307,7 +307,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>04 - Operating modes</p>
+              <p className={sectionLabel}>Operating modes</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className={h2}>Same agent, three surfaces.</h2>
@@ -346,7 +346,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>05 - Permission tiers</p>
+              <p className={sectionLabel}>Permission tiers</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className={h2}>Autonomy scales with reversibility.</h2>
@@ -405,7 +405,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>06 - Security</p>
+              <p className={sectionLabel}>Security</p>
             </StoryItem>
             <StoryItem from="zoom-in" delay={0.05}>
               <p className="silver mt-6 font-display text-[clamp(1.6rem,4.5vw,3rem)] font-semibold leading-[1.15] tracking-[-0.02em] [text-wrap:balance]">
@@ -449,7 +449,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>07 - Memory and initiative</p>
+              <p className={sectionLabel}>Memory and initiative</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className={h2}>Remembers facts, not transcripts.</h2>
@@ -457,7 +457,7 @@ export default function MaxPage() {
             <div className="mt-12 grid gap-4 lg:grid-cols-2">
               <StoryItem from="up" distance={60} className="h-full">
                 <div className={card}>
-                  <p className="label text-neon-cyan/80">Long-term memory</p>
+                  <p className="label">Long-term memory</p>
                   <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fg-muted">
                     <li>- Stores people, projects, decisions, deadlines, setup fixes, and standing instructions.</li>
                     <li>- Never stores passwords, tokens, account numbers, or full message contents.</li>
@@ -469,7 +469,7 @@ export default function MaxPage() {
               </StoryItem>
               <StoryItem from="down" distance={60} delay={0.06} className="h-full">
                 <div className={card}>
-                  <p className="label text-neon-cyan/80">When it speaks first</p>
+                  <p className="label">When it speaks first</p>
                   <ul className="mt-4 space-y-2 text-sm leading-relaxed text-fg-muted">
                     <li>- A high-priority contact has waited more than about four hours.</li>
                     <li>- A calendar event starts in 15 minutes and I haven&apos;t acknowledged it.</li>
@@ -487,7 +487,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>08 - How it executes a task</p>
+              <p className={sectionLabel}>How it executes a task</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className={h2}>Verify before reporting.</h2>
@@ -502,7 +502,7 @@ export default function MaxPage() {
                   className="h-full"
                 >
                   <li className={card}>
-                    <p className="label text-neon-cyan/80">
+                    <p className="label">
                       {String(i + 1).padStart(2, "0")} - {step}
                     </p>
                     <p className="mt-3 text-sm leading-relaxed text-fg-muted">
@@ -527,7 +527,7 @@ export default function MaxPage() {
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
-              <p className={sectionLabel}>09 - Where it stands</p>
+              <p className={sectionLabel}>Where it stands</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className={h2}>Live, and still being built.</h2>
@@ -567,9 +567,9 @@ export default function MaxPage() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
                 href={`mailto:${profile.email}`}
-                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-neon-cyan/15 px-7 py-3 text-sm font-medium text-neon-cyan-core ring-1 ring-neon-cyan/40 transition-all duration-200 hover:bg-neon-cyan/25 hover:ring-2 hover:ring-neon-cyan/60"
+                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-fg px-7 py-3 text-sm font-medium text-void transition-transform duration-200 hover:scale-[1.03]"
               >
-                Talk about FRIDAY
+                Get in touch
                 <span className="transition-transform duration-200 group-hover:translate-x-1">
                   →
                 </span>

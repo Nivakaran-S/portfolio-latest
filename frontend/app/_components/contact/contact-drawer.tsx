@@ -151,7 +151,7 @@ function ContactDrawer({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-fg-muted transition-colors duration-200 hover:border-white/30 hover:text-fg"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-fg-muted transition-colors duration-200 hover:border-white/30 hover:text-fg"
             >
               <svg
                 width="16"
@@ -173,7 +173,7 @@ function ContactDrawer({
           {/* heading */}
           <div>
             <h2 className="silver font-display text-[clamp(2rem,7vw,2.75rem)] font-semibold leading-[1.02] tracking-tight">
-              Let&apos;s talk.
+              Get in touch.
             </h2>
             <p className="mt-4 text-fg-muted">
               Got a problem worth solving - a role, a build, or just an idea?

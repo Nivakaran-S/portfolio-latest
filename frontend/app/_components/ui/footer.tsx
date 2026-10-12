@@ -23,7 +23,7 @@ export function Footer() {
           <div className="max-w-sm">
             <Link
               href="/"
-              className="font-display text-2xl font-bold tracking-tight text-fg"
+              className="inline-flex min-h-[44px] items-center font-display text-2xl font-bold tracking-tight text-fg"
             >
               {profile.shortName}
               <span className="text-neon-cyan">.dev</span>
@@ -31,9 +31,9 @@ export function Footer() {
             <p className="mt-4 leading-relaxed text-fg-muted">
               {profile.tagline}
             </p>
-            <ContactButton className="group mt-6 inline-flex items-center gap-2 rounded-full border border-white/15 px-4 py-2 text-sm text-fg-dim transition-colors duration-200 hover:border-neon-cyan/40 hover:text-fg">
+            <ContactButton className="group mt-6 inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-5 py-2 text-sm text-fg-dim transition-colors duration-200 hover:border-neon-cyan/40 hover:text-fg">
               <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-neon-lime" />
-              Open to work - let&apos;s talk
+              Get in touch
               <span className="transition-transform duration-200 group-hover:translate-x-0.5">
                 →
               </span>
@@ -44,11 +44,11 @@ export function Footer() {
           <div className="grid grid-cols-2 gap-8 sm:max-w-md md:justify-self-end">
             <nav aria-label="Footer">
               <p className="label mb-4 text-fg-muted">Navigate</p>
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col">
                 {routeNav.map((r) =>
                   r.href === "/#contact" ? (
                     <li key={r.href}>
-                      <ContactButton className="text-sm text-fg-dim transition-colors duration-200 hover:text-neon-cyan">
+                      <ContactButton className="inline-flex min-h-[44px] items-center text-sm text-fg-dim transition-colors duration-200 hover:text-fg">
                         {r.label}
                       </ContactButton>
                     </li>
@@ -56,7 +56,7 @@ export function Footer() {
                     <li key={r.href}>
                       <Link
                         href={r.href}
-                        className="text-sm text-fg-dim transition-colors duration-200 hover:text-neon-cyan"
+                        className="inline-flex min-h-[44px] items-center text-sm text-fg-dim transition-colors duration-200 hover:text-fg"
                       >
                         {r.label}
                       </Link>
@@ -68,19 +68,19 @@ export function Footer() {
 
             <div>
               <p className="label mb-4 text-fg-muted">Connect</p>
-              <ul className="flex flex-col gap-3">
+              <ul className="flex flex-col">
                 {socials.map((s) => (
                   <li key={s.label}>
                     <a
                       href={s.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="group inline-flex items-center gap-1.5 text-sm text-fg-dim transition-colors duration-200 hover:text-neon-cyan"
+                      className="group inline-flex min-h-[44px] items-center gap-1.5 text-sm text-fg-dim transition-colors duration-200 hover:text-fg"
                     >
                       {s.label}
                       <span
                         aria-hidden="true"
-                        className="text-fg-muted transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-neon-cyan"
+                        className="text-fg-muted transition-all duration-200 group-hover:translate-x-0.5 group-hover:text-fg"
                       >
                         ↗
                       </span>
@@ -90,7 +90,7 @@ export function Footer() {
                 <li>
                   <a
                     href={`mailto:${profile.email}`}
-                    className="text-sm text-fg-dim transition-colors duration-200 hover:text-neon-cyan"
+                    className="inline-flex min-h-[44px] items-center text-sm text-fg-dim transition-colors duration-200 hover:text-fg"
                   >
                     Email
                   </a>
@@ -110,7 +110,7 @@ export function Footer() {
           </p>
           <a
             href="#main"
-            className="label text-fg-muted transition-colors duration-200 hover:text-fg"
+            className="label inline-flex min-h-[44px] items-center text-fg-muted transition-colors duration-200 hover:text-fg"
           >
             Back to top ↑
           </a>

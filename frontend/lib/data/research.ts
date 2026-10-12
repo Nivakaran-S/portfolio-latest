@@ -24,31 +24,44 @@ export interface ResearchProject {
  * Completed research awaiting publication. Status labels must stay honest:
  * never "Published" until the paper is actually out.
  *
- * PLACEHOLDERS - replace titles, abstracts and stacks with the real papers.
+ * ponytail: MOCK entries for layout - replace with the real papers before
+ * sharing the site; /research stays noindexed until then.
  */
 export const research: ResearchProject[] = [
   {
-    slug: "research-1",
-    title: "Research Project One - working title",
+    slug: "agentic-denial-triage",
+    title: "Agentic triage of insurance claim denials in US revenue-cycle management",
     status: "In preparation",
     year: "2026",
-    area: "Machine Learning",
+    area: "Healthcare AI",
     abstract:
-      "Placeholder abstract. Two or three sentences on the problem, the method, and the headline result - kept at a level the venue's preprint policy allows.",
+      "A multi-agent LLM pipeline that reads a denied claim, classifies the denial reason, gathers the supporting documentation, and drafts an appeal for human review. Evaluated against a held-out set of de-identified denials on routing accuracy and reviewer edit distance.",
     contribution:
-      "Placeholder: the one-line takeaway a non-specialist should leave with.",
-    stack: ["Python", "PyTorch"],
+      "Shows where agents can take the repetitive work out of denial management - and where a human still has to sign off.",
+    stack: ["Python", "LangGraph", "LangChain", "FastAPI"],
   },
   {
-    slug: "research-2",
-    title: "Research Project Two - working title",
+    slug: "ward-early-warning",
+    title: "Continuous early-warning scoring from low-cost wearable vitals",
+    status: "In preparation",
+    year: "2026",
+    area: "Medical Signal Processing",
+    abstract:
+      "Compares on-device signal-quality gating and lightweight models for turning noisy wearable heart-rate and SpO2 streams into a continuous early-warning score for general-ward patients, measured against public benchmark datasets.",
+    contribution:
+      "Brings ICU-style continuous monitoring a step closer to wards that only get spot checks every few hours.",
+    stack: ["Python", "PyTorch", "C++", "ESP32"],
+  },
+  {
+    slug: "zero-cost-rag-eval",
+    title: "How far can retrieval-augmented generation go without paid APIs?",
     status: "In preparation",
     year: "2026",
     area: "Natural Language Processing",
     abstract:
-      "Placeholder abstract. Two or three sentences on the problem, the method, and the headline result - kept at a level the venue's preprint policy allows.",
+      "Benchmarks fully local embedding and generation stacks against API-based baselines on grounded question answering over private documents, reporting answer faithfulness, citation accuracy, and cost per thousand queries.",
     contribution:
-      "Placeholder: the one-line takeaway a non-specialist should leave with.",
-    stack: ["Python", "Hugging Face"],
+      "A practical answer to when a self-hosted RAG stack is good enough - and when it is not.",
+    stack: ["Python", "Hugging Face", "LangChain", "FAISS"],
   },
 ];

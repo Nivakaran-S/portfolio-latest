@@ -5,7 +5,7 @@ import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { WorkCatalog } from "@/app/_components/work/work-catalog";
-import { breadcrumbJsonLd } from "@/lib/seo/metadata";
+import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 import { StoryItem } from "@/app/_components/story/story-item";
 
 export const metadata: Metadata = {
@@ -36,7 +36,7 @@ export default function WorkIndexPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(crumbsLd) }}
       />
       <Header />
 
@@ -45,13 +45,10 @@ export default function WorkIndexPage() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ THE COLLECTION ════════════ */}
-        <section className="relative flex min-h-[88svh] flex-col justify-end px-5 pb-14 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
+        <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="fade">
-              <p className="label">Work · the proof</p>
-            </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-4 font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.75rem,9vw,7rem)]">
+              <h1 className="silver font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.75rem,9vw,7rem)]">
                 Proof, not promises.
               </h1>
             </StoryItem>

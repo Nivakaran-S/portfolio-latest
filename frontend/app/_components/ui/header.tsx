@@ -57,13 +57,13 @@ export function Header() {
       >
         <Link
           href="/"
-          className="font-display text-lg font-bold tracking-tight text-fg"
+          className="inline-flex min-h-[44px] items-center font-display text-lg font-bold tracking-tight text-fg"
         >
           {profile.shortName}
           <span className="text-neon-cyan">.dev</span>
         </Link>
 
-        <ul className="hidden items-center gap-8 md:flex">
+        <ul className="hidden items-center gap-8 lg:flex">
           {routeNav.map((r) => {
             // Contact opens the slide-in drawer instead of routing home.
             if (r.href === "/#contact") {
@@ -92,8 +92,8 @@ export function Header() {
           })}
         </ul>
 
-        <ContactButton className="hidden rounded-full bg-neon-cyan px-5 py-2 text-sm font-medium text-void shadow-[0_0_20px_-6px_var(--color-neon-cyan)] transition-all duration-300 hover:bg-neon-cyan-core hover:shadow-[0_0_24px_-4px_var(--color-neon-cyan)] md:inline-block">
-          Let&apos;s talk
+        <ContactButton className="hidden min-h-[44px] items-center rounded-full bg-fg px-5 py-2 text-sm font-medium text-void transition-transform duration-200 hover:scale-[1.03] lg:inline-flex">
+          Get in touch
         </ContactButton>
 
         <button
@@ -102,7 +102,7 @@ export function Header() {
           aria-expanded={menuOpen}
           aria-controls="mobile-menu"
           onClick={() => setMenuOpen((v) => !v)}
-          className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] md:hidden"
+          className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
         >
           <span
             className={`h-px w-6 bg-fg transition-all duration-300 ${
@@ -124,7 +124,7 @@ export function Header() {
 
       <div
         id="mobile-menu"
-        className={`fixed inset-0 top-0 z-40 flex flex-col items-center justify-center gap-7 bg-void/95 backdrop-blur-xl transition-all duration-500 md:hidden ${
+        className={`fixed inset-0 top-0 z-40 flex flex-col items-center justify-center gap-7 bg-void/95 backdrop-blur-xl transition-all duration-500 lg:hidden ${
           menuOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -158,9 +158,9 @@ export function Header() {
         })}
         <ContactButton
           onClick={() => setMenuOpen(false)}
-          className="mt-4 rounded-full bg-neon-cyan px-7 py-3 text-sm font-medium text-void"
+          className="mt-4 rounded-full bg-fg px-7 py-3 text-sm font-medium text-void"
         >
-          Let&apos;s talk
+          Get in touch
         </ContactButton>
       </div>
     </header>

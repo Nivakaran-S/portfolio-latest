@@ -6,8 +6,8 @@ import {
   useMotionValue,
   useSpring,
   useTransform,
-  useReducedMotion,
 } from "motion/react";
+import { usePrefersReducedMotion } from "@/lib/hooks/use-prefers-reduced-motion";
 
 /**
  * Pointer-reactive 3D tilt for cards. The element leans toward the
@@ -18,13 +18,13 @@ import {
 export function Tilt({
   children,
   className = "",
-  max = 9,
+  max = 4,
 }: {
   children: ReactNode;
   className?: string;
   max?: number;
 }) {
-  const reduced = useReducedMotion();
+  const reduced = usePrefersReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
 
   // Tilt is a hover effect — only enable it for fine (mouse) pointers, so
@@ -42,11 +42,11 @@ export function Tilt({
   const my = useMotionValue(0);
   const rotX = useSpring(useTransform(my, [-0.5, 0.5], [max, -max]), {
     stiffness: 150,
-    damping: 15,
+    damping: 26,
   });
   const rotY = useSpring(useTransform(mx, [-0.5, 0.5], [-max, max]), {
     stiffness: 150,
-    damping: 15,
+    damping: 26,
   });
 
   if (reduced || coarse) {

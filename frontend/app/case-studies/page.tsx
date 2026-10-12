@@ -47,10 +47,10 @@ export default function CaseStudiesPage() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ HERO ════════════ */}
-        <section className="relative flex min-h-[70svh] flex-col items-center justify-center px-5 py-28 text-center sm:px-6">
+        <section className="relative flex flex-col items-center px-5 pb-12 pt-32 text-center sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="fade">
-              <p className="label text-neon-cyan/80">
+              <p className="label">
                 {studies.length} case studies
               </p>
             </StoryItem>
@@ -107,7 +107,7 @@ export default function CaseStudiesPage() {
                   return (
                     <StoryItem key={label} from="up" delay={0.12 + j * 0.05}>
                       <div className="border-l border-neon-cyan/30 pl-6">
-                        <p className="label text-neon-cyan/80">{label}</p>
+                        <p className="label">{label}</p>
                         <p className="mt-3 leading-relaxed text-fg-muted">{body}</p>
                       </div>
                     </StoryItem>

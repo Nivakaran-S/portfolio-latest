@@ -4,7 +4,6 @@ import {
   motion,
   useScroll,
   useTransform,
-  useSpring,
   useReducedMotion,
 } from "motion/react";
 
@@ -58,15 +57,12 @@ interface StoryBackdropProps {
  */
 export function StoryBackdrop({ variant }: StoryBackdropProps) {
   const reduced = useReducedMotion();
-  const enabled = !reduced;
 
+  // Depth layers track scroll 1:1 (no spring lag). The style object is always
+  // passed so server and client markup match; reduced motion zeroes travel.
   const { scrollYProgress } = useScroll();
-  const yFarRaw = useTransform(scrollYProgress, [0, 1], [0, -70]);
-  const yNearRaw = useTransform(scrollYProgress, [0, 1], [0, -180]);
-  const yFar = useSpring(yFarRaw, { stiffness: 80, damping: 30, mass: 0.5 });
-  const yNear = useSpring(yNearRaw, { stiffness: 80, damping: 30, mass: 0.5 });
-  const far = enabled ? { y: yFar } : undefined;
-  const near = enabled ? { y: yNear } : undefined;
+  const far = { y: useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -70]) };
+  const near = { y: useTransform(scrollYProgress, [0, 1], [0, reduced ? 0 : -180]) };
 
   const wash: Record<BackdropVariant, string> = {
     ember:
@@ -81,7 +77,8 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-void"
+      // Ambient loops play a few cycles and settle, so nothing moves forever.
+      className="pointer-events-none fixed inset-0 -z-10 overflow-hidden bg-void [&_*]:[animation-iteration-count:3]"
     >
       <div className="absolute inset-0" style={{ background: wash[variant] }} />
 
@@ -98,7 +95,8 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
               style={{ background: "rgba(217,119,6,0.07)" }}
             />
           </motion.div>
-          <motion.div className="absolute inset-0" style={near}>
+          {/* Sparks are desktop-only: on phones they cost frames for little gain. */}
+          <motion.div className="absolute inset-0 hidden sm:block" style={near}>
             {EMBERS.map((e, i) => (
               <span
                 key={i}

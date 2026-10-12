@@ -54,14 +54,17 @@
 }
 
 html {
-  scroll-behavior: smooth;
   -webkit-text-size-adjust: 100%;
   /* Prevent app-wide horizontal scroll. Use `clip`, NOT `hidden`:
      `overflow-x: hidden` would switch overflow-y to `auto`, making <html>
-     a scrolling container and breaking `position: sticky` (WorkRail's
-     pinned scroll-jack) + motion's useScroll(). `clip` clips the x axis
+     a scrolling container and breaking `position: sticky` (the pinned
+     home hero) + motion's useScroll(). `clip` clips the x axis
      without that side effect, so sticky and scroll tracking keep working. */
   overflow-x: clip;
+  /* Native scrolling (no scroll smoothing library): in-page anchors glide,
+     and land below the fixed header. Reduced motion resets this below. */
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
@@ -205,8 +208,8 @@ summary {
 @utility label {
   font-family: var(--font-mono), monospace;
   text-transform: uppercase;
-  letter-spacing: 0.18em;
-  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  font-size: 0.8rem;
   color: var(--color-fg-muted);
 }
 
@@ -397,3 +400,4 @@ summary {
     border-color: var(--color-fg-dim);
   }
 }
+

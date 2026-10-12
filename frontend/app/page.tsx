@@ -8,13 +8,11 @@ import { getAllPosts, formatPostDate } from "@/lib/data/blog";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
-import { ContactButton } from "@/app/_components/contact/contact-button";
-import { RotatingText } from "@/app/_components/ui/rotating-text";
-import { StoryItem } from "@/app/_components/story/story-item";
+import { DepthItem } from "@/app/_components/story/depth-item";
 import { WorkRail } from "@/app/_components/story/work-rail";
+import { Hero } from "@/app/_components/hero/hero";
 
 const mains = getMainProjects();
-const cityShort = profile.location.split(",")[0];
 
 const domainBlurbs: Record<string, string> = {
   "AI / ML": "RAG systems, model training, and inference that actually ships.",
@@ -60,19 +58,19 @@ function Statement({
   return (
     <section className="relative flex min-h-[90svh] flex-col items-center justify-center px-5 text-center sm:px-6">
       {kicker ? (
-        <StoryItem from="fade">
+        <DepthItem from="fade">
           <p className="label text-fg-muted">{kicker}</p>
-        </StoryItem>
+        </DepthItem>
       ) : null}
-      <StoryItem from="up" delay={0.05}>
+      <DepthItem from="up" delay={0.05}>
         <p className="silver mt-6 max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,7.5vw,5.5rem)] [text-wrap:balance]">
           {children}
         </p>
-      </StoryItem>
+      </DepthItem>
       {sub ? (
-        <StoryItem from="up" delay={0.12}>
+        <DepthItem from="up" delay={0.12}>
           <p className="mt-7 max-w-xl text-fg-muted sm:text-lg">{sub}</p>
-        </StoryItem>
+        </DepthItem>
       ) : null}
     </section>
   );
@@ -90,71 +88,7 @@ export default function Home() {
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════════ BEAT 01 - THE SPARK ════════════════ */}
-        <section
-          id="hero"
-          className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6"
-        >
-          <StoryItem from="fade">
-            <p className="label text-fg-dim">
-              <RotatingText
-                items={[
-                  "AI & Software Engineer",
-                  "End-to-end builder",
-                  "Data-driven systems",
-                ]}
-              />
-            </p>
-          </StoryItem>
-
-          <StoryItem from="up" delay={0.05}>
-            <h1 className="text-shine mt-7 max-w-full font-display font-semibold leading-[0.95] tracking-[-0.04em] text-[clamp(3rem,11vw,9rem)] [text-wrap:balance]">
-              {profile.name}
-            </h1>
-          </StoryItem>
-
-          <StoryItem from="up" delay={0.12}>
-            <p className="mt-6 max-w-2xl text-[clamp(1.1rem,2vw,1.6rem)] leading-snug text-fg-dim">
-              {profile.tagline}
-            </p>
-          </StoryItem>
-
-          <StoryItem from="up" delay={0.18}>
-            <ul className="mt-7 flex flex-wrap items-center justify-center gap-2.5">
-              <li className="label rounded-full border border-line bg-raised/50 px-3.5 py-1.5 text-fg-dim">
-                AI / ML · Software · Data
-              </li>
-              <li className="label inline-flex items-center gap-2 rounded-full border border-neon-lime/30 bg-raised/50 px-3.5 py-1.5 text-fg-dim">
-                <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-neon-lime" />
-                Open to work · {cityShort}, LK
-              </li>
-            </ul>
-          </StoryItem>
-
-          <StoryItem from="up" delay={0.24}>
-            <div className="mt-12 flex flex-col items-center gap-4 sm:flex-row">
-              <Link
-                href="#work"
-                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-neon-cyan/15 px-7 py-3 text-sm font-medium text-neon-cyan-core ring-1 ring-neon-cyan/40 transition-all duration-200 hover:bg-neon-cyan/25 hover:ring-2 hover:ring-neon-cyan/60"
-              >
-                View work
-                <span className="transition-transform duration-200 group-hover:translate-x-1">
-                  →
-                </span>
-              </Link>
-              <ContactButton className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-white/30 hover:text-fg">
-                Get in touch
-              </ContactButton>
-            </div>
-          </StoryItem>
-
-          {/* refined scroll cue */}
-          <div className="absolute bottom-8 left-1/2 flex -translate-x-1/2 flex-col items-center gap-2.5">
-            <span className="flex h-9 w-5 justify-center rounded-full border border-line/80">
-              <span className="mt-1.5 h-1.5 w-1.5 animate-scroll-dot rounded-full bg-neon-cyan" />
-            </span>
-            <span className="label text-fg-muted">Scroll</span>
-          </div>
-        </section>
+        <Hero />
 
         {/* ════════════════ STATEMENT - THE PROBLEM ════════════════ */}
         <Statement
@@ -167,21 +101,21 @@ export default function Home() {
         {/* ════════════════ BEAT 01 - THE SYSTEM ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
-            <StoryItem from="left">
-              <p className="label text-fg-muted">01 - Then, a system</p>
-            </StoryItem>
+            <DepthItem from="left">
+              <p className="label text-fg-muted">Then, a system</p>
+            </DepthItem>
             <h2 className="mt-6 font-display font-semibold leading-[1.05] tracking-[-0.03em] text-[clamp(2rem,6.5vw,5rem)]">
-              <StoryItem from="left" distance={120}>
+              <DepthItem from="left" distance={120}>
                 <span className="block text-fg">I build</span>
-              </StoryItem>
-              <StoryItem from="right" distance={120} delay={0.05}>
+              </DepthItem>
+              <DepthItem from="right" distance={120} delay={0.05}>
                 <span className="silver block leading-tight ">intelligent systems</span>
-              </StoryItem>
-              <StoryItem from="up" distance={90} delay={0.1}>
+              </DepthItem>
+              <DepthItem from="up" distance={90} delay={0.1}>
                 <span className="block text-fg-dim">
                   from the data to the product people click.
                 </span>
-              </StoryItem>
+              </DepthItem>
             </h2>
           </div>
         </section>
@@ -189,17 +123,17 @@ export default function Home() {
         {/* ════════════════ BEAT 02 - THE DISCIPLINES ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="up">
-              <p className="label text-fg-muted">02 - Three disciplines</p>
-            </StoryItem>
-            <StoryItem from="up" delay={0.05}>
+            <DepthItem from="up">
+              <p className="label text-fg-muted">Three disciplines</p>
+            </DepthItem>
+            <DepthItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
                 Built where three fields meet.
               </h2>
-            </StoryItem>
+            </DepthItem>
             <div className="mt-10 grid grid-cols-1 gap-5 md:grid-cols-3">
               {profile.domains.map((d, i) => (
-                <StoryItem
+                <DepthItem
                   key={d}
                   from={domainDirs[i % 3]}
                   distance={110}
@@ -219,7 +153,7 @@ export default function Home() {
                       </p>
                     </div>
                   </article>
-                </StoryItem>
+                </DepthItem>
               ))}
             </div>
           </div>
@@ -228,17 +162,17 @@ export default function Home() {
         {/* ════════════════ BEAT 03 - HOW I WORK ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="up">
-              <p className="label text-fg-muted">03 - Principles</p>
-            </StoryItem>
-            <StoryItem from="up" delay={0.05}>
+            <DepthItem from="up">
+              <p className="label text-fg-muted">Principles</p>
+            </DepthItem>
+            <DepthItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
                 Three rules I don&apos;t break.
               </h2>
-            </StoryItem>
+            </DepthItem>
             <div className="mt-12 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-line bg-line md:grid-cols-3">
               {principles.map((p, i) => (
-                <StoryItem
+                <DepthItem
                   key={p.k}
                   from={domainDirs[i % 3]}
                   distance={100}
@@ -252,7 +186,7 @@ export default function Home() {
                     >
                       0{i + 1}
                     </span>
-                    <p className="label text-neon-cyan">{p.k}</p>
+                    <p className="label">{p.k}</p>
                     <h3 className="silver font-display text-2xl font-semibold leading-snug tracking-tight">
                       {p.title}
                     </h3>
@@ -260,7 +194,7 @@ export default function Home() {
                       {p.body}
                     </p>
                   </article>
-                </StoryItem>
+                </DepthItem>
               ))}
             </div>
           </div>
@@ -272,14 +206,14 @@ export default function Home() {
           className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6"
         >
           <div className="mx-auto w-full max-w-5xl">
-            <StoryItem from="left">
-              <p className="label text-fg-muted">04 - The stack</p>
-            </StoryItem>
-            <StoryItem from="up" delay={0.05}>
+            <DepthItem from="left">
+              <p className="label text-fg-muted">The stack</p>
+            </DepthItem>
+            <DepthItem from="up" delay={0.05}>
               <h2 className="silver mt-3 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
                 A connected stack, not a buzzword list.
               </h2>
-            </StoryItem>
+            </DepthItem>
             <StackGrid />
           </div>
         </section>
@@ -292,23 +226,23 @@ export default function Home() {
           Then it ships.
         </Statement>
 
-        {/* ════════════════ BEAT 05 - THE WORK (pinned scroll-jack) ════════════════ */}
+        {/* ════════════════ BEAT 05 - THE WORK (horizontal rail) ════════════════ */}
         <WorkRail projects={mains} />
 
         {/* ════════════════ BEAT 06 - BY THE NUMBERS ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="up">
-              <p className="label text-fg-muted">06 - By the numbers</p>
-            </StoryItem>
-            <StoryItem from="up" delay={0.05}>
+            <DepthItem from="up">
+              <p className="label text-fg-muted">By the numbers</p>
+            </DepthItem>
+            <DepthItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
                 A habit of shipping, kept on the record.
               </h2>
-            </StoryItem>
+            </DepthItem>
             <dl className="mt-12 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-line bg-line lg:grid-cols-4">
               {profile.stats.map((s, i) => (
-                <StoryItem
+                <DepthItem
                   key={s.label}
                   from={i % 2 === 0 ? "up" : "down"}
                   distance={70}
@@ -321,7 +255,7 @@ export default function Home() {
                     </dd>
                     <dt className="label text-fg-muted">{s.label}</dt>
                   </div>
-                </StoryItem>
+                </DepthItem>
               ))}
             </dl>
           </div>
@@ -333,17 +267,17 @@ export default function Home() {
           className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6"
         >
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="left">
-              <p className="label text-fg-muted">07 - Always sharpening</p>
-            </StoryItem>
-            <StoryItem from="up" delay={0.05}>
+            <DepthItem from="left">
+              <p className="label text-fg-muted">Always sharpening</p>
+            </DepthItem>
+            <DepthItem from="up" delay={0.05}>
               <h2 className="silver mt-3 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
                 The learning never stops.
               </h2>
-            </StoryItem>
+            </DepthItem>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {featuredCertifications.map((cert, i) => (
-                <StoryItem
+                <DepthItem
                   key={cert.label}
                   from={i % 2 === 0 ? "up" : "down"}
                   distance={60}
@@ -356,7 +290,7 @@ export default function Home() {
                     </h3>
                     <p className="mt-2 text-sm text-fg-muted">{cert.detail}</p>
                   </div>
-                </StoryItem>
+                </DepthItem>
               ))}
             </div>
           </div>
@@ -369,10 +303,10 @@ export default function Home() {
             className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6"
           >
             <div className="mx-auto w-full max-w-5xl">
-              <StoryItem from="up">
-                <p className="label text-fg-muted">08 - Thinking out loud</p>
-              </StoryItem>
-              <StoryItem from="up" delay={0.06}>
+              <DepthItem from="up">
+                <p className="label text-fg-muted">Thinking out loud</p>
+              </DepthItem>
+              <DepthItem from="up" delay={0.06}>
                 <Link
                   href={`/blog/${latest.slug}`}
                   className="group mt-8 block rounded-3xl border border-line bg-raised/80 p-8 backdrop-blur-sm transition-colors duration-200 hover:border-neon-cyan/30 hover:bg-elevated md:p-12"
@@ -392,8 +326,8 @@ export default function Home() {
                     Read post →
                   </span>
                 </Link>
-              </StoryItem>
-              <StoryItem from="fade" delay={0.12}>
+              </DepthItem>
+              <DepthItem from="fade" delay={0.12}>
                 <p className="label mt-8">
                   <Link
                     href="/blog"
@@ -402,7 +336,7 @@ export default function Home() {
                     All writing →
                   </Link>
                 </p>
-              </StoryItem>
+              </DepthItem>
             </div>
           </section>
         ) : null}
@@ -412,25 +346,25 @@ export default function Home() {
           id="contact"
           className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6"
         >
-          <StoryItem from="up">
-            <p className="label text-fg-muted">09 - The invitation</p>
-          </StoryItem>
-          <StoryItem from="up" delay={0.06}>
+          <DepthItem from="up">
+            <p className="label text-fg-muted">The invitation</p>
+          </DepthItem>
+          <DepthItem from="up" delay={0.06}>
             <h2 className="silver mt-6 font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
               Now, let&apos;s build yours.
             </h2>
-          </StoryItem>
-          <StoryItem from="up" delay={0.12}>
+          </DepthItem>
+          <DepthItem from="up" delay={0.12}>
             <p className="mt-6 max-w-xl text-fg-dim sm:text-lg">
               Open to roles and collaborations in AI/ML, software, and data
               engineering.
             </p>
-          </StoryItem>
-          <StoryItem from="up" delay={0.18}>
+          </DepthItem>
+          <DepthItem from="up" delay={0.18}>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
                 href={`mailto:${profile.email}`}
-                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-neon-cyan/15 px-7 py-3 text-sm font-medium text-neon-cyan-core ring-1 ring-neon-cyan/40 transition-all duration-200 hover:bg-neon-cyan/25 hover:ring-2 hover:ring-neon-cyan/60"
+                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-fg px-7 py-3 text-sm font-medium text-void transition-transform duration-200 hover:scale-[1.03]"
               >
                 {profile.email}
                 <span className="transition-transform duration-200 group-hover:translate-x-1">
@@ -451,7 +385,7 @@ export default function Home() {
                   </a>
                 ))}
             </div>
-          </StoryItem>
+          </DepthItem>
         </section>
       </main>
 

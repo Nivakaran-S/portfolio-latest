@@ -14,7 +14,7 @@ import {
 import { capabilities } from "@/lib/data/services";
 import { CertificationGallery } from "@/app/_components/about/certification-card";
 import { StackGrid } from "@/app/_components/sections/stack-grid";
-import { profilePageJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
+import { profilePageJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 
 export const metadata: Metadata = {
   title: "About",
@@ -47,12 +47,12 @@ function PathTimeline({
   return (
     <div>
       <StoryItem from="up">
-        <p className="label text-neon-cyan">{kicker}</p>
+        <p className="label">{kicker}</p>
       </StoryItem>
       <div className="mt-6 space-y-8 border-l border-line pl-8">
         {entries.map((entry, i) => (
           <StoryItem
-            key={entry.org}
+            key={`${entry.org}-${entry.role}`}
             from="up"
             distance={60}
             delay={0.05 + i * 0.05}
@@ -89,11 +89,11 @@ export default function AboutPage() {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(profileLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(profileLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(crumbsLd) }}
       />
       <Header />
 
@@ -106,11 +106,8 @@ export default function AboutPage() {
         {/* ════════════ THE SPARK ════════════ */}
         <section className="relative flex min-h-[100svh] flex-col justify-end px-5 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
           <div className="mx-auto w-full max-w-6xl">
-            <StoryItem from="fade">
-              <p className="label">About · the origin</p>
-            </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-4 max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
+              <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Before the systems, the person.
               </h1>
             </StoryItem>
@@ -129,7 +126,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">01 - Where it started</p>
+              <p className="label text-fg-muted">Where it started</p>
             </StoryItem>
             <div className="mt-8 space-y-7">
               {profile.about.map((para, i) => (
@@ -147,7 +144,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 text-center sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="fade">
-              <p className="label text-fg-muted">02 - What shaped me</p>
+              <p className="label text-fg-muted">What shaped me</p>
             </StoryItem>
             <StoryItem from="zoom-in" delay={0.05}>
               <p className="silver mx-auto mt-8 max-w-3xl font-display text-[clamp(2rem,6vw,4.5rem)] font-semibold leading-[1.05] tracking-[-0.02em] [text-wrap:balance]">
@@ -168,7 +165,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">03 - The path</p>
+              <p className="label text-fg-muted">The path</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 font-display font-semibold leading-tight tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -186,7 +183,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">04 - Always sharpening</p>
+              <p className="label text-fg-muted">Always sharpening</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -209,7 +206,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">05 - What I can do</p>
+              <p className="label text-fg-muted">What I can do</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -239,7 +236,7 @@ export default function AboutPage() {
                     }`}
                   >
                     {cap.tier === "core" ? (
-                      <span className="label text-neon-cyan/70">Core</span>
+                      <span className="label">Core</span>
                     ) : (
                       <span className="label text-fg-muted">Supporting</span>
                     )}
@@ -260,7 +257,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">06 - The toolkit</p>
+              <p className="label text-fg-muted">The toolkit</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -281,7 +278,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
-              <p className="label text-fg-muted">07 - By the numbers</p>
+              <p className="label text-fg-muted">By the numbers</p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h2 className="silver mt-3 max-w-3xl font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">
@@ -312,7 +309,7 @@ export default function AboutPage() {
         {/* ════════════ WHAT'S NEXT - CONTACT ════════════ */}
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
-            <p className="label text-fg-muted">08 - What&apos;s next</p>
+            <p className="label text-fg-muted">What&apos;s next</p>
           </StoryItem>
           <StoryItem from="up" delay={0.06}>
             <h2 className="silver mt-6 font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
@@ -329,7 +326,7 @@ export default function AboutPage() {
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <a
                 href={`mailto:${profile.email}`}
-                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-neon-cyan/15 px-7 py-3 text-sm font-medium text-neon-cyan-core ring-1 ring-neon-cyan/40 transition-all duration-200 hover:bg-neon-cyan/25 hover:ring-2 hover:ring-neon-cyan/60"
+                className="group inline-flex min-h-[44px] items-center gap-2 rounded-full bg-fg px-7 py-3 text-sm font-medium text-void transition-transform duration-200 hover:scale-[1.03]"
               >
                 {profile.email}
                 <span className="transition-transform duration-200 group-hover:translate-x-1">

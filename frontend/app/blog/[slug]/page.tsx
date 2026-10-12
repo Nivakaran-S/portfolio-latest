@@ -5,7 +5,8 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import type { MDXComponents } from "mdx/types";
 import { getAllPosts, getPost, formatPostDate } from "@/lib/data/blog";
 import { profile } from "@/lib/data/profile";
-import { blogPostingJsonLd, breadcrumbJsonLd } from "@/lib/seo/metadata";
+import { blogPostingJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
+import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
@@ -115,6 +116,8 @@ const mdxComponents: MDXComponents = {
     <img
       {...props}
       alt={alt ?? ""}
+      loading="lazy"
+      decoding="async"
       className="mt-6 h-auto max-w-full rounded-2xl border border-line"
     />
   ),
@@ -145,37 +148,30 @@ export default async function BlogPostPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(postJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(postJsonLd) }}
       />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(crumbsJsonLd) }}
+        dangerouslySetInnerHTML={{ __html: jsonLdHtml(crumbsJsonLd) }}
       />
 
       {/* Post backdrop: ruled-paper notebook with a soft wash - "the notebook". */}
       <StoryBackdrop variant="ink" />
 
-      <header className="fixed inset-x-0 top-0 z-50 glass py-4">
-        <nav className="mx-auto flex w-full max-w-4xl items-center justify-between px-6">
-          <Link
-            href="/blog"
-            className="label text-fg-muted transition-colors hover:text-neon-cyan"
-          >
-            ← Back to blog
-          </Link>
-          <Link
-            href="/"
-            className="font-display text-base font-bold tracking-tight text-fg"
-          >
-            nivakaran<span className="text-neon-cyan">.dev</span>
-          </Link>
-        </nav>
-      </header>
+      <Header />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ TITLE BEAT ════════════ */}
-        <section className="relative flex min-h-[72svh] flex-col justify-end px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
+        <section className="relative flex flex-col px-5 pb-12 pt-28 sm:px-6 sm:pt-32">
           <div className="mx-auto w-full max-w-3xl">
+            <p className="mb-6">
+              <Link
+                href="/blog"
+                className="label -ml-1 inline-flex min-h-[44px] items-center px-1 text-fg-muted transition-colors hover:text-fg"
+              >
+                ← All posts
+              </Link>
+            </p>
             <StoryItem from="fade">
               <p className="label">
                 <time dateTime={post.date}>{formatPostDate(post.date)}</time> ·{" "}
@@ -213,7 +209,7 @@ export default async function BlogPostPage({ params }: PageProps) {
           <footer className="mt-12 border-t border-line/60 pt-8">
             <Link
               href="/blog"
-              className="label text-fg-muted transition-colors duration-200 hover:text-fg"
+              className="label inline-flex min-h-[44px] items-center text-fg-muted transition-colors duration-200 hover:text-fg"
             >
               ← All posts
             </Link>
