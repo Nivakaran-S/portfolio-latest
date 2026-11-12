@@ -106,7 +106,9 @@ function ContactDrawer({
   return (
     <div
       aria-hidden={!isOpen}
-      className={`fixed inset-0 z-[80] ${isOpen ? "" : "pointer-events-none"}`}
+      className={`fixed inset-0 z-[80] overflow-hidden ${
+        isOpen ? "" : "pointer-events-none"
+      }`}
     >
       {/* backdrop */}
       <button
@@ -125,8 +127,8 @@ function ContactDrawer({
         aria-modal="true"
         aria-label="Get in touch"
         inert={!isOpen}
-        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col overflow-y-auto border-l border-line bg-base shadow-2xl transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
-          isOpen ? "translate-x-0" : "translate-x-full"
+        className={`absolute right-0 top-0 flex h-full w-full max-w-md flex-col overflow-y-auto border-l border-line bg-base shadow-2xl transition-[transform,visibility] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isOpen ? "visible translate-x-0" : "invisible translate-x-full"
         }`}
       >
         {/* warm accent rail at the top edge */}
