@@ -128,7 +128,7 @@ export function ChatWidget() {
         onClick={() => setOpen(true)}
         aria-label="Chat with Max"
         inert={open ? true : undefined}
-        className={`group fixed bottom-5 right-5 z-[70] flex items-center gap-2.5 rounded-full border border-line bg-raised/80 p-1 sm:py-2 sm:pl-2 sm:pr-5 shadow-[0_12px_36px_-10px_rgba(245,158,11,0.45)] backdrop-blur-md transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-neon-cyan/40 hover:bg-elevated ${
+        className={`group fixed bottom-5 right-5 z-[70] flex items-center gap-2.5 rounded-full border border-line bg-raised p-1 sm:py-2 sm:pl-2 sm:pr-5 shadow-[0_12px_36px_-10px_rgba(245,158,11,0.45)] transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] hover:border-neon-cyan/40 hover:bg-elevated ${
           open
             ? "pointer-events-none translate-y-2 scale-90 opacity-0"
             : "translate-y-0 scale-100 opacity-100"
@@ -157,7 +157,7 @@ export function ChatWidget() {
         aria-label="Chat with Max"
         aria-hidden={!open}
         inert={!open ? true : undefined}
-        className={`glass fixed bottom-5 right-5 z-[71] flex h-[72svh] max-h-[620px] w-[calc(100vw-2.5rem)] max-w-[24.5rem] origin-bottom-right flex-col overflow-hidden rounded-[1.75rem] border border-line shadow-2xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+        className={`fixed bottom-5 right-5 z-[71] flex h-[72svh] max-h-[620px] w-[calc(100vw-2.5rem)] max-w-[24.5rem] origin-bottom-right flex-col overflow-hidden rounded-[1.75rem] border border-line bg-base shadow-2xl transition-all duration-300 ease-[cubic-bezier(0.22,1,0.36,1)] ${
           open
             ? "pointer-events-auto scale-100 opacity-100"
             : "pointer-events-none scale-0 opacity-0"
@@ -253,7 +253,7 @@ export function ChatWidget() {
               <div key={i} className="animate-msg-in flex gap-2.5">
                 <MaxAvatar size="sm" />
                 <div className="flex max-w-[82%] flex-col gap-1.5">
-                  <div className="whitespace-pre-wrap rounded-2xl rounded-tl-sm bg-raised/80 px-4 py-2.5 text-sm leading-relaxed text-fg-dim">
+                  <div className="whitespace-pre-wrap rounded-2xl rounded-tl-sm bg-raised px-4 py-2.5 text-sm leading-relaxed text-fg-dim">
                     {m.content}
                   </div>
                   {m.sources && m.sources.length ? (
@@ -269,7 +269,7 @@ export function ChatWidget() {
           {loading ? (
             <div className="animate-msg-in flex gap-2.5">
               <MaxAvatar size="sm" />
-              <div className="flex items-center gap-1 rounded-2xl rounded-tl-sm bg-raised/80 px-4 py-3">
+              <div className="flex items-center gap-1 rounded-2xl rounded-tl-sm bg-raised px-4 py-3">
                 <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-fg-muted" />
                 <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-fg-muted [animation-delay:150ms]" />
                 <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-fg-muted [animation-delay:300ms]" />
