@@ -47,7 +47,7 @@ export function Header() {
 
   return (
     <header
-      className={`glass fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
+      className={`fixed inset-x-0 top-0 z-50 border-b border-line bg-base transition-all duration-500 ${
         scrolled || menuOpen ? "py-3" : "py-4"
       }`}
     >
