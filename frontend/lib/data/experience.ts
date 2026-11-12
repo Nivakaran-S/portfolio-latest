@@ -8,12 +8,20 @@ export interface ExperienceEntry {
 
 export const experience: ExperienceEntry[] = [
   {
-    org: "Healplace",
-    role: "Full Stack Junior Developer",
-    period: "Mar 2026 - Present",
+    org: "Healplace LLC",
+    role: "Associate Software Engineer",
+    period: "Sep 2026 - Present",
     kind: "work",
     summary:
-      "Building and shipping features for Healplace's healthcare platform, front to back.",
+      "Promoted from Junior Full Stack Developer. Owning features end to end on Healplace's healthcare platform.",
+  },
+  {
+    org: "Healplace LLC",
+    role: "Junior Full Stack Developer",
+    period: "Mar 2026 - Aug 2026",
+    kind: "work",
+    summary:
+      "Built and shipped features for Healplace's healthcare platform, front to back.",
   },
   {
     org: "HealthRecon Connect LLC",

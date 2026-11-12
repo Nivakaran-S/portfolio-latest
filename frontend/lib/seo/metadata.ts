@@ -91,10 +91,7 @@ const personObject = () => ({
     "@type": "CollegeOrUniversity",
     name: "Sri Lanka Institute of Information Technology (SLIIT)",
   },
-  worksFor: [
-    { "@type": "Organization", name: "Healplace" },
-    { "@type": "Organization", name: "HealthRecon Connect LLC" },
-  ],
+  worksFor: [{ "@type": "Organization", name: "Healplace LLC" }],
   knowsAbout: [
     "Artificial Intelligence",
     "Machine Learning",
