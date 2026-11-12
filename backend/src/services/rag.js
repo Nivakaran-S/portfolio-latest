@@ -102,11 +102,15 @@ export async function answer(message, history = []) {
     };
   }
 
-  const lcHistory = history.slice(-6).map((m) =>
-    m.role === "user"
-      ? new HumanMessage(String(m.content ?? ""))
-      : new AIMessage(String(m.content ?? ""))
-  );
+  const clip = (m) => String(m?.content ?? "").slice(0, 1000);
+  // Only accept user/assistant turns; anything else (e.g. a forged "system"
+  // role) is dropped rather than coerced into an AI message.
+  const lcHistory = history
+    .filter((m) => m?.role === "user" || m?.role === "assistant")
+    .slice(-6)
+    .map((m) =>
+      m.role === "user" ? new HumanMessage(clip(m)) : new AIMessage(clip(m))
+    );
 
   const chain = prompt.pipe(llm).pipe(new StringOutputParser());
   const out = await chain.invoke({

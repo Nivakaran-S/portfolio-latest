@@ -1,3 +1,5 @@
+import { timingSafeEqual } from "node:crypto";
+
 /**
  * Guards the knowledge-base CRUD routes. Requires an `x-admin-token` header
  * matching ADMIN_TOKEN. If ADMIN_TOKEN isn't configured, the routes are
@@ -11,7 +13,10 @@ export function requireAdmin(req, res, next) {
       .json({ error: "Admin API is not configured (set ADMIN_TOKEN)." });
   }
   const provided = req.header("x-admin-token");
-  if (!provided || provided !== expected) {
+  const a = Buffer.from(provided ?? "");
+  const b = Buffer.from(expected);
+  // constant-time compare (length mismatch short-circuits, which is fine)
+  if (a.length !== b.length || !timingSafeEqual(a, b)) {
     return res.status(401).json({ error: "Unauthorized" });
   }
   next();

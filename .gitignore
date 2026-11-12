@@ -37,3 +37,10 @@ frontend/assets/
 AGENTS.md
 DEPLOY.md
 CLAUDE.md
+# local agent tooling (skills / headroom)
+/.agents/
+/skills-lock.json
+/package.json
+/package-lock.json
+
+.playwright-mcp/

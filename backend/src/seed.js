@@ -23,7 +23,7 @@ const KNOWLEDGE = [
   {
     title: "Current roles",
     category: "experience",
-    text: "As of 2026 Nivakaran works as a Junior Developer at Healplace (since March 2026), building features for a healthcare platform front to back, and as an Operations Analyst — Associate, Collections at HealthRecon Connect LLC (since January 2026), turning collections and operations data into decisions for a US healthcare revenue-cycle provider.",
+    text: "Nivakaran is an Associate Software Engineer at Healplace LLC (since September 2026), promoted from Junior Full Stack Developer (March - August 2026), building features for a healthcare platform front to back. Earlier, from January to July 2026, he was an Operations Analyst — Associate, Collections at HealthRecon Connect LLC, turning collections and operations data into decisions for a US healthcare revenue-cycle provider.",
   },
   {
     title: "Earlier work",

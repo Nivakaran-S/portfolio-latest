@@ -6,10 +6,17 @@ import { embed } from "../services/embeddings.js";
  * CRUD for the chatbot knowledge base. The frontend talks to these endpoints.
  * Embeddings are (re)computed on create/update so retrieval stays in sync.
  *
- * NOTE: these are unauthenticated for now. Before exposing publicly, put the
- * write routes (POST/PUT/DELETE) behind an admin token — see README.
+ * Mounted behind requireAdmin (x-admin-token) in server.js.
  */
 const router = Router();
+
+// Express 4: forward async rejections to the error handler.
+const wrap = (fn) => (req, res, next) =>
+  Promise.resolve().then(() => fn(req, res, next)).catch(next);
+for (const m of ["get", "post", "put", "delete"]) {
+  const orig = router[m].bind(router);
+  router[m] = (path, ...handlers) => orig(path, ...handlers.map(wrap));
+}
 
 // READ all (no embeddings in the payload)
 router.get("/", async (_req, res) => {
