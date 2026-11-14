@@ -93,8 +93,9 @@ export function createEngine(
       shown = drew;
       canvas.style.opacity = drew ? "1" : "0";
     }
-    // Only judge frames that did real work, and ignore the gap after a hidden tab.
-    if (drew && rawMs < 200) hooks.onFrameTime(rawMs);
+    // Only judge frames that did real work. Slow frames count (they are the point);
+    // only the huge gap after a hidden tab is ignored.
+    if (drew && rawMs < 1000) hooks.onFrameTime(rawMs);
   };
 
   resize();

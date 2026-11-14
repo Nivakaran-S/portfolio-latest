@@ -35,8 +35,18 @@ export function median(values: number[]): number {
 
 /** About two seconds of frames at 30-60 fps. */
 export const FRAME_SAMPLES_NEEDED = 60;
+/** Below this many frames there is nothing to judge. */
+const MIN_SAMPLES = 8;
+/** A slideshow must not wait for 60 frames: two seconds of slow frames is enough. */
+const WINDOW_MS = 2000;
+
+export function hasEnoughSamples(samples: number[]): boolean {
+  if (samples.length < MIN_SAMPLES) return false;
+  if (samples.length >= FRAME_SAMPLES_NEEDED) return true;
+  return samples.reduce((sum, ms) => sum + ms, 0) >= WINDOW_MS;
+}
 
 export function isFrameBudgetExceeded(samples: number[], maxMedianMs = 24): boolean {
-  if (samples.length < FRAME_SAMPLES_NEEDED) return false;
+  if (!hasEnoughSamples(samples)) return false;
   return median(samples) > maxMedianMs;
 }

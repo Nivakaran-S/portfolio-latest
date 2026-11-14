@@ -12,9 +12,9 @@ import {
 } from "react";
 import {
   decideTier,
+  hasEnoughSamples,
   isFrameBudgetExceeded,
   parseOverride,
-  FRAME_SAMPLES_NEEDED,
   type CinemaTier,
   type TierSignals,
 } from "@/lib/cinema/tier";
@@ -83,6 +83,7 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
   const [ready, setReady] = useState(false);
   const downgraded = useRef(false);
   const samples = useRef<number[]>([]);
+  const judged = useRef(false);
   const lastPulse = useRef(-Infinity);
   const pulseTimer = useRef<number | undefined>(undefined);
 
@@ -128,10 +129,12 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
 
   const reportFrameTime = useCallback(
     (ms: number) => {
+      if (judged.current) return; // one verdict, from the first ~2 s of frames
       const s = samples.current;
-      if (s.length >= FRAME_SAMPLES_NEEDED * 2) return; // only judge the first ~2 s
       s.push(ms);
-      if (s.length === FRAME_SAMPLES_NEEDED && isFrameBudgetExceeded(s)) downgrade();
+      if (!hasEnoughSamples(s)) return;
+      judged.current = true;
+      if (isFrameBudgetExceeded(s)) downgrade();
     },
     [downgrade],
   );

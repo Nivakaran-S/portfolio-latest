@@ -11,6 +11,8 @@ import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { DepthItem } from "@/app/_components/story/depth-item";
 import { WorkRail } from "@/app/_components/story/work-rail";
 import { Hero } from "@/app/_components/hero/hero";
+import { SceneCut } from "@/app/_components/cinema/scene-cut";
+import { LazyScenes } from "@/app/_components/cinema/webgl/lazy-scenes";
 
 const mains = getMainProjects();
 
@@ -47,22 +49,27 @@ const principles: { k: string; title: string; body: string }[] = [
  * story: problem → system → shipped.
  */
 function Statement({
+  id,
   kicker,
   children,
   sub,
 }: {
+  id?: string;
   kicker?: string;
   children: ReactNode;
   sub?: string;
 }) {
   return (
-    <section className="relative flex min-h-[90svh] flex-col items-center justify-center px-5 text-center sm:px-6">
+    <section
+      id={id}
+      className="relative flex min-h-[90svh] flex-col items-center justify-center px-5 text-center sm:px-6"
+    >
       {kicker ? (
         <DepthItem from="fade">
           <p className="label text-fg-muted">{kicker}</p>
         </DepthItem>
       ) : null}
-      <DepthItem from="up" delay={0.05}>
+      <DepthItem from="up" delay={0.05} cinema="rackFocus">
         <p className="silver mt-6 max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,7.5vw,5.5rem)] [text-wrap:balance]">
           {children}
         </p>
@@ -85,6 +92,9 @@ export default function Home() {
 
       {/* "The forge" - rising sparks + warm glow drift as you scroll. */}
       <StoryBackdrop variant="ember" />
+
+      {/* WebGL light field + warp tunnel. Mounts only on the webgl tier, after idle. */}
+      <LazyScenes warpId="ships" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════════ BEAT 01 - THE SPARK ════════════════ */}
@@ -120,6 +130,7 @@ export default function Home() {
           </div>
         </section>
 
+        <SceneCut />
         {/* ════════════════ BEAT 02 - THE DISCIPLINES ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
@@ -200,6 +211,7 @@ export default function Home() {
           </div>
         </section>
 
+        <SceneCut />
         {/* ════════════════ BEAT 04 - THE STACK ════════════════ */}
         <section
           id="skills"
@@ -218,8 +230,10 @@ export default function Home() {
           </div>
         </section>
 
+        <SceneCut />
         {/* ════════════════ STATEMENT - IT SHIPS ════════════════ */}
         <Statement
+          id="ships"
           kicker="A system is just a promise"
           sub="Until it's in production, handling real users, on a real Tuesday. So here's what actually shipped."
         >
@@ -229,6 +243,7 @@ export default function Home() {
         {/* ════════════════ BEAT 05 - THE WORK (horizontal rail) ════════════════ */}
         <WorkRail projects={mains} />
 
+        <SceneCut />
         {/* ════════════════ BEAT 06 - BY THE NUMBERS ════════════════ */}
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
@@ -341,6 +356,7 @@ export default function Home() {
           </section>
         ) : null}
 
+        <SceneCut />
         {/* ════════════════ BEAT 09 - THE INVITATION (contact) ════════════════ */}
         <section
           id="contact"
@@ -349,7 +365,7 @@ export default function Home() {
           <DepthItem from="up">
             <p className="label text-fg-muted">The invitation</p>
           </DepthItem>
-          <DepthItem from="up" delay={0.06}>
+          <DepthItem from="up" delay={0.06} cinema="pushIn">
             <h2 className="silver mt-6 font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.25rem,8vw,6rem)]">
               Now, let&apos;s build yours.
             </h2>

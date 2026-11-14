@@ -13,7 +13,7 @@ import { clamp01 } from "@/lib/cinema/math";
 import type { FrameState, Layer } from "./engine";
 import { HERO_POINTS_FRAG, HERO_POINTS_VERT, RAYS_FRAG, RAYS_VERT } from "./shaders";
 
-const COUNT = 6500;
+const COUNT = 4500;
 
 /** Small deterministic PRNG so the field is identical every load. */
 function mulberry32(seed: number) {

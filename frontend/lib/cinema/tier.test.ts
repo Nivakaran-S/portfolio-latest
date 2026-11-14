@@ -5,6 +5,7 @@ import {
   parseOverride,
   median,
   isFrameBudgetExceeded,
+  hasEnoughSamples,
   FRAME_SAMPLES_NEEDED,
   type TierSignals,
 } from "./tier.ts";
@@ -64,9 +65,20 @@ test("median of odd, even and empty input", () => {
   assert.equal(median([]), 0);
 });
 
-test("frame budget: too few samples never downgrades", () => {
-  const slow = Array.from({ length: FRAME_SAMPLES_NEEDED - 1 }, () => 100);
+test("frame budget: fewer than 8 samples never downgrades", () => {
+  const slow = Array.from({ length: 7 }, () => 400);
+  assert.equal(hasEnoughSamples(slow), false);
   assert.equal(isFrameBudgetExceeded(slow), false);
+});
+
+test("enough samples: a full 60-frame window, or 2s of slow frames", () => {
+  assert.equal(hasEnoughSamples(Array.from({ length: FRAME_SAMPLES_NEEDED }, () => 16.7)), true);
+  assert.equal(hasEnoughSamples(Array.from({ length: 10 }, () => 250)), true); // 2.5 s elapsed
+  assert.equal(hasEnoughSamples(Array.from({ length: 10 }, () => 16.7)), false); // only 0.17 s elapsed
+});
+
+test("frame budget: a slideshow (500ms frames) downgrades after about 2s, not 30s", () => {
+  assert.equal(isFrameBudgetExceeded(Array.from({ length: 8 }, () => 500)), true);
 });
 
 test("frame budget: median over 24ms downgrades, at or under does not", () => {

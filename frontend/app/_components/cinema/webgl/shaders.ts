@@ -28,7 +28,7 @@ void main() {
   float d = length(c);
   float disc = smoothstep(0.5, 0.35, d);
   vec3 col = mix(vec3(0.85, 0.45, 0.05), vec3(1.0, 0.78, 0.25), vHeat);
-  gl_FragColor = vec4(col, disc * vAlpha * 0.55);
+  gl_FragColor = vec4(col, disc * vAlpha * 0.42);
 }
 `;
 
