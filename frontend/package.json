@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
+    "test": "node --test \"lib/**/*.test.ts\"",
     "frames": "node scripts/extract-frames.mjs",
     "frames:home": "node scripts/extract-frames.mjs assets/home.mp4 home",
     "frames:about": "node scripts/extract-frames.mjs assets/about.mp4 about",
