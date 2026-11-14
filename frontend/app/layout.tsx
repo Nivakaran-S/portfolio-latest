@@ -9,6 +9,7 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/app/_components/providers/motion-config";
+import { CinemaProvider } from "@/app/_components/cinema/cinema-provider";
 import { ContactDrawerProvider } from "@/app/_components/contact/contact-drawer";
 import { ChatWidget } from "@/app/_components/chat/chat-widget";
 import { EasterEggs } from "@/app/_components/ui/easter-eggs";
@@ -61,10 +62,12 @@ export default function RootLayout({
         <EasterEggs />
 
         <MotionProvider>
-          <ContactDrawerProvider>
-            {children}
-            <ChatWidget />
-          </ContactDrawerProvider>
+          <CinemaProvider>
+            <ContactDrawerProvider>
+              {children}
+              <ChatWidget />
+            </ContactDrawerProvider>
+          </CinemaProvider>
         </MotionProvider>
         <script
           type="application/ld+json"
