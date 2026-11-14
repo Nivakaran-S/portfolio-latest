@@ -50,3 +50,27 @@ export function isFrameBudgetExceeded(samples: number[], maxMedianMs = 24): bool
   if (!hasEnoughSamples(samples)) return false;
   return median(samples) > maxMedianMs;
 }
+
+/** The first second of drawn frames is the page's busiest (hydration, decode, intro); never judge it. */
+export const WARMUP_MS = 1000;
+
+export type FrameVerdict = "pending" | "ok" | "slow";
+
+/** Stateful, one-verdict frame judge: skips the startup burst, then applies the budget rule. */
+export function createFrameJudge(maxMedianMs = 24) {
+  let elapsed = 0;
+  const samples: number[] = [];
+  let verdict: FrameVerdict = "pending";
+  return {
+    push(ms: number): FrameVerdict {
+      if (verdict !== "pending") return verdict;
+      elapsed += ms;
+      if (elapsed <= WARMUP_MS) return "pending";
+      samples.push(ms);
+      if (hasEnoughSamples(samples)) {
+        verdict = isFrameBudgetExceeded(samples, maxMedianMs) ? "slow" : "ok";
+      }
+      return verdict;
+    },
+  };
+}

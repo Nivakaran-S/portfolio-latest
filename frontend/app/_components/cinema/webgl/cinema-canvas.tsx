@@ -16,7 +16,7 @@ import { createWarpLayer } from "./warp-layer";
  * every mount (including Strict Mode's second one in dev) needs a fresh element.
  */
 export default function CinemaCanvas({ warpId }: { warpId: string }) {
-  const { reportFrameTime, downgrade } = useCinema();
+  const { reportFrameTime, downgrade, setSceneReady } = useCinema();
 
   useEffect(() => {
     const canvas = document.createElement("canvas");
@@ -25,11 +25,21 @@ export default function CinemaCanvas({ warpId }: { warpId: string }) {
       "pointer-events-none fixed inset-0 z-[-5] h-full w-full opacity-0 transition-opacity duration-500";
     document.body.appendChild(canvas);
 
+    let fadeTimer: number | undefined;
     const warpEl = document.getElementById(warpId);
     const layers: Layer[] = [createHeroLayer(), ...(warpEl ? [createWarpLayer(warpEl)] : [])];
     try {
-      const engine = createEngine(canvas, layers, { onFrameTime: reportFrameTime, onFail: downgrade });
+      const engine = createEngine(canvas, layers, {
+        onFrameTime: reportFrameTime,
+        // The CSS stand-ins step aside only once the canvas has actually faded in.
+        onFirstDraw: () => {
+          fadeTimer = window.setTimeout(() => setSceneReady(true), 500);
+        },
+        onFail: downgrade,
+      });
       return () => {
+        window.clearTimeout(fadeTimer);
+        setSceneReady(false);
         engine.dispose();
         canvas.remove();
       };
@@ -38,7 +48,7 @@ export default function CinemaCanvas({ warpId }: { warpId: string }) {
       canvas.remove();
       downgrade();
     }
-  }, [warpId, reportFrameTime, downgrade]);
+  }, [warpId, reportFrameTime, downgrade, setSceneReady]);
 
   return null;
 }

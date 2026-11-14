@@ -4,7 +4,7 @@ import { useEffect, useRef } from "react";
 import { useCinema } from "./cinema-provider";
 
 /**
- * A 1px sentinel placed between story beats. When it crosses the middle of
+ * A sentinel placed between story beats. When it crosses the middle of
  * the viewport it pulses the letterbox (throttled by the provider), which
  * reads as a cut between scenes. Renders nothing on the static tier.
  */
@@ -31,5 +31,7 @@ export function SceneCut() {
   }, [tier, pulseLetterbox]);
 
   if (tier === "static") return null;
-  return <div ref={ref} aria-hidden="true" className="h-px w-full" />;
+  // 20vh tall, pulled back by -10vh each side so it adds no layout: a 1px line can be
+  // jumped over between two observer checks; a tall one cannot.
+  return <div ref={ref} aria-hidden="true" className="pointer-events-none -my-[10vh] h-[20vh] w-full" />;
 }

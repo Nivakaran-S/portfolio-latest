@@ -7,7 +7,7 @@ import { motion, useScroll, useTransform } from "motion/react";
 import { profile } from "@/lib/data/profile";
 import { ContactButton } from "@/app/_components/contact/contact-button";
 import { usePrefersReducedMotion } from "@/lib/hooks/use-prefers-reduced-motion";
-import { useCinemaTier } from "@/app/_components/cinema/cinema-provider";
+import { useCinema } from "@/app/_components/cinema/cinema-provider";
 
 const PORTRAIT = "/about/frames/frame-001.webp";
 
@@ -43,7 +43,7 @@ export function Hero() {
   // Starts false on server and client alike, then updates after mount, so the
   // pinned and static layouts never mismatch during hydration.
   const reduced = usePrefersReducedMotion();
-  const tier = useCinemaTier();
+  const { sceneReady } = useCinema();
 
   // Progress through the pinned section, computed in JS from scrollY.
   // useScroll({ target }) gets hardware-accelerated onto a native scroll
@@ -119,7 +119,7 @@ export function Hero() {
     <section ref={ref} id="hero" className="relative h-[230svh]">
       <div
         className={`sticky top-0 h-[100svh] overflow-hidden ${
-          tier === "webgl"
+          sceneReady
             ? "bg-transparent"
             : "bg-[linear-gradient(to_bottom,#000_0%,#000_72%,transparent_100%)]"
         }`}

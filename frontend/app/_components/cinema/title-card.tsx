@@ -36,6 +36,8 @@ export function TitleCard() {
       tier,
       pathname,
       seen: hasSeenIntro(() => sessionStorage),
+      elapsedMs: performance.now(),
+      scrollY: window.scrollY,
     });
     markSeen();
     // Deferred a tick: the decision reads browser-only state, and the overlay

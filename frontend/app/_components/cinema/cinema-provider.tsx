@@ -11,9 +11,8 @@ import {
   type ReactNode,
 } from "react";
 import {
+  createFrameJudge,
   decideTier,
-  hasEnoughSamples,
-  isFrameBudgetExceeded,
   parseOverride,
   type CinemaTier,
   type TierSignals,
@@ -24,6 +23,9 @@ export interface CinemaContextValue {
   tier: CinemaTier;
   /** False until the client has read the device signals; gate one-off effects on it. */
   ready: boolean;
+  /** True once the WebGL canvas is on screen; the CSS stand-ins step aside only then. */
+  sceneReady: boolean;
+  setSceneReady(on: boolean): void;
   setLetterbox(on: boolean): void;
   pulseLetterbox(ms?: number): void;
   reportFrameTime(ms: number): void;
@@ -33,6 +35,8 @@ export interface CinemaContextValue {
 const CinemaContext = createContext<CinemaContextValue>({
   tier: "css",
   ready: false,
+  sceneReady: false,
+  setSceneReady() {},
   setLetterbox() {},
   pulseLetterbox() {},
   reportFrameTime() {},
@@ -82,7 +86,8 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
   const [tier, setTier] = useState<CinemaTier>("css");
   const [ready, setReady] = useState(false);
   const downgraded = useRef(false);
-  const samples = useRef<number[]>([]);
+  const [sceneReady, setSceneReady] = useState(false);
+  const judge = useRef(createFrameJudge());
   const judged = useRef(false);
   const lastPulse = useRef(-Infinity);
   const pulseTimer = useRef<number | undefined>(undefined);
@@ -123,25 +128,33 @@ export function CinemaProvider({ children }: { children: ReactNode }) {
 
   const downgrade = useCallback(() => {
     downgraded.current = true;
-    samples.current = [];
+    setSceneReady(false);
     setTier((t) => (t === "webgl" ? "css" : t));
   }, []);
 
   const reportFrameTime = useCallback(
     (ms: number) => {
-      if (judged.current) return; // one verdict, from the first ~2 s of frames
-      const s = samples.current;
-      s.push(ms);
-      if (!hasEnoughSamples(s)) return;
+      if (judged.current) return; // one verdict, after the startup burst
+      const verdict = judge.current.push(ms);
+      if (verdict === "pending") return;
       judged.current = true;
-      if (isFrameBudgetExceeded(s)) downgrade();
+      if (verdict === "slow") downgrade();
     },
     [downgrade],
   );
 
   const value = useMemo<CinemaContextValue>(
-    () => ({ tier, ready, setLetterbox, pulseLetterbox, reportFrameTime, downgrade }),
-    [tier, ready, setLetterbox, pulseLetterbox, reportFrameTime, downgrade],
+    () => ({
+      tier,
+      ready,
+      sceneReady,
+      setSceneReady,
+      setLetterbox,
+      pulseLetterbox,
+      reportFrameTime,
+      downgrade,
+    }),
+    [tier, ready, sceneReady, setLetterbox, pulseLetterbox, reportFrameTime, downgrade],
   );
 
   return <CinemaContext.Provider value={value}>{children}</CinemaContext.Provider>;

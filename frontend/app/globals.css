@@ -426,7 +426,7 @@ html[data-letterbox="on"] .cine-sweep {
   position: absolute;
   left: 0;
   right: 0;
-  height: 4svh;
+  height: min(4svh, 26px); /* capped: the top bar sits over the header and must not cover the logo */
   background: #000;
   transform: scaleY(0);
   transition: transform 0.7s var(--ease-out-soft);

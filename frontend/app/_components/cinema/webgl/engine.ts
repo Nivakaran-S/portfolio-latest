@@ -20,6 +20,7 @@ export interface Layer {
 
 export interface EngineHooks {
   onFrameTime(ms: number): void;
+  onFirstDraw(): void;
   onFail(): void;
 }
 
@@ -45,6 +46,7 @@ export function createEngine(
   let raf = 0;
   let last = performance.now();
   let shown = false;
+  let firstDrawn = false;
 
   const resize = () => {
     const w = window.innerWidth;
@@ -88,6 +90,10 @@ export function createEngine(
         renderer.render(layer.scene, layer.camera);
         drew = true;
       }
+    }
+    if (drew && !firstDrawn) {
+      firstDrawn = true;
+      hooks.onFirstDraw();
     }
     if (drew !== shown) {
       shown = drew;
