@@ -38,7 +38,10 @@ export function TitleCard() {
       seen: hasSeenIntro(() => sessionStorage),
     });
     markSeen();
-    if (show) setVisible(true);
+    // Deferred a tick: the decision reads browser-only state, and the overlay
+    // must not render in the same pass that made it. Deliberately not cleared
+    // on cleanup: `decided` guards re-runs, and this component never unmounts.
+    if (show) window.setTimeout(() => setVisible(true), 0);
   }, [ready, tier, pathname]);
 
   useEffect(() => {

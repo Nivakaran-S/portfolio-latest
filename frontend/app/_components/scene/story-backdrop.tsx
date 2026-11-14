@@ -6,6 +6,7 @@ import {
   useTransform,
   useReducedMotion,
 } from "motion/react";
+import { useCinemaTier } from "@/app/_components/cinema/cinema-provider";
 
 export type BackdropVariant = "ember" | "forge" | "ink" | "origin";
 
@@ -57,6 +58,7 @@ interface StoryBackdropProps {
  */
 export function StoryBackdrop({ variant }: StoryBackdropProps) {
   const reduced = useReducedMotion();
+  const tier = useCinemaTier();
 
   // Depth layers track scroll 1:1 (no spring lag). The style object is always
   // passed so server and client markup match; reduced motion zeroes travel.
@@ -95,8 +97,12 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
               style={{ background: "rgba(217,119,6,0.07)" }}
             />
           </motion.div>
-          {/* Sparks are desktop-only: on phones they cost frames for little gain. */}
-          <motion.div className="absolute inset-0 hidden sm:block" style={near}>
+          {/* Sparks are desktop-only: on phones they cost frames for little gain.
+              The WebGL light field replaces them on the webgl tier. */}
+          <motion.div
+            className={`absolute inset-0 hidden ${tier === "webgl" ? "" : "sm:block"}`}
+            style={near}
+          >
             {EMBERS.map((e, i) => (
               <span
                 key={i}
