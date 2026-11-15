@@ -15,6 +15,7 @@ import { capabilities } from "@/lib/data/services";
 import { CertificationGallery } from "@/app/_components/about/certification-card";
 import { StackGrid } from "@/app/_components/sections/stack-grid";
 import { profilePageJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
+import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "About",
@@ -107,7 +108,7 @@ export default function AboutPage() {
         <section className="relative flex min-h-[100svh] flex-col justify-end px-5 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
+              <h1 className="cine-punch silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Before the systems, the person.
               </h1>
             </StoryItem>
@@ -123,6 +124,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHERE IT STARTED - WHO I AM ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
@@ -141,6 +143,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHAT SHAPED ME ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 text-center sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="fade">
@@ -162,6 +165,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ THE PATH - EXPERIENCE + EDUCATION ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
@@ -180,6 +184,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ CERTIFICATIONS ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -203,6 +208,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHAT I CAN DO - CAPABILITIES ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -254,6 +260,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ THE TOOLKIT - TECH STACK ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
@@ -275,6 +282,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ BY THE NUMBERS - STATS ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -307,6 +315,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHAT'S NEXT - CONTACT ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
             <p className="label text-fg-muted">What&apos;s next</p>

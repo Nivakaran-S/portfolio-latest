@@ -70,10 +70,10 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
     ember:
       "radial-gradient(120% 80% at 50% 100%, #0c1722 0%, #0b0f15 45%, #0a0a0c 100%)",
     forge:
-      "radial-gradient(120% 90% at 50% 10%, #16171b 0%, #0d0e11 45%, #0a0a0c 100%)",
-    ink: "radial-gradient(120% 80% at 50% 0%, #121319 0%, #0c0d11 45%, #0a0a0c 100%)",
+      "radial-gradient(120% 90% at 50% 10%, #0f1c29 0%, #0b1017 45%, #0a0a0c 100%)",
+    ink: "radial-gradient(120% 80% at 50% 0%, #101a26 0%, #0b1119 45%, #0a0a0c 100%)",
     origin:
-      "radial-gradient(90% 70% at 50% 45%, #15110c 0%, #0d0c0d 50%, #08080a 100%)",
+      "radial-gradient(90% 70% at 50% 45%, #0e1d2b 0%, #0b1118 50%, #08080a 100%)",
   };
 
   return (
@@ -113,9 +113,9 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
                   height: e.size,
                   animationDelay: `${e.delay}s`,
                   animationDuration: `${e.dur}s`,
-                  background: e.hot ? "#fbbf24" : "#d97706",
+                  background: e.hot ? "#ffe8c2" : "#f97316",
                   boxShadow: `0 0 ${e.size * 3}px ${
-                    e.hot ? "rgba(251,191,36,0.8)" : "rgba(217,119,6,0.7)"
+                    e.hot ? "rgba(255,232,194,0.85)" : "rgba(249,115,22,0.75)"
                   }`,
                 }}
               />
@@ -130,11 +130,11 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
           <motion.div className="absolute inset-0" style={far}>
             <div
               className="animate-pulse-glow absolute -left-32 top-1/3 h-[36rem] w-[36rem] rounded-full blur-[150px]"
-              style={{ background: "rgba(245,158,11,0.08)" }}
+              style={{ background: "rgba(56,189,248,0.09)" }}
             />
             <div
               className="animate-aurora-alt absolute -right-24 bottom-0 h-[34rem] w-[34rem] rounded-full blur-[160px]"
-              style={{ background: "rgba(120,120,128,0.06)" }}
+              style={{ background: "rgba(249,115,22,0.05)" }}
             />
           </motion.div>
           <motion.div
@@ -149,9 +149,9 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
             >
               <defs>
                 <linearGradient id="seam" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0%" stopColor="#f59e0b" stopOpacity="0" />
-                  <stop offset="50%" stopColor="#fbbf24" stopOpacity="0.55" />
-                  <stop offset="100%" stopColor="#d97706" stopOpacity="0" />
+                  <stop offset="0%" stopColor="#38bdf8" stopOpacity="0" />
+                  <stop offset="50%" stopColor="#bae6fd" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#0ea5e9" stopOpacity="0" />
                 </linearGradient>
                 <filter id="seamGlow" x="-30%" y="-30%" width="160%" height="160%">
                   <feGaussianBlur stdDeviation="3" />
@@ -173,6 +173,29 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
         </>
       ) : null}
 
+      {/* Forge pages also throw sparks: the same orange/white-hot embers as the home hero. */}
+      {variant === "forge" ? (
+        <motion.div className="absolute inset-0 hidden sm:block" style={near}>
+          {EMBERS.map((e, i) => (
+            <span
+              key={i}
+              className="animate-ember absolute bottom-0 rounded-full"
+              style={{
+                left: `${e.left}%`,
+                width: e.size,
+                height: e.size,
+                animationDelay: `${e.delay}s`,
+                animationDuration: `${e.dur}s`,
+                background: e.hot ? "#ffe8c2" : "#f97316",
+                boxShadow: `0 0 ${e.size * 3}px ${
+                  e.hot ? "rgba(255,232,194,0.85)" : "rgba(249,115,22,0.75)"
+                }`,
+              }}
+            />
+          ))}
+        </motion.div>
+      ) : null}
+
       {/* ───────────── INK ───────────── */}
       {variant === "ink" ? (
         <>
@@ -183,7 +206,7 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
             />
             <div
               className="animate-pulse-glow absolute -right-24 bottom-0 h-[30rem] w-[30rem] rounded-full blur-[150px]"
-              style={{ background: "rgba(245,158,11,0.05)" }}
+              style={{ background: "rgba(56,189,248,0.06)" }}
             />
           </motion.div>
           <motion.div
@@ -207,11 +230,11 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
           <div className="absolute inset-0 overflow-hidden">
             <div
               className="animate-pulse-glow absolute left-1/2 top-1/2 h-[52rem] w-[52rem] max-w-[150vw] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[170px]"
-              style={{ background: "rgba(245,158,11,0.16)" }}
+              style={{ background: "rgba(56,189,248,0.16)" }}
             />
             <div
               className="absolute left-1/2 top-1/2 h-[26rem] w-[26rem] -translate-x-1/2 -translate-y-1/2 rounded-full blur-[130px]"
-              style={{ background: "rgba(217,119,6,0.12)" }}
+              style={{ background: "rgba(14,165,233,0.12)" }}
             />
 
             {/* three concentric rings, two carrying an orbiting node */}
@@ -219,17 +242,17 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
               <div className="absolute inset-0 rounded-full border border-white/[0.10]" />
               <div className="animate-orbit absolute inset-0">
                 <span
-                  className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-neon-cyan-core"
-                  style={{ boxShadow: "0 0 12px rgba(251,191,36,0.8)" }}
+                  className="absolute left-1/2 top-0 h-1.5 w-1.5 -translate-x-1/2 rounded-full bg-sky-200"
+                  style={{ boxShadow: "0 0 12px rgba(125,211,252,0.85)" }}
                 />
               </div>
             </div>
             <div className="absolute left-1/2 top-1/2 h-[48rem] w-[48rem] -translate-x-1/2 -translate-y-1/2">
-              <div className="absolute inset-0 rounded-full border border-neon-cyan/[0.11]" />
+              <div className="absolute inset-0 rounded-full border border-sky-400/[0.14]" />
               <div className="animate-orbit-rev absolute inset-0">
                 <span
-                  className="absolute left-1/2 top-0 h-1 w-1 -translate-x-1/2 rounded-full bg-neon-violet"
-                  style={{ boxShadow: "0 0 10px rgba(217,119,6,0.8)" }}
+                  className="absolute left-1/2 top-0 h-1 w-1 -translate-x-1/2 rounded-full bg-orange-400"
+                  style={{ boxShadow: "0 0 10px rgba(249,115,22,0.85)" }}
                 />
               </div>
             </div>
@@ -253,6 +276,11 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
             ))}
           </motion.div>
         </>
+      ) : null}
+
+      {/* Page entry: one cyan shockwave ring (home has its own WebGL ignition). */}
+      {variant !== "ember" ? (
+        <div className="cine-shock absolute left-1/2 top-[38%] h-[40vmin] w-[40vmin] rounded-full border border-sky-300/40" />
       ) : null}
 
       {/* faint grid + vignette shared across variants */}

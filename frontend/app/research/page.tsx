@@ -5,6 +5,7 @@ import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 import { research } from "@/lib/data/research";
 import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
+import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "Research",
@@ -42,7 +43,7 @@ export default function ResearchPage() {
         <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
+              <h1 className="cine-punch silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Questions I chased to the end.
               </h1>
             </StoryItem>
@@ -56,6 +57,7 @@ export default function ResearchPage() {
         </section>
 
         {/* ════════════ PAPERS ════════════ */}
+        <SceneCut />
         <section className="relative px-5 pb-28 sm:px-6">
           <div className="mx-auto grid w-full max-w-6xl gap-5">
             {research.map((r, i) => (

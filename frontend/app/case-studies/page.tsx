@@ -6,6 +6,7 @@ import { Footer } from "@/app/_components/ui/footer";
 import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
+import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "Case Studies",
@@ -55,7 +56,7 @@ export default function CaseStudiesPage() {
               </p>
             </StoryItem>
             <StoryItem from="up" delay={0.08}>
-              <h1 className="silver mt-6 font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.5rem,8vw,5.5rem)] [text-wrap:balance]">
+              <h1 className="cine-punch silver mt-6 font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.5rem,8vw,5.5rem)] [text-wrap:balance]">
                 Case studies.
               </h1>
             </StoryItem>
@@ -69,6 +70,7 @@ export default function CaseStudiesPage() {
         </section>
 
         {/* ════════════ STUDIES ════════════ */}
+        <SceneCut />
         {studies.map((p, i) => (
           <section
             key={p.slug}

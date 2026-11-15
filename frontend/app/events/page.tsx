@@ -8,6 +8,7 @@ import { StoryItem } from "@/app/_components/story/story-item";
 import { achievements } from "@/lib/data/achievements";
 import { events } from "@/lib/data/events";
 import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
+import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "Events",
@@ -49,7 +50,7 @@ export default function EventsPage() {
         <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
+              <h1 className="cine-punch silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Where I show up.
               </h1>
             </StoryItem>
@@ -64,6 +65,7 @@ export default function EventsPage() {
         </section>
 
         {/* ════════════ COMPETITIONS ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -109,6 +111,7 @@ export default function EventsPage() {
         </section>
 
         {/* ════════════ EVENTS & COMMUNITY ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -173,6 +176,7 @@ export default function EventsPage() {
         </section>
 
         {/* ════════════ CTA ════════════ */}
+        <SceneCut />
         <section className="relative flex min-h-[60svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
             <h2 className="silver font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(1.85rem,5vw,3.5rem)]">

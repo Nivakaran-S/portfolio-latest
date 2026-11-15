@@ -51,7 +51,7 @@ export default function BlogIndexPage() {
         <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
+              <h1 className="cine-punch silver font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
                 Thinking out loud.
               </h1>
             </StoryItem>

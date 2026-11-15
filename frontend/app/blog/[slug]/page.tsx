@@ -179,7 +179,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="silver mt-5 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(2.25rem,6vw,4rem)] [text-wrap:balance]">
+              <h1 className="cine-punch silver mt-5 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(2.25rem,6vw,4rem)] [text-wrap:balance]">
                 {post.title}
               </h1>
             </StoryItem>

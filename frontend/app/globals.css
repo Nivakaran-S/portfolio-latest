@@ -437,6 +437,26 @@ html[data-letterbox="on"] .cine-sweep {
 .cine-bar-bottom { bottom: 0; transform-origin: bottom; }
 html[data-letterbox="on"] .cine-bar { transform: scaleY(1); }
 
+/* Page entry: a cyan shockwave ring behind the content, played once per page. */
+.cine-shock {
+  animation: cine-shock 1.4s var(--ease-out-soft) both !important;
+  animation-iteration-count: 1 !important; /* the backdrop caps ambient loops at 3; this is a one-shot */
+}
+@keyframes cine-shock {
+  from { transform: translate(-50%, -50%) scale(0.2); opacity: 0.8; }
+  to { transform: translate(-50%, -50%) scale(4.5); opacity: 0; }
+}
+
+/* Page titles punch in: oversized and soft, resolving to sharp. CSS-only so the text is
+   in the first paint and never waits on JavaScript; reduced motion lands on the end state. */
+.cine-punch {
+  animation: cine-punch 0.9s var(--ease-out-soft) both;
+}
+@keyframes cine-punch {
+  from { transform: scale(1.12); filter: blur(10px); }
+  to { transform: none; filter: none; }
+}
+
 [data-cinema-tier="static"] .cine-grain,
 [data-cinema-tier="static"] .cine-leak,
 [data-cinema-tier="static"] .cine-sweep,
