@@ -69,32 +69,39 @@ export function TitleCard() {
         <motion.div
           key="title-card"
           aria-hidden="true"
-          className="fixed inset-0 z-[90] flex flex-col items-center justify-center bg-black px-5 text-center"
+          className="fixed inset-0 z-[90] flex flex-col items-center justify-center overflow-hidden bg-black px-5 text-center"
           initial={{ opacity: 1 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }}
         >
+          {/* A steel light sweep crossing the card. */}
+          <motion.span
+            className="pointer-events-none absolute inset-y-0 -left-1/3 w-1/3 -skew-x-12 bg-gradient-to-r from-transparent via-sky-200/20 to-transparent"
+            initial={{ x: "0%" }}
+            animate={{ x: "450%" }}
+            transition={{ delay: 0.7, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
+          />
           <motion.p
-            className="label text-fg-muted"
+            className="label text-sky-300/80"
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.8 }}
+            transition={{ delay: 0.5, duration: 0.6 }}
           >
-            A film by
+            AI &amp; Software Engineer
           </motion.p>
           <motion.h2
-            className="mt-4 font-display font-semibold uppercase text-fg text-[clamp(1.25rem,4.2vw,3rem)]"
-            initial={{ opacity: 0, letterSpacing: "0.6em" }}
-            animate={{ opacity: 1, letterSpacing: "0.32em" }}
-            transition={{ delay: 0.45, duration: 1.4, ease: [0.16, 1, 0.3, 1] }}
+            className="mt-5 bg-gradient-to-b from-white via-slate-200 to-slate-500 bg-clip-text font-display font-bold uppercase leading-[0.9] tracking-[-0.02em] text-transparent text-[clamp(2.25rem,9vw,7rem)]"
+            initial={{ opacity: 0, scale: 1.25 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.3, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
             {profile.name}
           </motion.h2>
           <motion.span
-            className="mt-8 h-px w-[min(60vw,28rem)] origin-center bg-gradient-to-r from-transparent via-neon-cyan-core to-transparent"
+            className="mt-8 h-[2px] w-[min(60vw,30rem)] origin-center bg-gradient-to-r from-transparent via-sky-400 to-transparent shadow-[0_0_24px_rgba(56,189,248,0.7)]"
             initial={{ scaleX: 0 }}
             animate={{ scaleX: 1 }}
-            transition={{ delay: 0.7, duration: 1.2 }}
+            transition={{ delay: 0.8, duration: 0.7 }}
           />
           <p className="label mt-10 text-fg-disabled">Scroll, tap or press any key to skip</p>
         </motion.div>

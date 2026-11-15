@@ -3,20 +3,23 @@ import {
   BufferAttribute,
   BufferGeometry,
   LineSegments,
+  Mesh,
   PerspectiveCamera,
+  PlaneGeometry,
   Scene,
   ShaderMaterial,
 } from "three";
 import { smoothstep } from "@/lib/cinema/math";
+import { warpImpact } from "@/lib/cinema/impact";
 import type { FrameState, Layer } from "./engine";
-import { WARP_FRAG, WARP_VERT } from "./shaders";
+import { FULLSCREEN_VERT, IMPACT_FRAG, WARP_FRAG, WARP_VERT } from "./shaders";
 
 const STREAKS = 1400;
 
 /**
- * The jump into the work rail. Streaks of light rush at the camera while the
- * "Then it ships." section passes through the viewport, peaking mid-section and
- * fading out before the rail pins.
+ * The jump into the work rail. Cold white-blue streaks rush at the camera while
+ * "Then it ships." passes through the viewport, cut dead at the moment of impact:
+ * a white flash and a shockwave sweep out as the rail lands.
  */
 export function createWarpLayer(section: HTMLElement): Layer {
   const scene = new Scene();
@@ -56,7 +59,23 @@ export function createWarpLayer(section: HTMLElement): Layer {
   });
   const lines = new LineSegments(geometry, material);
   lines.frustumCulled = false;
-  scene.add(lines);
+
+  // The landing: a fullscreen flash + shockwave quad drawn over the streaks.
+  const impactGeo = new PlaneGeometry(2, 2);
+  const impactMat = new ShaderMaterial({
+    vertexShader: FULLSCREEN_VERT,
+    fragmentShader: IMPACT_FRAG,
+    uniforms: { uFlash: { value: 0 }, uRing: { value: 0 }, uAspect: { value: 1 } },
+    transparent: true,
+    depthTest: false,
+    depthWrite: false,
+    blending: AdditiveBlending,
+  });
+  const impact = new Mesh(impactGeo, impactMat);
+  impact.frustumCulled = false;
+  impact.renderOrder = 1;
+
+  scene.add(lines, impact);
 
   return {
     scene,
@@ -65,18 +84,25 @@ export function createWarpLayer(section: HTMLElement): Layer {
       const r = section.getBoundingClientRect();
       const p = (s.viewportH - r.top) / (r.height + s.viewportH); // 0 as it enters, 1 as it leaves
       if (p <= 0 || p >= 1) return false;
+      const hit = warpImpact(p);
       material.uniforms.uTime.value = s.time;
       material.uniforms.uProgress.value = p;
-      material.uniforms.uIntensity.value = smoothstep(0, 0.35, p) * (1 - smoothstep(0.75, 1, p));
+      // Build up, then cut dead as the impact lands.
+      material.uniforms.uIntensity.value = smoothstep(0, 0.35, p) * (1 - smoothstep(0.78, 0.9, p));
+      impactMat.uniforms.uFlash.value = hit.flash;
+      impactMat.uniforms.uRing.value = hit.ring;
       return true;
     },
     resize(w, h) {
       camera.aspect = w / h;
       camera.updateProjectionMatrix();
+      impactMat.uniforms.uAspect.value = w / h;
     },
     dispose() {
       geometry.dispose();
       material.dispose();
+      impactGeo.dispose();
+      impactMat.dispose();
     },
   };
 }

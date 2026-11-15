@@ -131,7 +131,7 @@ export function Hero() {
           className="absolute left-1/2 top-[62%] h-[110vmin] w-[110vmin] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-70"
           style={{
             background:
-              "radial-gradient(circle, rgba(251,191,36,0.16), rgba(255,255,255,0.04) 35%, transparent 62%)",
+              "radial-gradient(circle, rgba(56,189,248,0.18), rgba(255,255,255,0.04) 35%, transparent 62%)",
           }}
         />
 

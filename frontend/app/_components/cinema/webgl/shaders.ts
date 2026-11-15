@@ -1,39 +1,73 @@
-/** Drifting dust and embers with depth-of-field bokeh. */
-export const HERO_POINTS_VERT = /* glsl */ `
+/**
+ * Palette: dark steel, arc-reactor cyan, white-hot cores, orange heat.
+ * Every shape is hard-edged and fast: sparks are streaks, not soft discs.
+ */
+
+/** Cold dust hanging in the air: tiny hard-edged specks for depth. */
+export const DUST_VERT = /* glsl */ `
 uniform float uTime;
-uniform float uFocus;
 uniform float uPixelRatio;
 attribute float aSeed;
 varying float vAlpha;
-varying float vHeat;
 void main() {
   vec3 p = position;
-  p.y = mod(position.y + 5.0 + uTime * (0.15 + aSeed * 0.3), 10.0) - 5.0;
-  p.x += sin(uTime * 0.2 + aSeed * 40.0) * 0.35;
+  p.y = mod(position.y + 5.0 + uTime * (0.08 + aSeed * 0.18), 10.0) - 5.0;
+  p.x += sin(uTime * 0.15 + aSeed * 40.0) * 0.2;
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   float dist = max(-mv.z, 0.01);
-  float coc = abs(dist - uFocus);
-  gl_PointSize = (1.5 + coc * 3.0 + aSeed * 3.0) * uPixelRatio * (8.0 / max(dist, 0.5));
-  vAlpha = clamp(1.0 / (1.0 + coc * 0.6), 0.08, 1.0) * smoothstep(0.0, 2.0, dist);
-  vHeat = aSeed;
+  gl_PointSize = (1.2 + aSeed * 1.8) * uPixelRatio * (6.0 / max(dist, 0.5));
+  vAlpha = (0.25 + aSeed * 0.5) * smoothstep(0.0, 2.0, dist);
   gl_Position = projectionMatrix * mv;
 }
 `;
 
-export const HERO_POINTS_FRAG = /* glsl */ `
+export const DUST_FRAG = /* glsl */ `
 varying float vAlpha;
-varying float vHeat;
 void main() {
-  vec2 c = gl_PointCoord - 0.5;
-  float d = length(c);
-  float disc = smoothstep(0.5, 0.35, d);
-  vec3 col = mix(vec3(0.85, 0.45, 0.05), vec3(1.0, 0.78, 0.25), vHeat);
-  gl_FragColor = vec4(col, disc * vAlpha * 0.42);
+  float d = length(gl_PointCoord - 0.5);
+  if (d > 0.5) discard;
+  gl_FragColor = vec4(vec3(0.7, 0.88, 1.0), vAlpha * 0.6);
 }
 `;
 
-/** Volumetric light cone falling from above and behind the portrait. */
-export const RAYS_VERT = /* glsl */ `
+/**
+ * Sparks: each is a line segment with a white-hot head (aEnd = 1) and an orange
+ * tail (aEnd = 0), rising fast with a trail whose length is its motion blur.
+ * During ignition (uIgnite 0 -> 1) they are thrown outward from the centre.
+ */
+export const SPARKS_VERT = /* glsl */ `
+uniform float uTime;
+uniform float uIgnite;
+attribute float aSeed;
+attribute float aEnd;
+attribute float aX;
+attribute float aZ;
+varying float vHeat;
+varying float vAlpha;
+void main() {
+  float speed = 0.6 + aSeed * 1.6;
+  float life = mod(uTime * speed * 0.35 + aSeed * 17.0, 1.0);
+  float y = -5.0 + life * 10.0;
+  float x = aX + sin(life * 6.0 + aSeed * 30.0) * 0.25 + life * (aSeed - 0.5) * 2.0;
+  x *= 1.0 + 2.5 * pow(1.0 - uIgnite, 2.0);
+  float len = 0.15 + speed * 0.55;
+  y += (aEnd - 1.0) * len;
+  vHeat = aEnd;
+  vAlpha = (0.1 + aEnd * 0.9) * smoothstep(0.0, 0.1, life) * (1.0 - smoothstep(0.7, 1.0, life));
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(x, y, aZ, 1.0);
+}
+`;
+
+export const SPARKS_FRAG = /* glsl */ `
+varying float vHeat;
+varying float vAlpha;
+void main() {
+  vec3 col = mix(vec3(1.0, 0.38, 0.06), vec3(1.0, 0.93, 0.75), vHeat);
+  gl_FragColor = vec4(col, vAlpha);
+}
+`;
+
+export const FULLSCREEN_VERT = /* glsl */ `
 varying vec2 vUv;
 void main() {
   vUv = uv;
@@ -41,19 +75,35 @@ void main() {
 }
 `;
 
-export const RAYS_FRAG = /* glsl */ `
+/**
+ * The arc-reactor behind the portrait: a cyan core, a halo, a hard horizontal
+ * anamorphic streak, and the ignition blast (white flash + expanding shockwave).
+ */
+export const REACTOR_FRAG = /* glsl */ `
 uniform float uTime;
 uniform float uProgress;
+uniform float uIgnite;
+uniform float uAspect;
 varying vec2 vUv;
 void main() {
-  vec2 d = vUv - vec2(0.5, 1.05);
-  float ang = atan(d.x, -d.y);
-  float r = length(d);
-  float cone = smoothstep(0.65, 0.0, abs(ang));
-  float fall = smoothstep(1.25, 0.0, r);
-  float rays = 0.5 + 0.5 * sin(ang * 14.0 + uTime * 0.15) * sin(ang * 5.0 - uTime * 0.07);
-  float a = cone * fall * (0.55 + 0.45 * rays) * 0.32 * (1.0 - uProgress * 0.8);
-  gl_FragColor = vec4(vec3(1.0, 0.72, 0.22) * a, a);
+  vec2 p = (vUv - vec2(0.5, 0.40)) * vec2(uAspect, 1.0);
+  float r = length(p);
+  float pulse = 0.85 + 0.15 * sin(uTime * 1.7);
+  vec3 cyan = vec3(0.30, 0.80, 1.0);
+
+  float core = exp(-r * 5.5);
+  float halo = exp(-r * 2.2) * 0.35;
+  float streak = exp(-abs(p.y) * 90.0) * exp(-abs(p.x) * 0.9);
+  vec3 col = (cyan * (core * 0.9 + halo) + vec3(0.7, 0.95, 1.0) * streak * 0.9) * pulse;
+
+  float k = 1.0 - uIgnite;
+  float flash = pow(k, 3.0) * exp(-r * 2.0);
+  float ring = smoothstep(0.045, 0.0, abs(r - uIgnite * 1.8)) * pow(k, 1.2);
+  col += vec3(1.0, 0.97, 0.9) * flash * 1.4 + cyan * ring * 1.2;
+
+  col *= 1.0 - uProgress * 0.85;
+  float a = clamp(max(col.r, max(col.g, col.b)), 0.0, 1.0);
+  gl_FragColor = vec4(col, a);
 }
 `;
 
@@ -81,7 +131,24 @@ void main() {
 export const WARP_FRAG = /* glsl */ `
 varying float vAlpha;
 void main() {
-  vec3 col = mix(vec3(1.0, 0.55, 0.1), vec3(1.0, 0.9, 0.6), vAlpha);
+  vec3 col = mix(vec3(0.25, 0.62, 1.0), vec3(0.95, 0.98, 1.0), vAlpha);
   gl_FragColor = vec4(col, vAlpha);
+}
+`;
+
+/** The warp's landing: a white-cyan flash and a shockwave ring sweeping outward. */
+export const IMPACT_FRAG = /* glsl */ `
+uniform float uFlash;
+uniform float uRing;
+uniform float uAspect;
+varying vec2 vUv;
+void main() {
+  vec2 p = (vUv - vec2(0.5)) * vec2(uAspect, 1.0);
+  float r = length(p);
+  float flash = uFlash * exp(-r * 2.4);
+  float ring = smoothstep(0.05, 0.0, abs(r - uRing * 1.9)) * (1.0 - uRing) * step(0.0001, uRing);
+  vec3 col = vec3(0.92, 0.97, 1.0) * flash * 1.3 + vec3(0.3, 0.8, 1.0) * ring * 1.2;
+  float a = clamp(max(col.r, max(col.g, col.b)), 0.0, 1.0);
+  gl_FragColor = vec4(col, a);
 }
 `;

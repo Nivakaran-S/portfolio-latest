@@ -68,7 +68,7 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
 
   const wash: Record<BackdropVariant, string> = {
     ember:
-      "radial-gradient(120% 80% at 50% 100%, #1c160f 0%, #0e0c0d 45%, #0a0a0c 100%)",
+      "radial-gradient(120% 80% at 50% 100%, #0c1722 0%, #0b0f15 45%, #0a0a0c 100%)",
     forge:
       "radial-gradient(120% 90% at 50% 10%, #16171b 0%, #0d0e11 45%, #0a0a0c 100%)",
     ink: "radial-gradient(120% 80% at 50% 0%, #121319 0%, #0c0d11 45%, #0a0a0c 100%)",
@@ -90,11 +90,11 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
           <motion.div className="absolute inset-0" style={far}>
             <div
               className="animate-pulse-glow absolute bottom-[-12%] left-1/2 h-[44rem] w-[44rem] -translate-x-1/2 rounded-full blur-[150px]"
-              style={{ background: "rgba(245,158,11,0.12)" }}
+              style={{ background: "rgba(56,189,248,0.12)" }}
             />
             <div
               className="animate-aurora absolute -right-32 top-1/4 h-[34rem] w-[34rem] rounded-full blur-[160px]"
-              style={{ background: "rgba(217,119,6,0.07)" }}
+              style={{ background: "rgba(249,115,22,0.07)" }}
             />
           </motion.div>
           {/* Sparks are desktop-only: on phones they cost frames for little gain.

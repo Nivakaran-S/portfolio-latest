@@ -375,7 +375,7 @@ summary {
 .cine-grain {
   position: absolute;
   inset: -50%;
-  opacity: 0.055;
+  opacity: 0.07;
   background-image: url("/cinema/grain.svg");
   animation: cine-grain 1s steps(1) infinite;
   will-change: transform;
@@ -394,23 +394,25 @@ summary {
 .cine-vignette {
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 100% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.42) 100%);
+  background: radial-gradient(120% 100% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.55) 100%);
 }
 
-/* Soft amber light leaks drifting with scroll. Gradients, not blur filters, so they stay cheap. */
+/* Teal-and-orange light leaks drifting with scroll: cold steel one side, heat the other.
+   Gradients, not blur filters, so they stay cheap. */
 .cine-leak {
   position: absolute;
   width: 70vmax;
   height: 70vmax;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(245, 158, 11, 0.13), transparent 65%);
 }
+.cine-leak-cool { background: radial-gradient(circle, rgba(56, 189, 248, 0.11), transparent 65%); }
+.cine-leak-hot { background: radial-gradient(circle, rgba(249, 115, 22, 0.09), transparent 65%); }
 
-/* A slow amber sweep that plays whenever the letterbox closes. */
+/* A steel-white sweep that plays whenever the letterbox closes. */
 .cine-sweep {
   position: absolute;
   inset: 0;
-  background: linear-gradient(100deg, transparent 35%, rgba(251, 191, 36, 0.1) 50%, transparent 65%);
+  background: linear-gradient(100deg, transparent 35%, rgba(186, 230, 253, 0.12) 50%, transparent 65%);
   transform: translateX(-120%);
 }
 html[data-letterbox="on"] .cine-sweep {
