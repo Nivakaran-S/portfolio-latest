@@ -47,14 +47,17 @@ varying float vAlpha;
 void main() {
   float speed = 0.6 + aSeed * 1.6;
   float life = mod(uTime * speed * 0.35 + aSeed * 17.0, 1.0);
+  float lean = aSeed - 0.5;
   float y = -5.0 + life * 10.0;
-  float x = aX + sin(life * 6.0 + aSeed * 30.0) * 0.25 + life * (aSeed - 0.5) * 2.0;
+  float x = aX + lean * life * 6.0 + lean * life * life * 2.0;
   x *= 1.0 + 2.5 * pow(1.0 - uIgnite, 2.0);
-  float len = 0.15 + speed * 0.55;
-  y += (aEnd - 1.0) * len;
+  // The trail follows the path's tangent, so sparks fly slanted and curve instead of falling like rain.
+  vec2 dir = normalize(vec2(lean * 0.6 + lean * life * 0.4, 1.0));
+  float len = 0.1 + speed * 0.35 + pow(aSeed, 4.0) * 1.4;
+  vec2 pos = vec2(x, y) - dir * len * (1.0 - aEnd);
   vHeat = aEnd;
   vAlpha = (0.1 + aEnd * 0.9) * smoothstep(0.0, 0.1, life) * (1.0 - smoothstep(0.7, 1.0, life));
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(x, y, aZ, 1.0);
+  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, aZ, 1.0);
 }
 `;
 

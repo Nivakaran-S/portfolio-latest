@@ -23,7 +23,7 @@ import {
 } from "./shaders";
 
 const DUST = 1800;
-const SPARKS = 900;
+const SPARKS = 520;
 /** Seconds the ignition blast takes to play out. */
 const IGNITE_SECONDS = 1.8;
 
