@@ -1,74 +1,7 @@
 /**
  * Palette: dark steel, arc-reactor cyan, white-hot cores, orange heat.
- * Every shape is hard-edged and fast: sparks are streaks, not soft discs.
+ * Every shape is hard-edged: no soft bokeh, no glitter.
  */
-
-/** Cold dust hanging in the air: tiny hard-edged specks for depth. */
-export const DUST_VERT = /* glsl */ `
-uniform float uTime;
-uniform float uPixelRatio;
-attribute float aSeed;
-varying float vAlpha;
-void main() {
-  vec3 p = position;
-  p.y = mod(position.y + 5.0 + uTime * (0.08 + aSeed * 0.18), 10.0) - 5.0;
-  p.x += sin(uTime * 0.15 + aSeed * 40.0) * 0.2;
-  vec4 mv = modelViewMatrix * vec4(p, 1.0);
-  float dist = max(-mv.z, 0.01);
-  gl_PointSize = (1.2 + aSeed * 1.8) * uPixelRatio * (6.0 / max(dist, 0.5));
-  vAlpha = (0.25 + aSeed * 0.5) * smoothstep(0.0, 2.0, dist);
-  gl_Position = projectionMatrix * mv;
-}
-`;
-
-export const DUST_FRAG = /* glsl */ `
-varying float vAlpha;
-void main() {
-  float d = length(gl_PointCoord - 0.5);
-  if (d > 0.5) discard;
-  gl_FragColor = vec4(vec3(0.7, 0.88, 1.0), vAlpha * 0.6);
-}
-`;
-
-/**
- * Sparks: each is a line segment with a white-hot head (aEnd = 1) and an orange
- * tail (aEnd = 0), rising fast with a trail whose length is its motion blur.
- * During ignition (uIgnite 0 -> 1) they are thrown outward from the centre.
- */
-export const SPARKS_VERT = /* glsl */ `
-uniform float uTime;
-uniform float uIgnite;
-attribute float aSeed;
-attribute float aEnd;
-attribute float aX;
-attribute float aZ;
-varying float vHeat;
-varying float vAlpha;
-void main() {
-  float speed = 0.6 + aSeed * 1.6;
-  float life = mod(uTime * speed * 0.35 + aSeed * 17.0, 1.0);
-  float lean = aSeed - 0.5;
-  float y = -5.0 + life * 10.0;
-  float x = aX + lean * life * 6.0 + lean * life * life * 2.0;
-  x *= 1.0 + 2.5 * pow(1.0 - uIgnite, 2.0);
-  // The trail follows the path's tangent, so sparks fly slanted and curve instead of falling like rain.
-  vec2 dir = normalize(vec2(lean * 0.6 + lean * life * 0.4, 1.0));
-  float len = 0.1 + speed * 0.35 + pow(aSeed, 4.0) * 1.4;
-  vec2 pos = vec2(x, y) - dir * len * (1.0 - aEnd);
-  vHeat = aEnd;
-  vAlpha = (0.1 + aEnd * 0.9) * smoothstep(0.0, 0.1, life) * (1.0 - smoothstep(0.7, 1.0, life));
-  gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, aZ, 1.0);
-}
-`;
-
-export const SPARKS_FRAG = /* glsl */ `
-varying float vHeat;
-varying float vAlpha;
-void main() {
-  vec3 col = mix(vec3(1.0, 0.38, 0.06), vec3(1.0, 0.93, 0.75), vHeat);
-  gl_FragColor = vec4(col, vAlpha);
-}
-`;
 
 export const FULLSCREEN_VERT = /* glsl */ `
 varying vec2 vUv;

@@ -6,7 +6,6 @@ import {
   useTransform,
   useReducedMotion,
 } from "motion/react";
-import { useCinema } from "@/app/_components/cinema/cinema-provider";
 
 export type BackdropVariant = "ember" | "forge" | "ink" | "origin";
 
@@ -58,7 +57,6 @@ interface StoryBackdropProps {
  */
 export function StoryBackdrop({ variant }: StoryBackdropProps) {
   const reduced = useReducedMotion();
-  const { sceneReady } = useCinema();
 
   // Depth layers track scroll 1:1 (no spring lag). The style object is always
   // passed so server and client markup match; reduced motion zeroes travel.
@@ -96,30 +94,6 @@ export function StoryBackdrop({ variant }: StoryBackdropProps) {
               className="animate-aurora absolute -right-32 top-1/4 h-[34rem] w-[34rem] rounded-full blur-[160px]"
               style={{ background: "rgba(249,115,22,0.07)" }}
             />
-          </motion.div>
-          {/* Sparks are desktop-only: on phones they cost frames for little gain.
-              The WebGL light field replaces them once it is showing. */}
-          <motion.div
-            className={`absolute inset-0 hidden ${sceneReady ? "" : "sm:block"}`}
-            style={near}
-          >
-            {EMBERS.map((e, i) => (
-              <span
-                key={i}
-                className="animate-ember absolute bottom-0 rounded-full"
-                style={{
-                  left: `${e.left}%`,
-                  width: e.size,
-                  height: e.size,
-                  animationDelay: `${e.delay}s`,
-                  animationDuration: `${e.dur}s`,
-                  background: e.hot ? "#ffe8c2" : "#f97316",
-                  boxShadow: `0 0 ${e.size * 3}px ${
-                    e.hot ? "rgba(255,232,194,0.85)" : "rgba(249,115,22,0.75)"
-                  }`,
-                }}
-              />
-            ))}
           </motion.div>
         </>
       ) : null}
