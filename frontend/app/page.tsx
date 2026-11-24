@@ -55,7 +55,7 @@ function Band({
   children?: ReactNode;
 }) {
   return (
-    <section id={id} className="section-rule px-5 py-24 sm:px-10 sm:py-32">
+    <section id={id} className="section-rule px-5 py-20 sm:px-10 sm:py-24">
       <div className="mx-auto w-full max-w-[1320px]">
         <DepthItem from="up">
           <p className="label">{eyebrow}</p>
@@ -100,7 +100,7 @@ export default function Home() {
         <Band eyebrow="Three disciplines" lines={["Built where three fields meet."]}>
           <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
             {profile.domains.map((d, i) => (
-              <DepthItem key={d} from="up" delay={i * 0.06} className="h-full">
+              <DepthItem key={d} from="up" distance={90 + (i % 3) * 60} delay={i * 0.06} className="h-full">
                 <article
                   className={`flex h-full min-h-[18rem] flex-col justify-between rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
                     i === 1 ? "feature-dark border-transparent" : "border-line bg-raised hover:border-fg"
@@ -129,7 +129,7 @@ export default function Home() {
         <Band eyebrow="Principles" lines={["Three rules I don't break."]}>
           <div className="mt-14 grid grid-cols-1 gap-px overflow-hidden rounded-3xl border border-line bg-line md:grid-cols-3">
             {principles.map((p, i) => (
-              <DepthItem key={p.k} from="up" delay={i * 0.06} className="h-full">
+              <DepthItem key={p.k} from="up" distance={90 + (i % 3) * 60} delay={i * 0.06} className="h-full">
                 <article className="flex h-full flex-col gap-6 bg-raised p-8 transition-colors duration-300 hover:bg-warm">
                   <span className="font-mono text-sm text-ember-button" aria-hidden="true">
                     0{i + 1}
@@ -157,7 +157,7 @@ export default function Home() {
         <Band eyebrow="By the numbers" lines={["A habit of shipping, kept on the record."]}>
           <dl className="mt-14 grid grid-cols-2 gap-px overflow-hidden rounded-3xl border border-line bg-line lg:grid-cols-4">
             {profile.stats.map((s, i) => (
-              <DepthItem key={s.label} from="up" delay={i * 0.06} className="h-full">
+              <DepthItem key={s.label} from="up" distance={90 + (i % 3) * 60} delay={i * 0.06} className="h-full">
                 <div className="flex h-full flex-col justify-between gap-8 bg-raised p-7 sm:p-8">
                   <dd className="font-display text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-none tracking-tight text-fg">
                     <CountUp value={String(s.value)} />

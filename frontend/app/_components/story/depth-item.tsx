@@ -41,7 +41,7 @@ const OFFSET: Record<From, { x?: number; y?: number; z?: number }> = {
 export function DepthItem({
   children,
   from = "up",
-  distance = 80,
+  distance = 110,
   delay = 0,
   className = "",
 }: DepthItemProps) {

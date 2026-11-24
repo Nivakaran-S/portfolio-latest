@@ -291,7 +291,13 @@ export default function AboutPage() {
                   className="h-full"
                 >
                   <div className="flex h-full flex-col justify-between gap-6 bg-raised/85 p-7 backdrop-blur-sm sm:p-8">
-                    <dd className="silver font-display text-[clamp(2.25rem,6vw,3.75rem)] font-semibold leading-none tracking-tight">
+                    <dd
+                      className={`silver font-display font-semibold leading-none tracking-tight [text-wrap:balance] ${
+                        s.value.length > 6
+                          ? "text-[clamp(1.5rem,3.2vw,2.25rem)] leading-[1.1]"
+                          : "text-[clamp(2.25rem,6vw,3.75rem)]"
+                      }`}
+                    >
                       {s.value}
                     </dd>
                     <dt className="label text-fg-muted">{s.label}</dt>

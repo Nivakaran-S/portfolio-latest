@@ -15,12 +15,12 @@ export function Footer() {
       {/* giant wordmark, clipped at the edge */}
       <p
         aria-hidden="true"
-        className="pointer-events-none absolute -bottom-[0.16em] left-1/2 w-max -translate-x-1/2 select-none whitespace-nowrap font-display text-[clamp(4rem,17vw,16rem)] font-bold leading-none tracking-tighter text-white opacity-[0.06]"
+        className="pointer-events-none absolute -bottom-[0.34em] left-1/2 w-max -translate-x-1/2 select-none whitespace-nowrap font-display text-[clamp(4rem,17vw,16rem)] font-bold leading-none tracking-tighter text-white opacity-[0.06]"
       >
         {profile.shortName}.dev
       </p>
 
-      <div className="relative z-10 mx-auto w-full max-w-[1320px] px-6 pb-12 pt-20 sm:px-10">
+      <div className="relative z-10 mx-auto w-full max-w-[1320px] px-6 pb-10 pt-16 sm:px-10 sm:pt-20">
         <div className="grid gap-12 md:grid-cols-2">
           {/* brand + CTA */}
           <div className="max-w-md">
@@ -40,7 +40,7 @@ export function Footer() {
           </div>
 
           {/* navigate + connect */}
-          <div className="grid grid-cols-2 gap-8 sm:max-w-md md:justify-self-end">
+          <div className="grid grid-cols-2 gap-x-12 gap-y-8 md:justify-self-end md:gap-x-24">
             <nav aria-label="Footer">
               <p className="label mb-4 text-[#a8a8a8]">Navigate</p>
               <ul className="flex flex-col">
