@@ -75,10 +75,10 @@ export const achievements: Achievement[] = [
     detail: "National AI challenge - reached the semi-finals.",
   },
   {
-    title: "Google AI Builders",
+    title: "Google AI Builder CP",
     result: "Participant",
     year: "2026",
     org: "Hack2skill",
-    detail: "Google AI builders programme run by Hack2skill.",
+    detail: "Google AI Builder CP, run by Hack2skill.",
   },
 ];
