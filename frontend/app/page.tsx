@@ -57,14 +57,14 @@ function Band({
   return (
     <section id={id} className="section-rule px-5 py-20 sm:px-10 sm:py-24">
       <div className="mx-auto w-full max-w-[1320px]">
-        <DepthItem from="up">
+        <DepthItem from="up" distance={20}>
           <p className="label">{eyebrow}</p>
         </DepthItem>
         <h2 className="mt-4 max-w-4xl font-display text-[clamp(2.25rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em] [text-wrap:balance]">
           <MaskReveal lines={lines} />
         </h2>
         {sub ? (
-          <DepthItem from="up" delay={0.1}>
+          <DepthItem from="up" distance={30} delay={0.1}>
             <p className="mt-6 max-w-xl text-fg-muted sm:text-lg">{sub}</p>
           </DepthItem>
         ) : null}
@@ -159,7 +159,13 @@ export default function Home() {
             {profile.stats.map((s, i) => (
               <DepthItem key={s.label} from="up" distance={90 + (i % 3) * 60} delay={i * 0.06} className="h-full">
                 <div className="flex h-full flex-col justify-between gap-8 bg-raised p-7 sm:p-8">
-                  <dd className="font-display text-[clamp(2.5rem,6vw,4.25rem)] font-semibold leading-none tracking-tight text-fg">
+                  <dd
+                    className={`font-display font-semibold tracking-tight text-fg [text-wrap:balance] ${
+                      String(s.value).length > 6
+                        ? "text-[clamp(1.5rem,3.2vw,2.25rem)] leading-[1.1]"
+                        : "text-[clamp(2.5rem,6vw,4.25rem)] leading-none"
+                    }`}
+                  >
                     <CountUp value={String(s.value)} />
                   </dd>
                   <dt className="label">{s.label}</dt>
@@ -216,7 +222,7 @@ export default function Home() {
         {/* THE INVITATION */}
         <section id="contact" className="section-rule px-5 py-24 sm:px-10 sm:py-36">
           <div className="mx-auto flex w-full max-w-[1320px] flex-col items-center text-center">
-            <DepthItem from="up">
+            <DepthItem from="up" distance={20}>
               <p className="label">The invitation</p>
             </DepthItem>
             <h2 className="mt-6 font-display text-[clamp(2.5rem,8vw,6.5rem)] font-semibold leading-[1] tracking-[-0.04em]">
@@ -229,12 +235,12 @@ export default function Home() {
                 ]}
               />
             </h2>
-            <DepthItem from="up" delay={0.12}>
+            <DepthItem from="up" distance={30} delay={0.12}>
               <p className="mt-6 max-w-xl text-fg-dim sm:text-lg">
                 Open to roles and collaborations in AI/ML, software, and data engineering.
               </p>
             </DepthItem>
-            <DepthItem from="up" delay={0.18}>
+            <DepthItem from="up" distance={30} delay={0.18}>
               <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
                 <a
                   href={`mailto:${profile.email}`}

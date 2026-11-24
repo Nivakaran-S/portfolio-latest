@@ -55,9 +55,23 @@ export const achievements: Achievement[] = [
   },
   {
     title: "Agentrix 2026",
-    result: "Competing now",
+    result: "Semi-finalist",
     year: "2026",
     org: "University of Ruhuna",
-    detail: "Inter-university competition - currently underway.",
+    detail: "Inter-university competition - reached the semi-finals.",
+  },
+  {
+    title: "Tech Triathlon",
+    result: "Semi-finalist",
+    year: "2026",
+    org: "Rootcode",
+    detail: "Multi-round tech competition organised by Rootcode - reached the semi-finals.",
+  },
+  {
+    title: "AI Challenge Sri Lanka 2026",
+    result: "Semi-finalist",
+    year: "2026",
+    org: "AI Driven Sri Lanka",
+    detail: "National AI challenge - reached the semi-finals.",
   },
 ];

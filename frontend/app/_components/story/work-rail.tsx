@@ -87,7 +87,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
   return (
     <section id="work" className="section-rule px-5 py-24 sm:px-10 sm:py-32">
       <div className="mx-auto w-full max-w-[1320px]">
-        <DepthItem from="up">
+        <DepthItem from="up" distance={20}>
           <p className="label">The work</p>
         </DepthItem>
         <h2 className="mt-4 font-display text-[clamp(2.25rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
