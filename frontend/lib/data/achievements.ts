@@ -74,4 +74,11 @@ export const achievements: Achievement[] = [
     org: "AI Driven Sri Lanka",
     detail: "National AI challenge - reached the semi-finals.",
   },
+  {
+    title: "Google AI Builders",
+    result: "Participant",
+    year: "2026",
+    org: "Hack2skill",
+    detail: "Google AI builders programme run by Hack2skill.",
+  },
 ];

@@ -68,7 +68,7 @@ export const profile: Profile = {
   ],
   stats: [
     { value: "72", label: "Repositories" },
-    { value: "9", label: "Competitions" },
+    { value: "10", label: "Competitions" },
     { value: "15+", label: "Tech stacks" },
     { value: "Colombo, LK", label: "Based in" },
   ],
