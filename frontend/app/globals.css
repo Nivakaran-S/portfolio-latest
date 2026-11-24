@@ -1,52 +1,59 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ */
-/*  Nivakaran Portfolio - "BENTO"                                       */
-/*  Style: Bento Box Grid + Dark OLED                                   */
-/*  Palette: zinc dark + warm amber accent (#f59e0b)                    */
-/*  Modular cards, varied spans, rounded-2xl, hover scale 1.02.         */
-/*  Dark only.                                                          */
+/*  Nivakaran Portfolio - Z Crew visual language                        */
+/*  Warm paper ground, ink type, hairline rules, ember/purple accents.  */
+/*  Token NAMES are kept stable from the previous theme so every page   */
+/*  re-skins from here; only the values changed.                        */
 /* ------------------------------------------------------------------ */
 
 @theme {
-  /* Surface depth - zinc, slightly warm */
-  --color-void: #0a0a0c; /* page base */
-  --color-base: #0e0e11; /* below cards */
-  --color-raised: #18181b; /* card bg */
-  --color-elevated: #232327; /* card hover */
-  --color-line: #2a2a2f; /* divider */
+  /* Surfaces (light, warm paper) */
+  --color-void: #f6f4ee; /* page ground */
+  --color-base: #faf9f4; /* paper */
+  --color-raised: #ffffff; /* card */
+  --color-elevated: #efede7; /* card hover */
+  --color-line: #e5e3dd; /* hairline */
+  --color-line-2: #efede7;
 
-  /* Accent (token NAMES kept stable; values are amber/warm now) */
-  --color-neon-cyan: #f59e0b; /* primary accent */
-  --color-neon-cyan-core: #fbbf24; /* highlight */
-  --color-neon-violet: #d97706; /* deeper amber */
-  --color-neon-magenta: #ef4444; /* rare warm */
-  --color-neon-lime: #34d399; /* "available" indicator */
+  /* Accents. ember is primary; names kept from the previous theme. */
+  --color-neon-cyan: #b8430f; /* ember-deep: accent text on paper */
+  --color-neon-cyan-core: #c2410c; /* ember-button: accent text on paper */
+  --color-neon-violet: #7440b0; /* purple */
+  --color-neon-magenta: #d4564a; /* red */
+  --color-neon-lime: #15803d; /* "available" dot */
 
-  /* Text tiers - all >= AA on --color-raised (#18181b) */
-  --color-fg: #fafafa;
-  --color-fg-dim: #d4d4d8;
-  --color-fg-muted: #a1a1aa;
-  --color-fg-disabled: #52525b;
+  --color-ember: #ff7849;
+  --color-ember-button: #c2410c;
+  --color-ember-hover: #a63a0b;
+  --color-navy: #050e15;
+  --color-plum: #1d0b21;
+  --color-peach: #fedcc3;
+  --color-warm: #fff2e9;
 
-  /* Fonts - Inter precision system + mono for labels */
-  --font-sans: var(--font-inter);
-  --font-display: var(--font-inter);
+  /* Text tiers on paper (all >= AA) */
+  --color-fg: #0b0b0b;
+  --color-fg-dim: #2a2a2a;
+  --color-fg-muted: #6b6b6b;
+  --color-fg-disabled: #a8a8a8;
+
+  /* Fonts */
+  --font-sans: var(--font-geist-sans);
+  --font-display: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-script: var(--font-caveat);
 
-  /* Motion language (150-300ms; ease-out enter / ease-in exit) */
+  /* Motion language */
   --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 
-  /* Bento design tokens (per UI/UX Pro Max bento spec) */
-  --grid-gap: 1rem;
-  --card-radius: 1.25rem; /* 20px */
-  --card-radius-lg: 1.5rem; /* 24px */
-  --hover-scale: 1.02;
+  --card-radius: 1rem;
+  --card-radius-lg: 1.5rem;
+  --maxw: 1320px;
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 * {
@@ -55,15 +62,9 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  /* Prevent app-wide horizontal scroll. Use `clip`, NOT `hidden`:
-     `overflow-x: hidden` would switch overflow-y to `auto`, making <html>
-     a scrolling container and breaking `position: sticky` (the pinned
-     home hero) + motion's useScroll(). `clip` clips the x axis
-     without that side effect, so sticky and scroll tracking keep working. */
+  /* `clip`, not `hidden`: hidden would make <html> a scroll container and
+     break position: sticky and scroll tracking. */
   overflow-x: clip;
-  /* Native scrolling (no scroll smoothing library): in-page anchors glide,
-     and land below the fixed header. Reduced motion resets this below. */
-  scroll-behavior: smooth;
   scroll-padding-top: 5rem;
 }
 
@@ -73,14 +74,25 @@ body {
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* Belt-and-braces: clip on <body> too, and cap width so nothing can
-     push the layout wider than the viewport on mobile. */
   overflow-x: clip;
   max-width: 100vw;
 }
 
-/* Safety net: any very long headline (long project name, long blog title)
-   should wrap rather than push the page wider on mobile. */
+/* Lenis smooth scroll */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
 h1,
 h2,
 h3 {
@@ -99,7 +111,7 @@ summary {
 }
 
 ::selection {
-  background: color-mix(in srgb, var(--color-neon-cyan) 35%, transparent);
+  background: color-mix(in srgb, var(--color-ember) 35%, transparent);
   color: var(--color-fg);
 }
 
@@ -110,24 +122,24 @@ summary {
   background: var(--color-void);
 }
 ::-webkit-scrollbar-thumb {
-  background: var(--color-line);
+  background: #cfccc3;
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: var(--color-neon-cyan);
+  background: var(--color-ember);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-neon-cyan);
+  outline: 2px solid var(--color-ember-button);
   outline-offset: 3px;
   border-radius: 6px;
 }
 
 /* ------------------------------------------------------------------ */
-/*  Bento utilities                                                    */
+/*  Utilities                                                          */
 /* ------------------------------------------------------------------ */
 
-/* Card surface - the workhorse of the layout */
+/* Card surface */
 @utility bento {
   background: var(--color-raised);
   border: 1px solid var(--color-line);
@@ -146,95 +158,75 @@ summary {
     transform 220ms var(--ease-out-soft);
 }
 @utility bento-hover-active {
-  background: var(--color-elevated);
-  border-color: color-mix(in srgb, var(--color-neon-cyan) 30%, var(--color-line));
-  transform: scale(var(--hover-scale));
+  border-color: var(--color-fg);
+  transform: translateY(-2px);
 }
-
-/* Subtle inner sheen reads like Apple bento tiles */
 @utility tile-sheen {
-  background-image: radial-gradient(
-    120% 90% at 0% 0%,
-    rgba(255, 255, 255, 0.04) 0%,
-    transparent 55%
-  );
+  background-image: none;
 }
 
-/* Heading sheen - soft, monochrome */
+/* Heading emphasis: solid ink, as Z Crew uses */
 @utility silver {
-  background: linear-gradient(
-    180deg,
-    #ffffff 0%,
-    rgba(250, 250, 250, 0.72) 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
+  color: var(--color-fg);
 }
 
 @utility amber-glow {
-  text-shadow: 0 0 12px color-mix(in srgb, var(--color-neon-cyan) 50%, transparent);
+  text-shadow: none;
 }
-
-/* Kept names - quiet engraved depth (no neon) */
 @utility text-glow {
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
+  text-shadow: none;
 }
 @utility text-glow-violet {
-  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.55);
+  text-shadow: none;
 }
 
-/* Consistent elevation scale */
 @utility box-glow {
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 0 0 1px rgba(255, 255, 255, 0.05),
-    0 24px 60px -28px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 1px 0 rgba(11, 11, 11, 0.04), 0 18px 40px -26px rgba(11, 11, 11, 0.28);
 }
 @utility box-glow-violet {
-  box-shadow:
-    0 0 0 1px color-mix(in srgb, var(--color-neon-cyan) 30%, transparent),
-    0 18px 50px -24px color-mix(in srgb, var(--color-neon-cyan) 24%, transparent);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--color-ember) 40%, transparent),
+    0 18px 40px -24px color-mix(in srgb, var(--color-ember) 30%, transparent);
 }
 
 @utility glass {
-  background: color-mix(in srgb, var(--color-raised) 65%, transparent);
+  background: color-mix(in srgb, var(--color-raised) 80%, transparent);
   backdrop-filter: blur(14px) saturate(140%);
   -webkit-backdrop-filter: blur(14px) saturate(140%);
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid var(--color-line);
 }
 
+/* Mono eyebrow label */
 @utility label {
   font-family: var(--font-mono), monospace;
   text-transform: uppercase;
   letter-spacing: 0.12em;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: var(--color-fg-muted);
 }
 
-@keyframes aurora {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.7;
-  }
-  50% {
-    transform: translate3d(2%, -2%, 0) scale(1.04);
-    opacity: 1;
-  }
+/* Hand-written accent word (Caveat), the Z Crew "script" */
+@utility script {
+  font-family: var(--font-script), cursive;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--color-ember-button);
 }
-@keyframes aurora-alt {
-  0%,
-  100% {
-    transform: translate3d(0, 0, 0) scale(1);
-    opacity: 0.55;
-  }
-  50% {
-    transform: translate3d(-3%, 2%, 0) scale(1.06);
-    opacity: 0.9;
-  }
+
+/* Hairline-ruled section band */
+@utility section-rule {
+  border-top: 1px solid var(--color-line);
 }
+
+/* Dark feature card ground (navy to plum) */
+@utility feature-dark {
+  background: linear-gradient(135deg, var(--color-navy), #17110f 55%, #3a1530);
+  color: #faf9f4;
+}
+
+/* ------------------------------------------------------------------ */
+/*  Keyframes                                                          */
+/* ------------------------------------------------------------------ */
+
 @keyframes pulse-soft {
   0%,
   100% {
@@ -252,52 +244,46 @@ summary {
     background-position: 200% 0;
   }
 }
-/* a forge spark rising and burning out */
-@keyframes ember-rise {
-  0% {
-    transform: translateY(0) scale(1);
-    opacity: 0;
+@keyframes marquee {
+  from {
+    transform: translateX(0);
   }
-  12% {
-    opacity: 1;
+  to {
+    transform: translateX(-50%);
   }
-  85% {
-    opacity: 0.5;
-  }
+}
+@keyframes community-drift {
+  0%,
   100% {
-    transform: translateY(-112vh) scale(0.5);
-    opacity: 0;
+    transform: translate3d(0, 0, 0) rotate(var(--r, 0deg));
+  }
+  50% {
+    transform: translate3d(var(--dx, 8px), var(--dy, -14px), 0) rotate(calc(var(--r, 0deg) + 2deg));
   }
 }
-
-.animate-pulse-glow {
-  animation: pulse-soft 4.5s ease-in-out infinite;
+@keyframes hero-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
 }
-.animate-aurora {
-  animation: aurora 18s ease-in-out infinite;
+@keyframes write-in {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
 }
-.animate-aurora-alt {
-  animation: aurora-alt 22s ease-in-out infinite;
-}
-.animate-ember {
-  animation: ember-rise linear infinite;
-  will-change: transform, opacity;
-}
-/* slow orbital rotation for the /about "origin" rings */
 @keyframes orbit-spin {
   to {
     transform: rotate(360deg);
   }
 }
-.animate-orbit {
-  animation: orbit-spin 80s linear infinite;
-  will-change: transform;
-}
-.animate-orbit-rev {
-  animation: orbit-spin 110s linear infinite reverse;
-  will-change: transform;
-}
-/* chat message entrance */
 @keyframes msg-in {
   from {
     opacity: 0;
@@ -308,36 +294,6 @@ summary {
     transform: none;
   }
 }
-.animate-msg-in {
-  animation: msg-in 0.32s var(--ease-out-soft) both;
-}
-/* slow amber shine sweeping across the hero name */
-@keyframes text-shine {
-  0% {
-    background-position: 200% center;
-  }
-  100% {
-    background-position: -200% center;
-  }
-}
-.text-shine {
-  background: linear-gradient(
-    110deg,
-    #ffffff 0%,
-    #ffffff 35%,
-    var(--color-neon-cyan-core) 50%,
-    #ffffff 65%,
-    #ffffff 100%
-  );
-  background-size: 200% auto;
-  background-position: 200% center;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  animation: text-shine 7s linear infinite;
-}
-/* scroll-cue dot drifting down inside the mouse outline */
 @keyframes scroll-dot {
   0%,
   100% {
@@ -349,8 +305,33 @@ summary {
     opacity: 1;
   }
 }
+
+.animate-pulse-glow {
+  animation: pulse-soft 2.4s ease-in-out infinite;
+}
+.animate-orbit {
+  animation: orbit-spin 80s linear infinite;
+  will-change: transform;
+}
+.animate-orbit-rev {
+  animation: orbit-spin 110s linear infinite reverse;
+  will-change: transform;
+}
+.animate-msg-in {
+  animation: msg-in 0.32s var(--ease-out-soft) both;
+}
 .animate-scroll-dot {
   animation: scroll-dot 1.8s ease-in-out infinite;
+}
+.animate-drift {
+  animation: community-drift 7s ease-in-out infinite;
+  will-change: transform;
+}
+.animate-hero-in {
+  animation: hero-in 0.8s var(--ease-out-soft) both;
+}
+.animate-write-in {
+  animation: write-in 1.1s var(--ease-out-soft) 0.3s both;
 }
 .skeleton {
   background: linear-gradient(
@@ -363,111 +344,60 @@ summary {
   animation: shimmer 1.4s ease-in-out infinite;
 }
 
-/* ------------------------------------------------------------------ */
-/*  Cinema film layer (transform + opacity only)                       */
-/* ------------------------------------------------------------------ */
-
-.cine-root {
-  contain: strict;
+/* Ember shine sweeping across a heading word */
+@keyframes text-shine {
+  0% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+.text-shine {
+  background: linear-gradient(
+    110deg,
+    var(--color-ember-button) 0%,
+    var(--color-ember-button) 35%,
+    var(--color-ember) 50%,
+    var(--color-ember-button) 65%,
+    var(--color-ember-button) 100%
+  );
+  background-size: 200% auto;
+  background-position: 200% center;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 6s linear infinite;
 }
 
-/* Tiling noise, jittered in 8 discrete steps per second (film-like). */
-.cine-grain {
-  position: absolute;
-  inset: -50%;
-  opacity: 0.07;
-  background-image: url("/cinema/grain.svg");
-  animation: cine-grain 1s steps(1) infinite;
-  will-change: transform;
+/* Marquee: a track holding two identical runs, slid by half its width */
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent);
 }
-@keyframes cine-grain {
-  0% { transform: translate3d(0, 0, 0); }
-  12.5% { transform: translate3d(-5%, -8%, 0); }
-  25% { transform: translate3d(-12%, 4%, 0); }
-  37.5% { transform: translate3d(7%, -14%, 0); }
-  50% { transform: translate3d(-4%, 14%, 0); }
-  62.5% { transform: translate3d(-14%, 6%, 0); }
-  75% { transform: translate3d(13%, 0, 0); }
-  87.5% { transform: translate3d(2%, 11%, 0); }
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 2.5rem;
+  animation: marquee var(--marquee-duration, 40s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
 }
 
-.cine-vignette {
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(120% 100% at 50% 50%, transparent 62%, rgba(0, 0, 0, 0.55) 100%);
-}
-
-/* Teal-and-orange light leaks drifting with scroll: cold steel one side, heat the other.
-   Gradients, not blur filters, so they stay cheap. */
-.cine-leak {
-  position: absolute;
-  width: 70vmax;
-  height: 70vmax;
-  border-radius: 9999px;
-}
-.cine-leak-cool { background: radial-gradient(circle, rgba(56, 189, 248, 0.11), transparent 65%); }
-.cine-leak-hot { background: radial-gradient(circle, rgba(249, 115, 22, 0.09), transparent 65%); }
-
-/* A steel-white sweep that plays whenever the letterbox closes. */
-.cine-sweep {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(100deg, transparent 35%, rgba(186, 230, 253, 0.12) 50%, transparent 65%);
-  transform: translateX(-120%);
-}
-html[data-letterbox="on"] .cine-sweep {
-  animation: cine-sweep 1.1s var(--ease-out-soft) both;
-}
-@keyframes cine-sweep {
-  from { transform: translateX(-120%); }
-  to { transform: translateX(120%); }
-}
-
-/* Letterbox bars sit above the header (z-55) but below chat and the drawer. */
-.cine-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: min(4svh, 26px); /* capped: the top bar sits over the header and must not cover the logo */
-  background: #000;
-  transform: scaleY(0);
-  transition: transform 0.7s var(--ease-out-soft);
-}
-.cine-bar-top { top: 0; transform-origin: top; }
-.cine-bar-bottom { bottom: 0; transform-origin: bottom; }
-html[data-letterbox="on"] .cine-bar { transform: scaleY(1); }
-
-/* Page entry: a cyan shockwave ring behind the content, played once per page. */
-.cine-shock {
-  animation: cine-shock 1.4s var(--ease-out-soft) both !important;
-  animation-iteration-count: 1 !important; /* the backdrop caps ambient loops at 3; this is a one-shot */
-}
-@keyframes cine-shock {
-  from { transform: translate(-50%, -50%) scale(0.2); opacity: 0.8; }
-  to { transform: translate(-50%, -50%) scale(4.5); opacity: 0; }
-}
-
-/* Page titles punch in: oversized and soft, resolving to sharp. CSS-only so the text is
-   in the first paint and never waits on JavaScript; reduced motion lands on the end state. */
-.cine-punch {
-  animation: cine-punch 0.9s var(--ease-out-soft) both;
-}
-@keyframes cine-punch {
-  from { transform: scale(1.12); filter: blur(10px); }
-  to { transform: none; filter: none; }
-}
-
-[data-cinema-tier="static"] .cine-grain,
-[data-cinema-tier="static"] .cine-leak,
-[data-cinema-tier="static"] .cine-sweep,
-[data-cinema-tier="static"] .cine-bars {
-  display: none;
+/* Masked line reveal: the inner span rises out of an overflow-hidden mask */
+.mask-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
 }
 
 @media print {
-  .cine-root,
-  .cine-bars {
-    display: none;
+  .marquee-track {
+    animation: none;
   }
 }
 
@@ -487,25 +417,42 @@ html[data-letterbox="on"] .cine-bar { transform: scaleY(1); }
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .marquee-track {
+    animation: none;
+    flex-wrap: wrap;
+    width: auto;
+  }
 }
 
 @media (prefers-contrast: more) {
   body {
-    color: #ffffff;
+    color: #000;
   }
-  .silver,
   .text-shine {
     background: none;
-    color: #ffffff;
-    -webkit-text-fill-color: #ffffff;
-  }
-  .text-glow,
-  .text-glow-violet,
-  .amber-glow {
-    text-shadow: none;
+    color: var(--color-ember-hover);
+    -webkit-text-fill-color: var(--color-ember-hover);
   }
   * {
     border-color: var(--color-fg-dim);
   }
 }
 
+/* Line rise out of a mask (used by MaskReveal and the hero) */
+@keyframes rise {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: none;
+  }
+}
+.animate-rise {
+  display: block;
+  animation: rise 0.9s var(--ease-out-soft) both;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-rise {
+    animation: none;
+  }
+}

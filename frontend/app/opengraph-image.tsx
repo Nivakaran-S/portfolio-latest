@@ -17,8 +17,8 @@ export default function OpengraphImage() {
           justifyContent: "space-between",
           padding: "84px",
           background:
-            "radial-gradient(120% 100% at 50% 0%, #18181b 0%, #0e0e11 50%, #0a0a0c 100%)",
-          color: "#fafafa",
+            "radial-gradient(120% 100% at 50% 0%, #ffffff 0%, #faf9f4 50%, #f6f4ee 100%)",
+          color: "#0b0b0b",
           fontFamily: "sans-serif",
         }}
       >
@@ -27,7 +27,7 @@ export default function OpengraphImage() {
             display: "flex",
             alignItems: "center",
             gap: "14px",
-            color: "#a1a1aa",
+            color: "#6b6b6b",
             fontSize: 22,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
@@ -47,7 +47,7 @@ export default function OpengraphImage() {
         <div style={{ display: "flex", flexDirection: "column" }}>
           <div
             style={{
-              color: "#fbbf24",
+              color: "#c2410c",
               fontSize: 26,
               letterSpacing: "0.2em",
               textTransform: "uppercase",
@@ -59,7 +59,7 @@ export default function OpengraphImage() {
           <div style={{ fontSize: 86, fontWeight: 700, lineHeight: 1.04 }}>
             {profile.name}
           </div>
-          <div style={{ fontSize: 32, color: "#a1a1aa", marginTop: 18 }}>
+          <div style={{ fontSize: 32, color: "#6b6b6b", marginTop: 18 }}>
             {profile.creed}
           </div>
         </div>
@@ -69,7 +69,7 @@ export default function OpengraphImage() {
             display: "flex",
             justifyContent: "space-between",
             fontSize: 22,
-            color: "#a1a1aa",
+            color: "#6b6b6b",
             letterSpacing: "0.14em",
             textTransform: "uppercase",
           }}

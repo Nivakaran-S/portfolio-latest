@@ -24,7 +24,7 @@ export function GlowButton({
   const styles =
     variant === "primary"
       ? "bg-neon-cyan/15 text-neon-cyan-core ring-1 ring-neon-cyan/40 hover:bg-neon-cyan/25"
-      : "text-fg-dim border border-white/15 hover:border-white/30 hover:text-fg";
+      : "text-fg-dim border border-fg/15 hover:border-fg/30 hover:text-fg";
 
   return (
     <a

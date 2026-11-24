@@ -58,7 +58,7 @@ export function WorkCatalog({ all }: WorkCatalogProps) {
               className={`min-h-[44px] rounded-full border px-5 text-sm font-medium transition-colors duration-200 ${
                 active
                   ? "border-neon-cyan/50 bg-neon-cyan/10 text-neon-cyan"
-                  : "border-line text-fg-muted hover:border-white/20 hover:text-fg"
+                  : "border-line text-fg-muted hover:border-fg/20 hover:text-fg"
               }`}
             >
               {f}

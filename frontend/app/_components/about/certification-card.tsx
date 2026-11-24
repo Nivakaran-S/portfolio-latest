@@ -167,7 +167,7 @@ function Lightbox({
           type="button"
           onClick={onClose}
           aria-label="Close"
-          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-white/15 bg-void/60 text-fg-dim backdrop-blur-sm transition-colors hover:border-white/30 hover:text-fg focus-visible:border-neon-cyan/60 focus-visible:outline-none"
+          className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-full border border-fg/15 bg-void/60 text-fg-dim backdrop-blur-sm transition-colors hover:border-fg/30 hover:text-fg focus-visible:border-neon-cyan/60 focus-visible:outline-none"
         >
           ✕
         </button>

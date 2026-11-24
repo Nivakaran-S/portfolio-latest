@@ -8,7 +8,6 @@ import { profile } from "@/lib/data/profile";
 import { blogPostingJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 
 interface PageProps {
@@ -107,7 +106,7 @@ const mdxComponents: MDXComponents = {
   pre: (props) => (
     <pre
       {...props}
-      className="mt-6 overflow-x-auto rounded-2xl border border-line bg-base p-5 font-mono text-sm leading-relaxed text-fg-dim ring-1 ring-white/5"
+      className="mt-6 overflow-x-auto rounded-2xl border border-line bg-base p-5 font-mono text-sm leading-relaxed text-fg-dim ring-1 ring-fg/5"
     />
   ),
   hr: () => <hr className="my-10 border-line/60" />,
@@ -156,7 +155,6 @@ export default async function BlogPostPage({ params }: PageProps) {
       />
 
       {/* Post backdrop: ruled-paper notebook with a soft wash - "the notebook". */}
-      <StoryBackdrop variant="ink" />
 
       <Header />
 
@@ -179,7 +177,7 @@ export default async function BlogPostPage({ params }: PageProps) {
               </p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="cine-punch silver mt-5 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(2.25rem,6vw,4rem)] [text-wrap:balance]">
+              <h1 className="silver mt-5 font-display font-semibold leading-[1.05] tracking-[-0.02em] text-[clamp(2.25rem,6vw,4rem)] [text-wrap:balance]">
                 {post.title}
               </h1>
             </StoryItem>

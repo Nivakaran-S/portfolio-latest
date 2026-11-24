@@ -2,7 +2,6 @@
 
 import { useEffect, type ReactNode } from "react";
 import { motion } from "motion/react";
-import { useCinema } from "@/app/_components/cinema/cinema-provider";
 
 // Module state: false on the server and on first client render, so the very
 // first paint is never faded (content must never wait on JS). Flips true after
@@ -10,18 +9,16 @@ import { useCinema } from "@/app/_components/cinema/cinema-provider";
 let mountedOnce = false;
 
 /**
- * Cross-page cut: a short fade plus a letterbox pulse. Opacity only: a
- * persistent transform here would become the containing block for the fixed
- * header and backdrops. The wrapper keeps the body's flex chain intact.
+ * Cross-page transition: a soft fade. The wrapper keeps the body's flex chain
+ * intact. Opacity only: a persistent transform would become the containing
+ * block for the fixed header.
  */
 export default function Template({ children }: { children: ReactNode }) {
-  const { tier, pulseLetterbox } = useCinema();
-  const fadeIn = mountedOnce && tier !== "static";
+  const fadeIn = mountedOnce;
 
   useEffect(() => {
-    if (mountedOnce) pulseLetterbox(700);
     mountedOnce = true;
-  }, [pulseLetterbox]);
+  }, []);
 
   return (
     <motion.div

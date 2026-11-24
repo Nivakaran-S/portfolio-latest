@@ -29,14 +29,14 @@ export default async function Image({
           justifyContent: "space-between",
           padding: "80px",
           background:
-            "radial-gradient(120% 100% at 50% 0%, #18181b 0%, #0e0e11 50%, #0a0a0c 100%)",
-          color: "#fafafa",
+            "radial-gradient(120% 100% at 50% 0%, #ffffff 0%, #faf9f4 50%, #f6f4ee 100%)",
+          color: "#0b0b0b",
           fontFamily: "sans-serif",
         }}
       >
         <div
           style={{
-            color: "#fbbf24",
+            color: "#c2410c",
             fontSize: 24,
             letterSpacing: "0.2em",
             textTransform: "uppercase",
@@ -48,7 +48,7 @@ export default async function Image({
           <div style={{ fontSize: 82, fontWeight: 700, lineHeight: 1.04 }}>
             {project?.name ?? "Project"}
           </div>
-          <div style={{ fontSize: 34, color: "#a1a1aa", marginTop: 16 }}>
+          <div style={{ fontSize: 34, color: "#6b6b6b", marginTop: 16 }}>
             {project?.valueProp ?? ""}
           </div>
         </div>
@@ -57,7 +57,7 @@ export default async function Image({
             display: "flex",
             justifyContent: "space-between",
             fontSize: 22,
-            color: "#a1a1aa",
+            color: "#6b6b6b",
             letterSpacing: "0.14em",
             textTransform: "uppercase",
           }}

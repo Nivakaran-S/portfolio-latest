@@ -22,7 +22,7 @@ export default function Icon() {
             width: 13,
             height: 13,
             borderRadius: 9999,
-            background: "linear-gradient(180deg, #fbbf24, #d97706)",
+            background: "linear-gradient(180deg, #ff7849, #c2410c)",
           }}
         />
       </div>

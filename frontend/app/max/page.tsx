@@ -3,10 +3,8 @@ import Link from "next/link";
 import { profile } from "@/lib/data/profile";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
-import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "FRIDAY",
@@ -164,7 +162,6 @@ export default function MaxPage() {
       />
       <Header />
 
-      <StoryBackdrop variant="forge" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ HERO ════════════ */}
@@ -176,7 +173,7 @@ export default function MaxPage() {
               </p>
             </StoryItem>
             <StoryItem from="zoom-in" delay={0.05}>
-              <h1 className="cine-punch silver mt-8 font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.75rem,10vw,7rem)]">
+              <h1 className="silver mt-8 font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.75rem,10vw,7rem)]">
                 FRIDAY
               </h1>
             </StoryItem>
@@ -198,7 +195,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ WHY ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
@@ -230,7 +226,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ ARCHITECTURE ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -267,7 +262,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ PERSONALITY ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
@@ -308,7 +302,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ MODES ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -348,7 +341,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ PERMISSIONS ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -408,7 +400,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ SECURITY ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
@@ -453,7 +444,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ MEMORY + PROACTIVE ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -492,7 +482,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ EXECUTION LOOP ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -533,7 +522,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ STATUS ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[80svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
@@ -561,7 +549,6 @@ export default function MaxPage() {
         </section>
 
         {/* ════════════ CTA ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[70svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
             <h2 className="silver font-display font-semibold leading-[1.15] tracking-[-0.02em] text-[clamp(1.85rem,6vw,4rem)]">
@@ -587,7 +574,7 @@ export default function MaxPage() {
               </a>
               <Link
                 href="/work"
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-white/30 hover:text-fg"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-fg/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-fg/30 hover:text-fg"
               >
                 See my work ↗
               </Link>

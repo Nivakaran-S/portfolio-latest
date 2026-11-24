@@ -228,7 +228,7 @@ export function AdminKnowledge() {
                 type="button"
                 onClick={() => onDelete(doc._id)}
                 disabled={busy}
-                className="rounded-lg border border-white/15 px-4 py-1.5 text-sm text-fg-muted transition-colors hover:border-neon-magenta/50 hover:text-neon-magenta disabled:opacity-50"
+                className="rounded-lg border border-fg/15 px-4 py-1.5 text-sm text-fg-muted transition-colors hover:border-neon-magenta/50 hover:text-neon-magenta disabled:opacity-50"
               >
                 Delete
               </button>

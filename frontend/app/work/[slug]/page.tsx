@@ -5,10 +5,8 @@ import { getMainProjects, getProject } from "@/lib/data/projects";
 import { projectJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 import { GlowButton } from "@/app/_components/ui/glow-button";
-import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -47,7 +45,7 @@ const categoryColor: Record<string, string> = {
   "Software Engineering": "text-neon-cyan border-neon-cyan/30",
   "Data Science": "text-neon-cyan-core border-neon-cyan-core/30",
   "Computer Vision": "text-neon-violet border-neon-violet/40",
-  "Data Engineering": "text-fg-dim border-white/15",
+  "Data Engineering": "text-fg-dim border-fg/15",
   "Data Analysis": "text-neon-lime border-neon-lime/30",
 };
 
@@ -89,7 +87,6 @@ export default async function WorkPage({ params }: PageProps) {
       />
 
       {/* Case-study backdrop: glowing seams in cooling metal - "forged". */}
-      <StoryBackdrop variant="forge" />
 
       <Header />
 
@@ -111,7 +108,7 @@ export default async function WorkPage({ params }: PageProps) {
               </p>
             </StoryItem>
             <StoryItem from="up" delay={0.05}>
-              <h1 className="cine-punch silver mt-5 max-w-full font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.25rem,10vw,7rem)] [overflow-wrap:anywhere] [text-wrap:balance]">
+              <h1 className="silver mt-5 max-w-full font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.25rem,10vw,7rem)] [overflow-wrap:anywhere] [text-wrap:balance]">
                 {project.name}
               </h1>
             </StoryItem>
@@ -146,7 +143,6 @@ export default async function WorkPage({ params }: PageProps) {
         </section>
 
         {/* ════════════ PROBLEM / APPROACH / OUTCOME ════════════ */}
-        <SceneCut />
         {beats.map((b) => (
           <section
             key={b.n}
@@ -168,7 +164,6 @@ export default async function WorkPage({ params }: PageProps) {
         ))}
 
         {/* ════════════ LINKS ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[70svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
             <p className="label text-fg-muted">See it for yourself</p>

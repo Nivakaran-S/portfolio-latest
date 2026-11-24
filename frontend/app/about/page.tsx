@@ -3,8 +3,6 @@ import Link from "next/link";
 import { profile } from "@/lib/data/profile";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
-import { FaceRotation } from "@/app/_components/scene/face-rotation";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 import {
   workExperience,
@@ -15,7 +13,6 @@ import { capabilities } from "@/lib/data/services";
 import { CertificationGallery } from "@/app/_components/about/certification-card";
 import { StackGrid } from "@/app/_components/sections/stack-grid";
 import { profilePageJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
-import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "About",
@@ -100,15 +97,13 @@ export default function AboutPage() {
 
       {/* Coded "origin" backdrop (halo + orbit rings + starfield) sits at
           -z-10; the cut-out portrait turns in front of it at -z-5. */}
-      <StoryBackdrop variant="origin" />
-      <FaceRotation />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ THE SPARK ════════════ */}
         <section className="relative flex min-h-[100svh] flex-col justify-end px-5 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up" delay={0.05}>
-              <h1 className="cine-punch silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
+              <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Before the systems, the person.
               </h1>
             </StoryItem>
@@ -124,7 +119,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHERE IT STARTED - WHO I AM ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
@@ -143,7 +137,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHAT SHAPED ME ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 text-center sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="fade">
@@ -165,7 +158,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ THE PATH - EXPERIENCE + EDUCATION ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
@@ -184,7 +176,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ CERTIFICATIONS ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -208,7 +199,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHAT I CAN DO - CAPABILITIES ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -260,7 +250,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ THE TOOLKIT - TECH STACK ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
@@ -282,7 +271,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ BY THE NUMBERS - STATS ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -315,7 +303,6 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ WHAT'S NEXT - CONTACT ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
             <p className="label text-fg-muted">What&apos;s next</p>
@@ -345,7 +332,7 @@ export default function AboutPage() {
               <a
                 href={profile.resumeUrl}
                 download
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-white/30 hover:text-fg"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-fg/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-fg/30 hover:text-fg"
               >
                 Download CV ↓
               </a>
@@ -357,7 +344,7 @@ export default function AboutPage() {
                     href={s.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-white/30 hover:text-fg"
+                    className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-fg/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-fg/30 hover:text-fg"
                   >
                     {s.label} ↗
                   </a>

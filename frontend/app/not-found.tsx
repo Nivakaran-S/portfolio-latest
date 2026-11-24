@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 
 export const metadata: Metadata = {
   title: "Off the path",
@@ -10,7 +9,6 @@ export const metadata: Metadata = {
 export default function NotFound() {
   return (
     <>
-      <StoryBackdrop variant="ember" />
 
       <main className="relative z-10 flex min-h-[100svh] flex-col items-center justify-center px-6 text-center">
         <p className="label mb-5 text-fg-muted">Error 404</p>

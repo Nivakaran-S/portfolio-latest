@@ -25,7 +25,7 @@ export function StackGrid() {
             <StoryItem from="left">
               <p className="label flex items-center gap-2 text-fg-muted">
                 <span
-                  className="h-2 w-2 rounded-full ring-1 ring-white/10"
+                  className="h-2 w-2 rounded-full ring-1 ring-fg/10"
                   style={{ background: cat.color }}
                 />
                 {cat.id}

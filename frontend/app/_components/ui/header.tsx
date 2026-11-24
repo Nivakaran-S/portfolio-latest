@@ -46,85 +46,91 @@ export function Header() {
   }, [pathname]);
 
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 border-b border-line bg-base transition-all duration-500 ${
-        scrolled || menuOpen ? "py-3" : "py-4"
-      }`}
-    >
-      <nav
-        aria-label="Primary"
-        className="mx-auto flex w-full max-w-6xl items-center justify-between pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:px-8"
+    <>
+      <header
+        className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-all duration-500 ${
+          scrolled || menuOpen
+            ? "border-line bg-void/90 py-3"
+            : "border-transparent bg-void/60 py-4"
+        }`}
       >
-        <Link
-          href="/"
-          className="inline-flex min-h-[44px] items-center font-display text-lg font-bold tracking-tight text-fg"
+        <nav
+          aria-label="Primary"
+          className="mx-auto flex w-full max-w-[1320px] items-center justify-between pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:px-8"
         >
-          {profile.shortName}
-          <span className="text-neon-cyan">.dev</span>
-        </Link>
+          <Link
+            href="/"
+            className="inline-flex min-h-[44px] items-center font-display text-lg font-bold tracking-tight text-fg"
+          >
+            {profile.shortName}
+            <span className="text-ember-button">.dev</span>
+          </Link>
 
-        <ul className="hidden items-center gap-8 lg:flex">
-          {routeNav.map((r) => {
-            // Contact opens the slide-in drawer instead of routing home.
-            if (r.href === "/#contact") {
+          <ul className="hidden items-center gap-8 lg:flex">
+            {routeNav.map((r) => {
+              // Contact opens the slide-in drawer instead of routing home.
+              if (r.href === "/#contact") {
+                return (
+                  <li key={r.href}>
+                    <ContactButton className="label text-fg-muted transition-colors duration-300 hover:text-fg">
+                      {r.label}
+                    </ContactButton>
+                  </li>
+                );
+              }
+              const active = isActive(pathname, r.href);
               return (
                 <li key={r.href}>
-                  <ContactButton className="label text-fg-muted transition-colors duration-300 hover:text-fg">
+                  <Link
+                    href={r.href}
+                    aria-current={active ? "page" : undefined}
+                    className={`label rounded-sm transition-colors duration-300 focus-visible:text-fg focus-visible:underline focus-visible:decoration-ember-button focus-visible:underline-offset-4 focus-visible:outline-none ${
+                      active ? "text-fg" : "text-fg-muted hover:text-fg"
+                    }`}
+                  >
                     {r.label}
-                  </ContactButton>
+                  </Link>
                 </li>
               );
-            }
-            const active = isActive(pathname, r.href);
-            return (
-              <li key={r.href}>
-                <Link
-                  href={r.href}
-                  aria-current={active ? "page" : undefined}
-                  className={`label rounded-sm transition-colors duration-300 focus-visible:text-fg focus-visible:underline focus-visible:decoration-neon-cyan focus-visible:underline-offset-4 focus-visible:outline-none ${
-                    active ? "text-fg" : "text-fg-muted hover:text-fg"
-                  }`}
-                >
-                  {r.label}
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
+            })}
+          </ul>
 
-        <ContactButton className="hidden min-h-[44px] items-center rounded-full bg-fg px-5 py-2 text-sm font-medium text-void transition-transform duration-200 hover:scale-[1.03] lg:inline-flex">
-          Get in touch
-        </ContactButton>
+          <ContactButton className="hidden min-h-[44px] items-center rounded-full bg-ember-button px-5 py-2 text-sm font-medium text-white transition-colors duration-200 hover:bg-ember-hover lg:inline-flex">
+            Get in touch
+          </ContactButton>
 
-        <button
-          type="button"
-          aria-label={menuOpen ? "Close menu" : "Open menu"}
-          aria-expanded={menuOpen}
-          aria-controls="mobile-menu"
-          onClick={() => setMenuOpen((v) => !v)}
-          className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
-        >
-          <span
-            className={`h-px w-6 bg-fg transition-all duration-300 ${
-              menuOpen ? "translate-y-[6px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`h-px w-6 bg-fg transition-all duration-300 ${
-              menuOpen ? "opacity-0" : ""
-            }`}
-          />
-          <span
-            className={`h-px w-6 bg-fg transition-all duration-300 ${
-              menuOpen ? "-translate-y-[6px] -rotate-45" : ""
-            }`}
-          />
-        </button>
-      </nav>
+          <button
+            type="button"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            aria-expanded={menuOpen}
+            aria-controls="mobile-menu"
+            onClick={() => setMenuOpen((v) => !v)}
+            className="relative z-50 flex h-11 w-11 flex-col items-center justify-center gap-[5px] lg:hidden"
+          >
+            <span
+              className={`h-px w-6 bg-fg transition-all duration-300 ${
+                menuOpen ? "translate-y-[6px] rotate-45" : ""
+              }`}
+            />
+            <span
+              className={`h-px w-6 bg-fg transition-all duration-300 ${
+                menuOpen ? "opacity-0" : ""
+              }`}
+            />
+            <span
+              className={`h-px w-6 bg-fg transition-all duration-300 ${
+                menuOpen ? "-translate-y-[6px] -rotate-45" : ""
+              }`}
+            />
+          </button>
+        </nav>
+      </header>
 
+      {/* Sibling of <header>, not a child: the header's backdrop-blur would
+          otherwise become the containing block and shrink this to bar height. */}
       <div
         id="mobile-menu"
-        className={`fixed inset-0 top-0 z-40 flex flex-col items-center justify-center gap-7 bg-void/95 backdrop-blur-xl transition-all duration-500 lg:hidden ${
+        className={`fixed inset-0 top-0 z-40 flex flex-col items-center justify-center gap-7 bg-void/98 backdrop-blur-xl transition-all duration-500 lg:hidden ${
           menuOpen
             ? "pointer-events-auto opacity-100"
             : "pointer-events-none opacity-0"
@@ -158,11 +164,11 @@ export function Header() {
         })}
         <ContactButton
           onClick={() => setMenuOpen(false)}
-          className="mt-4 rounded-full bg-fg px-7 py-3 text-sm font-medium text-void"
+          className="mt-4 rounded-full bg-ember-button px-7 py-3 text-sm font-medium text-white"
         >
           Get in touch
         </ContactButton>
       </div>
-    </header>
+    </>
   );
 }

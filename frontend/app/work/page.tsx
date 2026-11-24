@@ -3,11 +3,9 @@ import Link from "next/link";
 import { projects, moreProjectsNote } from "@/lib/data/projects";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { WorkCatalog } from "@/app/_components/work/work-catalog";
 import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 import { StoryItem } from "@/app/_components/story/story-item";
-import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "Work",
@@ -42,14 +40,13 @@ export default function WorkIndexPage() {
       <Header />
 
       {/* /work backdrop: glowing seams in cooling metal - "forged". */}
-      <StoryBackdrop variant="forge" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ THE COLLECTION ════════════ */}
         <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="up" delay={0.05}>
-              <h1 className="cine-punch silver font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.75rem,9vw,7rem)]">
+              <h1 className="silver font-display font-semibold leading-[0.98] tracking-[-0.03em] text-[clamp(2.75rem,9vw,7rem)]">
                 Proof, not promises.
               </h1>
             </StoryItem>
@@ -72,7 +69,6 @@ export default function WorkIndexPage() {
         </section>
 
         {/* ════════════ THE CATALOG ════════════ */}
-        <SceneCut />
         <section className="mx-auto w-full max-w-6xl px-5 pb-24 sm:px-6">
           <WorkCatalog all={projects} />
 

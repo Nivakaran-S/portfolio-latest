@@ -153,7 +153,7 @@ function ContactDrawer({
               type="button"
               onClick={onClose}
               aria-label="Close"
-              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-fg-muted transition-colors duration-200 hover:border-white/30 hover:text-fg"
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-fg/10 text-fg-muted transition-colors duration-200 hover:border-fg/30 hover:text-fg"
             >
               <svg
                 width="16"
@@ -202,7 +202,7 @@ function ContactDrawer({
               <button
                 type="button"
                 onClick={copyEmail}
-                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-white/30 hover:text-fg"
+                className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-full border border-fg/15 px-5 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-fg/30 hover:text-fg"
               >
                 {copied ? "Copied ✓" : "Copy"}
               </button>

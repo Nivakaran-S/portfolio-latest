@@ -3,7 +3,6 @@ import Link from "next/link";
 import { getAllPosts, formatPostDate } from "@/lib/data/blog";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { Reveal } from "@/app/_components/ui/reveal";
 import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
 import { Tilt } from "@/app/_components/ui/tilt";
@@ -44,14 +43,13 @@ export default function BlogIndexPage() {
       <Header />
 
       {/* /blog backdrop: ruled-paper notebook with a soft wash - "the notebook". */}
-      <StoryBackdrop variant="ink" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ THE NOTEBOOK ════════════ */}
         <section className="relative flex flex-col px-5 pb-12 pt-32 sm:px-6 sm:pt-36">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="up" delay={0.05}>
-              <h1 className="cine-punch silver font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
+              <h1 className="silver font-display font-semibold leading-tight tracking-[-0.03em] text-[clamp(2.5rem,8vw,6rem)]">
                 Thinking out loud.
               </h1>
             </StoryItem>

@@ -31,7 +31,7 @@ function MaxAvatar({ size = "md" }: { size?: "sm" | "md" | "lg" }) {
   return (
     <span
       aria-hidden="true"
-      className={`${dim} flex shrink-0 items-center justify-center rounded-full font-display font-bold text-void ring-1 ring-white/10`}
+      className={`${dim} flex shrink-0 items-center justify-center rounded-full font-display font-bold text-void ring-1 ring-fg/10`}
       style={{ background: AMBER_GRADIENT }}
     >
       M
@@ -201,7 +201,7 @@ export function ChatWidget() {
             type="button"
             onClick={() => setOpen(false)}
             aria-label="Close"
-            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-white/10 text-fg-muted transition-colors hover:border-white/30 hover:text-fg"
+            className="relative flex h-11 w-11 items-center justify-center rounded-full border border-fg/10 text-fg-muted transition-colors hover:border-fg/30 hover:text-fg"
           >
             <svg width="14" height="14" viewBox="0 0 16 16" fill="none" aria-hidden="true">
               <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />

@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono, Caveat } from "next/font/google";
 import "./globals.css";
 import {
   siteMetadata,
@@ -9,18 +9,20 @@ import {
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { MotionProvider } from "@/app/_components/providers/motion-config";
-import { CinemaProvider } from "@/app/_components/cinema/cinema-provider";
-import { FilmLayer } from "@/app/_components/cinema/film-layer";
-import { TitleCard } from "@/app/_components/cinema/title-card";
+import { SmoothScroll } from "@/app/_components/providers/smooth-scroll";
 import { ContactDrawerProvider } from "@/app/_components/contact/contact-drawer";
 import { ChatWidget } from "@/app/_components/chat/chat-widget";
 import { EasterEggs } from "@/app/_components/ui/easter-eggs";
 
-// Skill typography: single-family Inter precision system
-const inter = Inter({
-  variable: "--font-inter",
+const geistSans = Geist({
+  variable: "--font-geist-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+});
+
+const caveat = Caveat({
+  variable: "--font-caveat",
+  subsets: ["latin"],
+  weight: ["500", "600", "700"],
 });
 
 const geistMono = Geist_Mono({
@@ -31,8 +33,8 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = siteMetadata;
 
 export const viewport: Viewport = {
-  themeColor: "#0a0a0c",
-  colorScheme: "dark",
+  themeColor: "#f6f4ee",
+  colorScheme: "light",
   width: "device-width",
   initialScale: 1,
 };
@@ -45,8 +47,8 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-theme="dark"
-      className={`${inter.variable} ${geistMono.variable} h-full antialiased`}
+      data-theme="light"
+      className={`${geistSans.variable} ${geistMono.variable} ${caveat.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-void text-fg">
         <noscript>
@@ -58,20 +60,15 @@ export default function RootLayout({
         >
           Skip to content
         </a>
-
-        {/* Persistent across route changes. Each page mounts its own
-            StoryBackdrop (ember/forge/ink); /about owns FaceRotation. */}
         <EasterEggs />
 
         <MotionProvider>
-          <CinemaProvider>
-            <FilmLayer />
-            <TitleCard />
+          <SmoothScroll>
             <ContactDrawerProvider>
               {children}
               <ChatWidget />
             </ContactDrawerProvider>
-          </CinemaProvider>
+          </SmoothScroll>
         </MotionProvider>
         <script
           type="application/ld+json"

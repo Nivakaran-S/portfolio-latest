@@ -3,7 +3,6 @@ import Link from "next/link";
 import { profile } from "@/lib/data/profile";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
-import { StoryBackdrop } from "@/app/_components/scene/story-backdrop";
 import { StoryItem } from "@/app/_components/story/story-item";
 import {
   medverse,
@@ -13,7 +12,6 @@ import {
   engineeringStats,
 } from "@/lib/data/medverse";
 import { breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metadata";
-import { SceneCut } from "@/app/_components/cinema/scene-cut";
 
 export const metadata: Metadata = {
   title: "MedVerse",
@@ -48,7 +46,6 @@ export default function MedVersePage() {
       />
       <Header />
 
-      <StoryBackdrop variant="ink" />
 
       <main id="main" className="relative z-10 flex flex-1 flex-col">
         {/* ════════════ HERO ════════════ */}
@@ -68,7 +65,7 @@ export default function MedVersePage() {
               />
             </StoryItem>
             <StoryItem from="up" delay={0.1}>
-              <h1 className="cine-punch silver mt-8 font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,7vw,5rem)] [text-wrap:balance]">
+              <h1 className="silver mt-8 font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,7vw,5rem)] [text-wrap:balance]">
                 <span className="sr-only">MedVerse - </span>
                 {medverse.tagline}
               </h1>
@@ -92,7 +89,6 @@ export default function MedVersePage() {
         </section>
 
         {/* ════════════ THE PROBLEM (MOTIVATION) ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -135,7 +131,6 @@ export default function MedVersePage() {
         </section>
 
         {/* ════════════ WHAT I BUILT ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -173,7 +168,6 @@ export default function MedVersePage() {
         </section>
 
         {/* ════════════ THE MODELS ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -218,7 +212,6 @@ export default function MedVersePage() {
         </section>
 
         {/* ════════════ ENGINEERING PRINCIPLES ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-4xl">
             <StoryItem from="left">
@@ -259,7 +252,6 @@ export default function MedVersePage() {
         </section>
 
         {/* ════════════ THE ENGINEERING, IN NUMBERS ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-6xl">
             <StoryItem from="left">
@@ -294,7 +286,6 @@ export default function MedVersePage() {
         </section>
 
         {/* ════════════ CTA ════════════ */}
-        <SceneCut />
         <section className="relative flex min-h-[70svh] flex-col items-center justify-center px-5 text-center sm:px-6">
           <StoryItem from="up">
             <p className="label">{medverse.selection}</p>
@@ -323,7 +314,7 @@ export default function MedVersePage() {
               </a>
               <Link
                 href="/about"
-                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-white/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-white/30 hover:text-fg"
+                className="inline-flex min-h-[44px] items-center gap-2 rounded-full border border-fg/15 px-7 py-3 text-sm font-medium text-fg-dim transition-colors duration-200 hover:border-fg/30 hover:text-fg"
               >
                 About me ↗
               </Link>
