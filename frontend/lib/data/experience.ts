@@ -49,8 +49,8 @@ export const experience: ExperienceEntry[] = [
   },
   {
     org: "SLIIT",
-    role: "B.Sc (Hons) IT - Software Engineering",
-    period: "2021 - 2025",
+    role: "B.Sc (Hons) in Information Technology - Specialization in Software Engineering",
+    period: "2023 - 2027 (expected)",
     kind: "education",
     summary:
       "Foundations in algorithms, systems, and the engineering discipline to actually ship.",

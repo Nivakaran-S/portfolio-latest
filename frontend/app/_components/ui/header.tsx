@@ -48,7 +48,7 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 border-b backdrop-blur-md transition-all duration-500 ${
+        className={`fixed inset-x-0 top-0 z-50 border-b pl-[max(1.25rem,env(safe-area-inset-left))] pr-[max(1.25rem,env(safe-area-inset-right))] backdrop-blur-md transition-all duration-500 sm:px-10 ${
           scrolled || menuOpen
             ? "border-line bg-void/90 py-3"
             : "border-transparent bg-void/60 py-4"
@@ -56,7 +56,7 @@ export function Header() {
       >
         <nav
           aria-label="Primary"
-          className="mx-auto flex w-full max-w-[1320px] items-center justify-between pl-[max(1.5rem,env(safe-area-inset-left))] pr-[max(1.5rem,env(safe-area-inset-right))] sm:px-8"
+          className="mx-auto flex w-full max-w-[1320px] items-center justify-between"
         >
           <Link
             href="/"

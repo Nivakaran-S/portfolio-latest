@@ -45,9 +45,9 @@ export const profile: Profile = {
   resumeUrl: "/Nivakaran-S-CV.pdf",
   education: {
     institution: "SLIIT - Sri Lanka Institute of Information Technology",
-    degree: "B.Sc (Hons) Information Technology",
+    degree: "B.Sc (Hons) in Information Technology",
     specialization: "Software Engineering",
-    period: "2021 - 2025",
+    period: "2023 - 2027 (expected)",
   },
   socials: [
     {

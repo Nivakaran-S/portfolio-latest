@@ -5,6 +5,7 @@ import { profile } from "@/lib/data/profile";
 import { ContactButton } from "@/app/_components/contact/contact-button";
 import { MaskReveal } from "@/app/_components/ui/mask-reveal";
 import { Marquee } from "@/app/_components/ui/marquee";
+import { Parallax } from "@/app/_components/ui/parallax";
 
 const PORTRAIT = "/about/frames/frame-001.webp";
 const city = profile.location.split(",")[0];
@@ -29,9 +30,9 @@ const secondaryCta =
  */
 export function Hero() {
   return (
-    <section id="hero" className="relative px-5 pb-10 pt-32 sm:px-10 sm:pt-40">
-      <div className="mx-auto grid w-full max-w-[1320px] items-center gap-14 lg:grid-cols-[1.15fr_0.85fr]">
-        <div>
+    <section id="hero" className="relative px-5 pb-10 pt-24 sm:px-10 sm:pt-28">
+      <div className="mx-auto grid w-full max-w-[1320px] items-start gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="lg:pt-8">
           <p className="label animate-hero-in inline-flex items-center gap-2">
             <span className="h-1.5 w-1.5 animate-pulse-glow rounded-full bg-neon-lime" />
             Open to work · {city}, LK
@@ -70,7 +71,8 @@ export function Hero() {
           </div>
         </div>
 
-        {/* Portrait feature card */}
+        {/* Portrait feature card: drifts against the headline as the page scrolls */}
+        <Parallax distance={24}>
         <div className="animate-hero-in relative mx-auto w-full max-w-md lg:max-w-none" style={{ animationDelay: "0.3s" }}>
           <div className="feature-dark relative aspect-[4/5] overflow-hidden rounded-[2rem]">
             <div
@@ -101,10 +103,11 @@ export function Hero() {
             </span>
           ))}
         </div>
+        </Parallax>
       </div>
 
-      {/* Domains marquee */}
-      <div className="mx-auto mt-20 w-full max-w-[1320px]">
+      {/* Domains marquee: full-bleed, so the negative margins cancel the section padding */}
+      <div className="-mx-5 mt-14 sm:-mx-10 sm:mt-16">
         <Marquee duration={32}>
           {[...profile.domains, "Agentic AI", "LangGraph", "RAG", "MLOps", "Full-stack"].map((d) => (
             <span
