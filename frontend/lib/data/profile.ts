@@ -1,3 +1,4 @@
+import { achievements } from "./achievements";
 export interface SocialLink {
   label: string;
   href: string;
@@ -6,6 +7,8 @@ export interface SocialLink {
 
 export interface Profile {
   name: string;
+  /** Full legal name, for the About hero, footer and Person schema. */
+  fullName: string;
   shortName: string;
   title: string;
   domains: string[];
@@ -29,6 +32,7 @@ export interface Profile {
 
 export const profile: Profile = {
   name: "Nivakaran",
+  fullName: "Nivakaran Shanmugabavan",
   shortName: "Nivakaran",
   title: "AI & Software Engineer",
   domains: ["AI / ML", "Software Engineering", "Data Engineering"],
@@ -68,7 +72,7 @@ export const profile: Profile = {
   ],
   stats: [
     { value: "72", label: "Repositories" },
-    { value: "10", label: "Competitions" },
+    { value: String(achievements.length), label: "Competitions" },
     { value: "15+", label: "Tech stacks" },
     { value: "Colombo, LK", label: "Based in" },
   ],

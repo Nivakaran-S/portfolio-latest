@@ -25,7 +25,7 @@ export const experience: ExperienceEntry[] = [
   },
   {
     org: "HealthRecon Connect LLC",
-    role: "Operations Analyst - Associate, Collections",
+    role: "Operations Analyst - Associate, Collections (part-time)",
     period: "Jan 2026 - July 2026",
     kind: "work",
     summary:

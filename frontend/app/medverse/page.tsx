@@ -66,7 +66,7 @@ export default function MedVersePage() {
             </StoryItem>
             <StoryItem from="up" delay={0.1}>
               <h1 className="silver mt-8 font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,7vw,5rem)] [text-wrap:balance]">
-                <span className="sr-only">MedVerse - </span>
+                <span className="sr-only">MedVerse - </span>{" "}
                 {medverse.tagline}
               </h1>
             </StoryItem>

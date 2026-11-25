@@ -94,7 +94,7 @@ export function Footer() {
         {/* bottom bar */}
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-6 text-center sm:flex-row sm:text-left">
           <p className="label text-[#a8a8a8]">
-            © {year} {profile.name} · {profile.location}
+            © {year} {profile.fullName} · {profile.location}
           </p>
           <p className="label text-[#a8a8a8]">Built with Next.js, Tailwind &amp; Motion · Vercel</p>
           <a

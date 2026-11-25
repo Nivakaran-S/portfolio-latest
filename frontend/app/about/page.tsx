@@ -17,20 +17,20 @@ import { profilePageJsonLd, breadcrumbJsonLd, jsonLdHtml } from "@/lib/seo/metad
 export const metadata: Metadata = {
   title: "About",
   description:
-    "About Nivakaran S. - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
+    "About Nivakaran Shanmugabavan - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
   alternates: { canonical: "/about" },
   openGraph: {
-    title: "About - Nivakaran S.",
+    title: "About - Nivakaran Shanmugabavan",
     description:
-      "About Nivakaran S. - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
+      "About Nivakaran Shanmugabavan - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
     url: "/about",
     type: "profile",
   },
   twitter: {
     card: "summary_large_image",
-    title: "About - Nivakaran S.",
+    title: "About - Nivakaran Shanmugabavan",
     description:
-      "About Nivakaran S. - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
+      "About Nivakaran Shanmugabavan - an AI and software engineer working across AI/ML, software engineering, and data engineering.",
   },
 };
 
@@ -102,6 +102,11 @@ export default function AboutPage() {
         {/* ════════════ THE SPARK ════════════ */}
         <section className="relative flex min-h-[100svh] flex-col justify-end px-5 pb-16 pt-28 sm:px-6 sm:pt-32 lg:pt-36">
           <div className="mx-auto w-full max-w-6xl">
+            <StoryItem from="up">
+              <p className="label mb-6">
+                {profile.fullName} · {profile.title}
+              </p>
+            </StoryItem>
             <StoryItem from="up" delay={0.05}>
               <h1 className="silver max-w-4xl font-display font-semibold leading-[1.04] tracking-[-0.03em] text-[clamp(2.25rem,6.5vw,5rem)] [text-wrap:balance]">
                 Before the systems, the person.
@@ -250,7 +255,7 @@ export default function AboutPage() {
         </section>
 
         {/* ════════════ THE TOOLKIT - TECH STACK ════════════ */}
-        <section className="relative flex min-h-[100svh] items-center px-5 py-20 sm:px-6">
+        <section id="toolkit" className="relative flex min-h-[100svh] scroll-mt-24 items-center px-5 py-20 sm:px-6">
           <div className="mx-auto w-full max-w-5xl">
             <StoryItem from="left">
               <p className="label text-fg-muted">The toolkit</p>

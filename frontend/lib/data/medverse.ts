@@ -44,7 +44,7 @@ export const buildItems: { area: string; detail: string }[] = [
   {
     area: "AI / ML",
     detail:
-      "~8 models trained on 40k+ records from public clinical benchmarks, each with held-out validation reports checked into CI.",
+      "Six models trained on 40k+ records from public clinical benchmarks, each with held-out validation reports checked into CI.",
   },
   {
     area: "Backend",
@@ -103,7 +103,7 @@ export const models: { title: string; detail: string; backing: string }[] = [
 
 /** The engineering, in numbers (replaces market framing). */
 export const engineeringStats: { value: string; label: string }[] = [
-  { value: "~8", label: "ML models trained on public clinical benchmarks" },
+  { value: String(models.length), label: "ML models trained on public clinical benchmarks" },
   { value: "40k+", label: "records used for training & held-out validation" },
   { value: "24", label: "backend API endpoints" },
   { value: "<200ms", label: "sensor-to-alert latency, end to end" },

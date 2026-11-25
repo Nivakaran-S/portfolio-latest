@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { Fragment, useEffect, useRef, type ReactNode } from "react";
 import { animate, useReducedMotion } from "motion/react";
 
 interface MaskRevealProps {
@@ -49,7 +49,8 @@ export function MaskReveal({ lines, immediate = false, stagger = 0.09, className
   return (
     <span ref={ref} className={`block ${className}`}>
       {lines.map((line, i) => (
-        <span key={i} className="mask-line">
+        <Fragment key={i}>
+        <span className="mask-line">
           <span
             data-line
             className={`block ${immediate ? "animate-rise" : ""}`}
@@ -58,6 +59,9 @@ export function MaskReveal({ lines, immediate = false, stagger = 0.09, className
             {line}
           </span>
         </span>
+        {/* Block-level lines collapse visually, but the DOM text still needs the space. */}
+        {i < lines.length - 1 ? " " : null}
+        </Fragment>
       ))}
     </span>
   );
