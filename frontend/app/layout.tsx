@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Caveat } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import {
   siteMetadata,
@@ -19,10 +20,13 @@ const geistSans = Geist({
   subsets: ["latin"],
 });
 
-const caveat = Caveat({
+// Self-hosted (OFL) variable font. The Google-hosted version failed the Vercel
+// build with "next/font/google queries have exactly one entry".
+const caveat = localFont({
+  src: "./fonts/caveat-latin.woff2",
   variable: "--font-caveat",
-  subsets: ["latin"],
-  weight: ["500", "600", "700"],
+  weight: "400 700",
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
