@@ -20,6 +20,15 @@ export function isChatConfigured(): boolean {
   return Boolean(API_URL);
 }
 
+/**
+ * Fire-and-forget request that wakes a sleeping free-tier backend (Render
+ * spins instances down when idle, and a cold start can take close to a minute).
+ */
+export function warmBackend(): void {
+  if (!API_URL) return;
+  fetch(API_URL, { mode: "no-cors" }).catch(() => {});
+}
+
 /** Ask the RAG chatbot a question. */
 export async function sendChat(
   message: string,

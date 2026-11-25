@@ -15,11 +15,11 @@ const apiOrigin = (() => {
 // are inline, and nonces would force every page to render dynamically.
 const csp = [
   "default-src 'self'",
-  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com`,
+  `script-src 'self' 'unsafe-inline'${isDev ? " 'unsafe-eval'" : ""} https://va.vercel-scripts.com https://static.cloudflareinsights.com`,
   "style-src 'self' 'unsafe-inline'",
   "img-src 'self' data: blob: https:",
   "font-src 'self' data:",
-  `connect-src 'self' ${apiOrigin} https://va.vercel-scripts.com https://vitals.vercel-insights.com${isDev ? " ws:" : ""}`.replace(/\s+/g, " "),
+  `connect-src 'self' ${apiOrigin} https://va.vercel-scripts.com https://vitals.vercel-insights.com https://cloudflareinsights.com${isDev ? " ws:" : ""}`.replace(/\s+/g, " "),
   "media-src 'self' blob:",
   "object-src 'none'",
   "base-uri 'self'",

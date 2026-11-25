@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { sendChat, isChatConfigured, type ChatTurn } from "@/lib/api";
+import { sendChat, isChatConfigured, warmBackend, type ChatTurn } from "@/lib/api";
+import { profile } from "@/lib/data/profile";
 import { useContactDrawer } from "@/app/_components/contact/contact-drawer";
 
 interface Msg {
@@ -88,6 +89,11 @@ export function ChatWidget() {
     };
   }, [open]);
 
+  // Wake the backend as soon as the panel opens, so the first question is not the cold start.
+  useEffect(() => {
+    if (open && configured) warmBackend();
+  }, [open, configured]);
+
   async function ask(text: string) {
     const q = text.trim();
     if (!q || loading || !configured) return;
@@ -98,13 +104,33 @@ export function ChatWidget() {
     setInput("");
     setMessages((m) => [...m, { role: "user", content: q }]);
     setLoading(true);
+
+    // A free-tier backend can take close to a minute to wake. After 8 seconds,
+    // say so and point at email, but keep the request alive: if the answer
+    // still arrives it is appended below instead of being thrown away.
+    let slow = false;
+    const slowTimer = window.setTimeout(() => {
+      slow = true;
+      setLoading(false);
+      setMessages((m) => [
+        ...m,
+        {
+          role: "assistant",
+          content: `Max is waking up and this is taking longer than usual. The answer may still arrive here, or you can email Nivakaran directly at ${profile.email}.`,
+        },
+      ]);
+    }, 8000);
+
     try {
       const res = await sendChat(q, history);
+      window.clearTimeout(slowTimer);
       setMessages((m) => [
         ...m,
         { role: "assistant", content: res.answer, sources: res.sources },
       ]);
     } catch {
+      window.clearTimeout(slowTimer);
+      if (slow) return;
       setMessages((m) => [
         ...m,
         {
