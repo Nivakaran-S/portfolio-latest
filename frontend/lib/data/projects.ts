@@ -37,7 +37,7 @@ export const ALL_CATEGORIES: ProjectCategory[] = [
 
 /**
  * Curated catalog from github.com/Nivakaran-S (72 public repos).
- * `main` projects get a full case-study page at /work/[slug].
+ * `main` projects (the flagship five) get a full case-study page at /work/[slug].
  * `mini` projects are shown in the catalog grid on /work only.
  */
 export const projects: Project[] = [
@@ -71,6 +71,7 @@ export const projects: Project[] = [
     tier: "main",
     stack: ["Python", "scikit-learn", "XGBoost", "Next.js"],
     repo: "https://github.com/Nivakaran-S/sparrow-frontend",
+    live: "https://sparrow-frontend.vercel.app",
     detail: {
       problem:
         "Parcel operations needed delivery-time estimates and routing decisions instead of manual guesswork across a growing volume of shipments.",
@@ -145,7 +146,7 @@ export const projects: Project[] = [
     description:
       "An end-to-end ML pipeline for delivery-time estimation - ingestion, schema validation, transformation, and XGBoost training as separate stages, each emitting typed artifacts into its own timestamped run directory. Every run is gated by a per-feature Kolmogorov-Smirnov drift check, tracked in MLflow, and shipped as a container to Amazon ECR by GitHub Actions.",
     category: "Data Science",
-    tier: "main",
+    tier: "mini",
     stack: ["Python", "XGBoost", "MLflow", "Flask", "Docker"],
     repo: "https://github.com/Nivakaran-S/Delivery-Time-Prediction",
     detail: {
@@ -164,7 +165,7 @@ export const projects: Project[] = [
     description:
       "A driving-licence issuing system on a hand-rolled PHP MVC stack - own router, own auth and role middleware, no framework. One application moves through an eight-state lifecycle across four roles, with slot booking, automatic issue on a passing road test, and public status and licence-verification pages that need no account.",
     category: "Software Engineering",
-    tier: "main",
+    tier: "mini",
     stack: ["PHP", "MySQL", "Custom MVC", "Bootstrap"],
     repo: "https://github.com/Nivakaran-S/Driving-Liscense-System",
     detail: {
@@ -183,7 +184,7 @@ export const projects: Project[] = [
     description:
       "A hospital management platform on ASP.NET Core 9 - patient, doctor, appointment, and billing services, each owning its own PostgreSQL database and coordinating over Kafka through a transactional outbox. Ocelot gateway with Eureka-resolved routing, Keycloak auth, OpenTelemetry tracing, and complete Kubernetes manifests.",
     category: "Software Engineering",
-    tier: "main",
+    tier: "mini",
     stack: ["C#", ".NET 9", "Kafka", "PostgreSQL", "Kubernetes"],
     repo: "https://github.com/Nivakaran-S/HMS",
     detail: {
@@ -202,7 +203,7 @@ export const projects: Project[] = [
     description:
       "A worker-rights platform for the informal economy (UN SDG 8) - six containerised microservices connecting workers, employers, lawyers, and NGOs so a wage-theft complaint becomes an assigned legal case instead of a dead end. Self-moderating community feed, real-time chat, and Kafka-driven notifications.",
     category: "Software Engineering",
-    tier: "main",
+    tier: "mini",
     stack: ["React", "Node.js", "Kafka", "Docker", "MongoDB"],
     repo: "https://github.com/Nivakaran-S/LaborGuard",
     live: "https://labor-guard.vercel.app",
@@ -222,7 +223,7 @@ export const projects: Project[] = [
     description:
       "A data visualisation and analysis interface for exploring datasets through an interactive, modern UI.",
     category: "Data Analysis",
-    tier: "main",
+    tier: "mini",
     stack: ["TypeScript", "Next.js"],
     repo: "https://github.com/Nivakaran-S/lens",
     live: "https://lens-navy.vercel.app",
@@ -242,7 +243,7 @@ export const projects: Project[] = [
     description:
       "A book recommender you query with a description of what you want to read rather than a keyword - MiniLM embeddings in a Chroma vector store retrieve by meaning, zero-shot classification collapses messy genre strings into clean categories, and a per-book emotion profile lets you narrow to suspenseful, joyful, or sad. Gradio dashboard returning a gallery of covers.",
     category: "Data Science",
-    tier: "main",
+    tier: "mini",
     stack: ["Python", "Hugging Face", "Chroma", "LangChain", "Gradio"],
     repo: "https://github.com/Nivakaran-S/Book-Recommendation",
     detail: {
@@ -261,7 +262,7 @@ export const projects: Project[] = [
     description:
       "A three-class image classifier (cat / dog / person) on a CNN built by hand in PyTorch - four BatchNorm-regularised convolutional blocks, no pretrained backbone anywhere - with the flattened layer size derived by a dummy forward pass instead of hand-computed. Deployed publicly on Hugging Face Spaces behind a Gradio interface that returns the label drawn onto the image.",
     category: "Computer Vision",
-    tier: "main",
+    tier: "mini",
     stack: ["PyTorch", "CNN", "Gradio", "Hugging Face"],
     repo: "https://github.com/Nivakaran-S/Cat-Dog-Person-Classifier",
     live: "https://huggingface.co/spaces/nivakaran/classification-gradio-KNCVU",
@@ -281,7 +282,7 @@ export const projects: Project[] = [
     description:
       "A Faster R-CNN firearm detector for surveillance feeds - transfer-learned on an annotated gun dataset, reproduced end to end as a DVC pipeline, and served as a FastAPI endpoint that returns frames with detections boxed.",
     category: "Computer Vision",
-    tier: "main",
+    tier: "mini",
     stack: ["PyTorch", "Faster R-CNN", "FastAPI", "DVC"],
     repo: "https://github.com/Nivakaran-S/Gun-Detection",
     detail: {
