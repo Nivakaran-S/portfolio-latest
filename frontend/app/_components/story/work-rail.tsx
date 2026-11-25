@@ -3,6 +3,8 @@ import type { Project } from "@/lib/data/projects";
 import { DepthItem } from "@/app/_components/story/depth-item";
 import { MaskReveal } from "@/app/_components/ui/mask-reveal";
 
+const COUNT_WORDS = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven"];
+
 function Card({ p, index, total, featured }: { p: Project; index: number; total: number; featured?: boolean }) {
   const dark = featured;
   return (
@@ -91,7 +93,7 @@ export function WorkRail({ projects }: { projects: Project[] }) {
           <p className="label">The work</p>
         </DepthItem>
         <h2 className="mt-4 font-display text-[clamp(2.25rem,6vw,4.75rem)] font-semibold leading-[1.02] tracking-[-0.035em]">
-          <MaskReveal lines={["Thirteen, end to end."]} />
+          <MaskReveal lines={[`${COUNT_WORDS[projects.length] ?? projects.length}, end to end.`]} />
         </h2>
         <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (

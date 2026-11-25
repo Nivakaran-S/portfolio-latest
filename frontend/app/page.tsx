@@ -1,9 +1,7 @@
 import { Fragment, type ReactNode } from "react";
 import Link from "next/link";
 import { profile } from "@/lib/data/profile";
-import { getMainProjects } from "@/lib/data/projects";
-import { StackGrid } from "@/app/_components/sections/stack-grid";
-import { featuredCertifications } from "@/lib/data/certifications";
+import { getMainProjects, getProject } from "@/lib/data/projects";
 import { getAllPosts, formatPostDate } from "@/lib/data/blog";
 import { Header } from "@/app/_components/ui/header";
 import { Footer } from "@/app/_components/ui/footer";
@@ -15,10 +13,20 @@ import { CountUp } from "@/app/_components/ui/count-up";
 
 const mains = getMainProjects();
 
-const domainBlurbs: Record<string, string> = {
-  "AI / ML": "RAG systems, model training, and inference that actually ships.",
-  "Software Engineering": "Full-stack products, end to end, built to last.",
-  "Data Engineering": "Pipelines that turn raw data into something useful.",
+/** Each discipline, with the one project that proves it. */
+const disciplines: Record<string, { blurb: string; proof: string }> = {
+  "AI / ML": {
+    blurb: "RAG systems, model training, and inference that actually ships.",
+    proof: "freerag",
+  },
+  "Software Engineering": {
+    blurb: "Full-stack products, end to end, built to last.",
+    proof: "medsync",
+  },
+  "Data Engineering": {
+    blurb: "Pipelines that turn raw data into something useful.",
+    proof: "phishing-detection",
+  },
 };
 
 /** Working principles: the "how". */
@@ -75,7 +83,7 @@ function Band({
 }
 
 export default function Home() {
-  const latest = getAllPosts()[0];
+  const recent = getAllPosts().slice(0, 3);
 
   return (
     <>
@@ -99,29 +107,46 @@ export default function Home() {
         {/* THE DISCIPLINES */}
         <Band eyebrow="Three disciplines" lines={["Built where three fields meet."]}>
           <div className="mt-14 grid grid-cols-1 gap-5 md:grid-cols-3">
-            {profile.domains.map((d, i) => (
-              <DepthItem key={d} from="up" distance={90 + (i % 3) * 60} delay={i * 0.06} className="h-full">
-                <article
-                  className={`flex h-full min-h-[18rem] flex-col justify-between rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
-                    i === 1 ? "feature-dark border-transparent" : "border-line bg-raised hover:border-fg"
-                  }`}
-                >
-                  <span
-                    className={`font-mono text-sm ${i === 1 ? "text-ember" : "text-ember-button"}`}
+            {profile.domains.map((d, i) => {
+              const dark = i === 1;
+              const proof = getProject(disciplines[d]?.proof ?? "");
+              return (
+                <DepthItem key={d} from="up" distance={90 + (i % 3) * 60} delay={i * 0.06} className="h-full">
+                  <article
+                    className={`flex h-full flex-col gap-6 rounded-3xl border p-8 transition-all duration-300 hover:-translate-y-1 ${
+                      dark ? "feature-dark border-transparent" : "border-line bg-raised hover:border-fg"
+                    }`}
                   >
-                    0{i + 1}
-                  </span>
-                  <div>
-                    <h3 className="font-display text-2xl font-semibold tracking-tight">{d}</h3>
-                    <p
-                      className={`mt-3 text-sm leading-relaxed ${i === 1 ? "text-[#d8d5cc]" : "text-fg-muted"}`}
-                    >
-                      {domainBlurbs[d] ?? ""}
-                    </p>
-                  </div>
-                </article>
-              </DepthItem>
-            ))}
+                    <span className={`font-mono text-sm ${dark ? "text-ember" : "text-ember-button"}`}>
+                      0{i + 1}
+                    </span>
+                    <div>
+                      <h3 className="font-display text-2xl font-semibold tracking-tight">{d}</h3>
+                      <p className={`mt-3 text-sm leading-relaxed ${dark ? "text-[#d8d5cc]" : "text-fg-muted"}`}>
+                        {disciplines[d]?.blurb}
+                      </p>
+                    </div>
+                    {proof ? (
+                      <Link
+                        href={proof.tier === "main" ? `/work/${proof.slug}` : proof.repo}
+                        className={`group mt-auto block border-t pt-5 ${dark ? "border-white/15" : "border-line"}`}
+                      >
+                        <p className={`label ${dark ? "text-[#a8a8a8]" : ""}`}>Best proof</p>
+                        <p className="mt-2 font-display text-lg font-semibold tracking-tight">{proof.name}</p>
+                        <p className={`mt-1 text-sm ${dark ? "text-[#d8d5cc]" : "text-fg-muted"}`}>{proof.valueProp}</p>
+                        <span
+                          className={`label mt-3 inline-flex items-center gap-2 transition-transform duration-200 group-hover:translate-x-1 ${
+                            dark ? "text-ember" : "text-ember-button"
+                          }`}
+                        >
+                          Case study →
+                        </span>
+                      </Link>
+                    ) : null}
+                  </article>
+                </DepthItem>
+              );
+            })}
           </div>
         </Band>
 
@@ -146,8 +171,33 @@ export default function Home() {
         </Band>
 
         {/* THE STACK */}
-        <Band id="skills" eyebrow="The stack" lines={["A connected stack, not a buzzword list."]}>
-          <StackGrid />
+        <Band id="skills" eyebrow="The stack" lines={["Tools I'd defend,", "tied to what shipped."]}>
+          <ul className="mt-14 divide-y divide-line border-y border-line">
+            {mains.slice(0, 5).map((p, i) => (
+              <DepthItem key={p.slug} from="up" distance={40} delay={Math.min(0.2, i * 0.04)}>
+                <li className="grid gap-4 py-6 md:grid-cols-[minmax(0,1fr)_minmax(0,2fr)] md:items-center md:gap-10">
+                  <Link
+                    href={`/work/${p.slug}`}
+                    className="font-display text-xl font-semibold tracking-tight transition-colors hover:text-ember-button"
+                  >
+                    {p.name}
+                  </Link>
+                  <ul className="flex flex-wrap gap-2">
+                    {p.stack.map((t) => (
+                      <li key={t} className="rounded-full border border-line bg-raised px-3.5 py-1.5 text-sm text-fg-dim">
+                        {t}
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              </DepthItem>
+            ))}
+          </ul>
+          <p className="label mt-8">
+            <Link href="/about#toolkit" className="text-fg-muted transition-colors hover:text-fg">
+              Full toolkit →
+            </Link>
+          </p>
         </Band>
 
         {/* THE WORK */}
@@ -175,42 +225,44 @@ export default function Home() {
           </dl>
         </Band>
 
-        {/* ALWAYS TRAINING */}
-        <Band id="certifications" eyebrow="Always sharpening" lines={["The learning never stops."]}>
-          <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {featuredCertifications.map((cert, i) => (
-              <DepthItem key={cert.label} from="up" delay={Math.min(0.3, i * 0.04)} className="h-full">
-                <div className="h-full rounded-2xl border border-line bg-raised p-5 transition-all duration-300 hover:-translate-y-1 hover:border-fg">
-                  <h3 className="font-display text-base font-semibold text-fg">{cert.label}</h3>
-                  <p className="mt-2 text-sm text-fg-muted">{cert.detail}</p>
-                </div>
-              </DepthItem>
-            ))}
-          </div>
-        </Band>
-
         {/* THE WRITING */}
-        {latest ? (
+        {recent.length > 0 ? (
           <Band id="writing" eyebrow="Thinking out loud" lines={["Latest from the blog."]}>
-            <DepthItem from="up" delay={0.06}>
-              <Link
-                href={`/blog/${latest.slug}`}
-                className="group feature-dark mt-12 block rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-1 md:p-12"
-              >
-                <p className="label flex items-center gap-2 text-[#a8a8a8]">
-                  <time dateTime={latest.date}>{formatPostDate(latest.date)}</time>
-                  <span aria-hidden>·</span>
-                  <span>{latest.readingTime}</span>
-                </p>
-                <h3 className="mt-5 font-display text-[clamp(1.75rem,4vw,3rem)] font-semibold leading-tight tracking-tight text-[#faf9f4]">
-                  {latest.title}
-                </h3>
-                <p className="mt-4 max-w-2xl text-[#d8d5cc]">{latest.excerpt}</p>
-                <span className="label mt-8 inline-flex items-center gap-2 text-ember transition-transform duration-200 group-hover:translate-x-1">
-                  Read post →
-                </span>
-              </Link>
-            </DepthItem>
+            <div className="mt-12 grid grid-cols-1 gap-5 lg:grid-cols-3">
+              {recent.map((post, i) => (
+                <DepthItem key={post.slug} from="up" distance={60 + i * 30} delay={i * 0.06} className="h-full">
+                  <Link
+                    href={`/blog/${post.slug}`}
+                    className={`group flex h-full flex-col rounded-3xl border p-7 transition-transform duration-300 hover:-translate-y-1 md:p-8 ${
+                      i === 0 ? "feature-dark border-transparent" : "border-line bg-raised hover:border-fg"
+                    }`}
+                  >
+                    <p className={`label flex items-center gap-2 ${i === 0 ? "text-[#a8a8a8]" : ""}`}>
+                      <time dateTime={post.date}>{formatPostDate(post.date)}</time>
+                      <span aria-hidden>·</span>
+                      <span>{post.readingTime}</span>
+                    </p>
+                    <h3
+                      className={`mt-5 font-display text-2xl font-semibold leading-tight tracking-tight ${
+                        i === 0 ? "text-[#faf9f4]" : "text-fg"
+                      }`}
+                    >
+                      {post.title}
+                    </h3>
+                    <p className={`mt-4 text-sm leading-relaxed ${i === 0 ? "text-[#d8d5cc]" : "text-fg-muted"}`}>
+                      {post.excerpt}
+                    </p>
+                    <span
+                      className={`label mt-auto inline-flex items-center gap-2 pt-8 transition-transform duration-200 group-hover:translate-x-1 ${
+                        i === 0 ? "text-ember" : "text-ember-button"
+                      }`}
+                    >
+                      Read post →
+                    </span>
+                  </Link>
+                </DepthItem>
+              ))}
+            </div>
             <p className="label mt-8">
               <Link href="/blog" className="text-fg-muted transition-colors hover:text-fg">
                 All writing →
